@@ -38,7 +38,7 @@ could cause confusion or errors if users have already created their profile for 
             <th>Field Label</th>
             <th>Description</th>
             <th>Field Type</th>
-            <th>Allowed Values (one value per line)</th>
+            <th>Allowed Values (separated by | )</th>
         </tr>
     </thead>
     <tbody>

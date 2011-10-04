@@ -20,7 +20,7 @@ class UserProfiles_ProfilesController extends Omeka_Controller_Action
                 foreach($typeIds as $typeId) {
                     if(!isset($userProfiles[$typeId])) {
                         $currProfile = new UserProfilesProfile();
-                        $currProfile->setRelationData(array('subject_id'=>$userId));
+                        $currProfile->setRelationData(array('subject_id'=>$userId, 'public'=>true));
                         $currProfile->type_id = $typeId;
                         $currProfile->values = $profiles[$typeId];
                         $userProfiles[] = $currProfile;
