@@ -11,6 +11,7 @@ class UserProfiles_ProfilesController extends Omeka_Controller_Action
     {
         $profileTypes = $this->_getProfileTypes();
         $userId = $this->_getParam('id');
+        $this->view->user = get_user_by_id($userId);
         $userProfiles = $this->getTable()->findByUserId($userId, true);
         if ($this->_getParam('user_profile_submit')) {
             //profiles come in as an array keyed by profile type

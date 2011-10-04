@@ -12,12 +12,12 @@ $field_type_atts = array(
 $currentType = isset($_GET['type']) ? $_GET['type'] : $this->profile_types[0]->id;
 $types = apply_filters('user_profiles_type', $this->profile_types);
 ?>
-
+<p><?php user_profiles_link_to_profile($this->user, $this->user->username . "'s public profile"); ?></p>
 <h1>Edit your profiles</h1>
 <ul id="section-nav" class="navigation">
 	<?php foreach($types as $type): ?>
     <li class="<?php if ($currentType == $type->id )  {echo 'current';} ?>">
-        <a href="<?php echo html_escape(uri('user-profiles/profiles/edit/id/' . current_user()->id .'?type='.$type->id)); ?>"><?php echo $type->label; ?></a>
+        <a href="<?php echo html_escape(uri('user-profiles/profiles/edit/id/' . $this->user->id .'?type='.$type->id)); ?>"><?php echo $type->label; ?></a>
     </li>
 	<?php endforeach;?>
 	

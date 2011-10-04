@@ -14,10 +14,6 @@ class UserProfilesProfile extends RelatableRecord {
     protected $_isSubject = false;
        
     
-    public function recordUri()
-    {
-        return "I'll be a uri someday!";
-    }
     protected function beforeSave()
     {
         parent::beforeSave();
