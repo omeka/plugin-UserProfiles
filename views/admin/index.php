@@ -6,7 +6,9 @@ head($head);
 <?php flash(); ?>
 <h1><?php echo $head['title']; ?></h1>
 
+<?php if(has_permission('UserProfiles_Types', 'add')): ?>
 <p id="add-type" class="add-button"><a class="add" href="<?php echo html_escape(uri('user-profiles/types/add')); ?>">Add a Profile Type</a></p>
+<?php endif; ?>
 <div id="primary">
 
 <table>
