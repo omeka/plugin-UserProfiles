@@ -1,6 +1,4 @@
 <?php
-define('USER_PROFILES_DIR', dirname(__FILE__) );
-require_once USER_PROFILES_DIR . '/helpers/functions.php';
 
 if(class_exists('Omeka_Plugin_Abstract')) {
 
@@ -131,13 +129,22 @@ class UserProfilesPlugin
     public function defineAcl($acl)
     {
         $resourceList = array(
-            'UserProfiles_Types' => array('add', 'edit', 'delete')
+            'UserProfiles_Types' => array('add', 'edit', 'delete'),
+            'UserProfiles_Profiles' => array('edit', 'editSelf', 'delete')
         );
         $acl->loadResourceList($resourceList);
         
         $acl->deny(null, 'UserProfiles_Types');
+        $acl->deny(null, 'UserProfiles_Profiles');
         $acl->allow('super', 'UserProfiles_Types');
         $acl->allow('admin', 'UserProfiles_Types');
+        
+        $acl->allow(array('contributor', 'researcher', 'admin', 'super'),
+        				'UserProfiles_Profiles',
+                        array('edit', 'editSelf', 'delete'),
+                        new UserProfiles_OwnershipAclAssertion()
+                        );
+// */
     }
     
     public function publicAppendToItemsShow()
