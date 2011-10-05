@@ -34,9 +34,17 @@ head($head); ?>
     	<?php else: ?>
 	
     	<ul>
-    	<?php foreach($values as $value): ?>
-    	<li><?php echo $field['values'][$value] ?></li>
-    	<?php endforeach; ?>
+    	<?php if(is_array($values)): ?>
+        	<?php foreach($values as $value): ?>
+        	<li><?php echo $field['values'][$value]; ?></li>
+        	<?php endforeach; ?>
+        <?php else: ?>
+        	<?php if($field['type'] == 'Checkbox'): ?>
+            	<li><?php echo $values; ?></li>
+        	<?php else: ?>
+            	<li><?php echo $field['values'][$values]; ?></li>
+        	<?php endif; ?>
+        <?php endif; ?>
     	</ul>
 
 	<?php endif; ?>
@@ -47,5 +55,27 @@ head($head); ?>
 </div>
 <?php endforeach; ?>
 <?php echo $this->filtered_html; ?>
+
+<?php $items = get_items(array('user' => $this->user->id, 'recent'=>true)); ?>
+<div>
+<h2>Recent Items Added by <?php echo $user->username; ?></h2>
+<?php set_items_for_loop($items); ?>
+	<?php while (loop_items()): ?>
+		<div class="item hentry">
+			<div class="item-meta">
+				<h2><?php echo link_to_item(item('Dublin Core', 'Title'), array('class'=>'permalink')); ?></h2>
+			</div>
+			<?php if (item_has_thumbnail()): ?>
+				<div class="item-thumbnail">
+				<?php echo link_to_item(item_square_thumbnail()); ?>
+				</div>
+			<?php else: ?>
+				<div class="no-thumbnail"><?php echo link_to_item('No image'); ?></div>
+			<?php endif; ?>
+
+		</div>
+<?php endwhile; ?>
+</div>
+<!--  end primary -->
 </div>
 <?php foot(); ?>

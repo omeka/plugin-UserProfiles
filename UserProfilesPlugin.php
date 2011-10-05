@@ -79,7 +79,8 @@ class UserProfilesPlugin
     protected $_hooks = array(
     	'install',
         'uninstall',
-        'define_acl'
+        'define_acl',
+        'public_append_to_items_show'
         );
                             
     protected $_filters = array( 'admin_navigation_main' );
@@ -139,7 +140,14 @@ class UserProfilesPlugin
         $acl->allow('admin', 'UserProfiles_Types');
     }
     
-   public function __construct()
+    public function publicAppendToItemsShow()
+    {
+        include USER_PROFILES_DIR . '/public_items_show.php';
+        
+        
+    }
+    
+    public function __construct()
     {
         $this->_db = Omeka_Context::getInstance()->getDb();
         $this->_addHooks();
