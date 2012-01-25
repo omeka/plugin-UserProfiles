@@ -1,0 +1,19 @@
+== Requirements ==
+
+UserProfiles requires the RecordRelations plugin.
+
+== Usage ==
+
+UserProfiles allows administrators to define different profile types. For example, you can create a "Basics" profile
+type for name and location, and a separate "Education" profile type for educational background. You can (and should)
+also give a description for the profile type. Within each type,
+you define the fields you want to use by giving them a name, a description, and a field type (short text, long text, 
+single checkbox, multiple checkbox, radio buttons, or dropdown). For the non-text, also provide the
+valid values.
+
+The default public display of a public profile also shows the recently added items for the user, if any.
+
+== Using UserProfiles Elsewhere in Omeka ==
+
+UserProfiles provides a handful of helper functions to help you relate users to other content in your site, for example
+by adding a link to the user who created an Item to the user profile.

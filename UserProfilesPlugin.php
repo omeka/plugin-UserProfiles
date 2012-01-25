@@ -4,18 +4,18 @@ if(class_exists('Omeka_Plugin_Abstract')) {
 
 class UserProfilesPlugin extends Omeka_Plugin_Abstract
 {
-    
+
     protected $_hooks = array(
     	'install',
         'uninstall',
         'define_acl'
         );
-                            
+
     protected $_filters = array( 'admin_navigation_main' );
 
     protected $_options = null;
-    
-    public function install()
+
+    public function hookInstall()
     {
         $db = get_db();
         $sql = "
@@ -28,7 +28,7 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
-            
+
         $sql = "
             CREATE TABLE IF NOT EXISTS `$db->UserProfilesType` (
                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -39,30 +39,30 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
     }
-    
-    public function uninstall()
+
+    public function hookUninstall()
     {
         $db = get_db();
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesProfile` ";
         $db->query($sql);
-    
+
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesType` ";
         $db->query($sql);
     }
-    
-    public function adminNavigationMain($tabs)
+
+    public function filterAdminNavigationMain($tabs)
     {
         $tabs['User Profiles'] = uri("user-profiles");
         return $tabs;
     }
-    
-    public function defineAcl($acl)
+
+    public function hookDefineAcl($acl)
     {
         $resourceList = array(
             'UserProfiles_Types' => array('add', 'edit', 'delete')
         );
         $acl->loadResourceList($resourceList);
-        
+
         $acl->deny(null, 'UserProfiles_Types');
         $acl->allow('super', 'UserProfiles_Types');
         $acl->allow('admin', 'UserProfiles_Types');
@@ -70,21 +70,21 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
 }
 
 } else {
-    
+
 class UserProfilesPlugin
 {
-    
+
     protected $_hooks = array(
     	'install',
         'uninstall',
         'define_acl',
         'public_append_to_items_show'
         );
-                            
+
     protected $_filters = array( 'admin_navigation_main' );
 
     protected $_options = null;
-    
+
     public function install()
     {
         $db = get_db();
@@ -98,7 +98,7 @@ class UserProfilesPlugin
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
-            
+
         $sql = "
             CREATE TABLE IF NOT EXISTS `$db->UserProfilesType` (
                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -109,23 +109,23 @@ class UserProfilesPlugin
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
     }
-    
+
     public function uninstall()
     {
         $db = get_db();
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesProfile` ";
         $db->query($sql);
-    
+
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesType` ";
         $db->query($sql);
     }
-    
+
     public function adminNavigationMain($tabs)
     {
         $tabs['User Profiles'] = uri("user-profiles");
         return $tabs;
     }
-    
+
     public function defineAcl($acl)
     {
         $resourceList = array(
@@ -133,12 +133,12 @@ class UserProfilesPlugin
             'UserProfiles_Profiles' => array('edit', 'editSelf', 'delete')
         );
         $acl->loadResourceList($resourceList);
-        
+
         $acl->deny(null, 'UserProfiles_Types');
         $acl->deny(null, 'UserProfiles_Profiles');
         $acl->allow('super', 'UserProfiles_Types');
         $acl->allow('admin', 'UserProfiles_Types');
-        
+
         $acl->allow(array('contributor', 'researcher', 'admin', 'super'),
         				'UserProfiles_Profiles',
                         array('edit', 'editSelf', 'delete'),
@@ -146,21 +146,21 @@ class UserProfilesPlugin
                         );
 // */
     }
-    
+
     public function publicAppendToItemsShow()
     {
         include USER_PROFILES_DIR . '/public_items_show.php';
-        
-        
+
+
     }
-    
+
     public function __construct()
     {
         $this->_db = Omeka_Context::getInstance()->getDb();
         $this->_addHooks();
         $this->_addFilters();
     }
-    
+
     /**
      * Set options with default values.
      *
@@ -181,7 +181,7 @@ class UserProfilesPlugin
             set_option($name, $value);
         }
     }
-    
+
     /**
      * Delete all options.
      *
@@ -198,7 +198,7 @@ class UserProfilesPlugin
             delete_option($name);
         }
     }
-    
+
     /**
      * Validate and add hooks.
      */
@@ -216,7 +216,7 @@ class UserProfilesPlugin
             add_plugin_hook($hookName, array($this, $functionName));
         }
     }
-    
+
     /**
      * Validate and add filters.
      */
@@ -235,7 +235,7 @@ class UserProfilesPlugin
         }
     }
 }
-    
-    
-    
+
+
+
 }

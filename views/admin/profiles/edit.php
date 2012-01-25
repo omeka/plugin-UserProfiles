@@ -20,7 +20,7 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
         <a href="<?php echo html_escape(uri('user-profiles/profiles/edit/id/' . $this->user->id .'?type='.$type->id)); ?>"><?php echo $type->label; ?></a>
     </li>
 	<?php endforeach;?>
-	
+
 </ul>
 <div id="primary">
 
@@ -50,10 +50,14 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 <?php if(isset($type->html)):?>
 <?php echo $type->html; ?>
 <?php endif;?>
+
 <?php endforeach; ?>
 
 <?php echo __v()->formSubmit('user_profile_submit', 'Submit', array('class' => 'submit submit-medium')); ?>
 </form>
+<?php
+$profile = $this->profiles[$currentType];
+echo delete_button('/Omeka/admin/user-profiles/profiles/delete-confirm/id/' . $profile->id , 'delete-page', 'Delete this Profile?'); ?>
 
 </div>
 

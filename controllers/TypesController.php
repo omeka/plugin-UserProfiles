@@ -1,12 +1,12 @@
 <?php
 class UserProfiles_TypesController extends Omeka_Controller_Action
 {
-    
+
     public function init()
     {
         $this->_modelClass = 'UserProfilesType';
     }
-    
+
     public function indexAction()
     {
         $this->redirect->gotoSimple('browse');
@@ -27,20 +27,20 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
             $this->redirect->gotoSimple('browse');
         }
     }
-    
+
     public function editAction()
     {
         $typeId = $this->_getParam('id');
         $profileType = $this->getTable('UserProfilesType')->find($typeId);
-        
+
         // Handle edit vocabulary form.
         if ($this->_getParam('submit_edit_type')) {
-            
+
             //@TODO: disallow editing keys if profiles have already been created
             $profileType->fields = $this->_assembleFields();
             $profileType->label = $this->_getParam('type_label');
             $profileType->description = $this->_getParam('type_description');
-            
+
             if($profileType->save() ) {
                 $this->flashSuccess('The profile type was successfully edited.');
             } else {
@@ -50,23 +50,23 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
             // Redirect to browse.
             //$this->redirect->gotoSimple('browse');
         }
-  
+
         $this->view->fields = unserialize($profileType->fields) ;
         $this->view->label = $profileType->label;
         $this->view->description = $profileType->description;
     }
-    
+
     public function deleteAction()
     {
         if (!$this->getRequest()->isPost()) {
             $this->_forward('method-not-allowed', 'error', 'default');
             return;
         }
-        
+
         $record = $this->findById();
-        
+
         $form = $this->_getDeleteForm();
-        
+
         if ($form->isValid($_POST)) {
             //delete the profiles of this type, and their relations
             $profilesToDelete = $this->getTable('UserProfilesProfile')->findBy(array('type_id' => $record->id));
@@ -78,22 +78,22 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
             $this->_forward('error');
             return;
         }
-        
+
         $successMessage = $this->_getDeleteSuccessMessage($record);
         if ($successMessage != '') {
             $this->flashSuccess($successMessage);
         }
         $this->redirect->goto('browse');
-        //and delete all the profiles of this type and the relations
-        
+
+
     }
-    
+
     public function browseAction()
     {
         $types = $this->getTable('UserProfilesType')->findAll();
         $this->view->types = $types;
     }
-    
+
     protected function _assembleFields()
     {
         //put the field data into an array structure
@@ -121,7 +121,7 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
 
         return $fields;
     }
-    
+
     protected function _parseValues($values)
     {
         if(empty($values)) {
@@ -129,12 +129,12 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
         }
         return array_map('trim', explode('|', $values));
     }
-    
+
     private function _getTypeForm()
     {
         require_once USER_PROFILES_DIR . '/forms/Type.php';
         $form = new UserProfiles_Form_Type();
         return $form;
     }
-    
+
 }
