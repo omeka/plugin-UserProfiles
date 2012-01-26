@@ -46,17 +46,23 @@ could cause confusion or errors if users have already created their profile for 
         </tr>
     </thead>
     <tbody>
-    
+
     <?php foreach($this->fields as $field):?>
     <tr class="<?php echo $field['valid'] ? 'valid' : 'invalid'; ?>">
-    <?php $field_values = implode(' | ' , $field['values']); ?>
-    
+    <?php
+    	if($field['values']) {
+    		$field_values = implode(' | ' , $field['values']);
+    	} else {
+    	    $field_values = '';
+    	}
+    ?>
+
             <td><?php echo __v()->formText("field_labels[]", $field['label'], array('size' => 15)); ?></td>
             <td><?php echo __v()->formTextarea("field_descriptions[]", $field['description'], array('cols' => 25, 'rows' => 3)); ?></td>
             <td><?php echo __v()->formSelect("field_types[]", $field['type'], null, $fieldTypeOptions ); ?></td>
             <td><?php echo __v()->formTextarea("field_values[]", $field_values, array('cols' => 25, 'rows' => 2)); ?></td>
     </tr>
-            
+
     <?php endforeach; ?>
         <tr class="new-field">
             <td><?php echo __v()->formText("field_labels[]", null, array('size' => 15)); ?></td>

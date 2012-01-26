@@ -43,7 +43,7 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 	<p><?php echo $field['description']; ?></p>
 	<?php $form_type = 'form'. $field['type']; ?>
 	<div class="user-profiles-input">
-	<?php $values =  $this->profiles[$type->id]['values'][$field['label']];?>
+	<?php $values = isset($this->profiles[$type->id]) ? $this->profiles[$type->id]['values'][$field['label']] : array();?>
 		<?php echo __v()->$form_type('user_profiles['. $type->id . '][' . $field['label'] .']', $values, $field_type_atts[$field['type']], $field['values']); ?>
 	</div>
 </div>
@@ -59,8 +59,11 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 <?php echo __v()->formSubmit('user_profile_submit', 'Submit', array('class' => 'submit submit-medium')); ?>
 </form>
 <?php
-$profile = $this->profiles[$currentType];
-echo delete_button('/Omeka/admin/user-profiles/profiles/delete-confirm/id/' . $profile->id , 'delete-page', 'Delete this Profile?'); ?>
+if(isset($this->profiles[$currentType])) {
+	$profile = $this->profiles[$currentType];
+	echo delete_button('/Omeka/admin/user-profiles/profiles/delete-confirm/id/' . $profile->id , 'delete-page', 'Delete this Profile?');
+}
+?>
 
 </div>
 
