@@ -4,7 +4,7 @@
 class UserProfilesProfileTable extends Omeka_Db_Table
 {
     protected $_alias = 'upp';
-    
+
     public function findByUserId($userId, $keyByType = false)
     {
         $db = $this->getDb();
@@ -24,7 +24,7 @@ class UserProfilesProfileTable extends Omeka_Db_Table
         }
         return $profiles;
     }
-    
+
     public function findUserByProfileId($profileId)
     {
         $db = $this->getDb();
@@ -38,8 +38,8 @@ class UserProfilesProfileTable extends Omeka_Db_Table
         $users = $db->getTable('RecordRelationsRelation')->findSubjectRecordsByParams($params);
         return $user;
     }
-   
-    
+
+
     public function applySearchFilters($select, $params)
     {
         if(empty($params)) {
@@ -55,20 +55,20 @@ class UserProfilesProfileTable extends Omeka_Db_Table
                 } else {
                     $select->where('upp.' . $paramName . ' = ?', array($params[$paramName]));
                 }
-                
+
             }
         }
         return $select;
     }
-    
+
     protected function recordFromData($data)
     {
         //unserialize the values column
         $data['values'] = unserialize($data['values']);
         return parent::recordFromData($data);
     }
-    
-    
+
+
     public function getAccountOfId()
     {
         $prop =  get_db()->getTable('RecordRelationsProperty')->findByVocabAndPropertyName(SIOC, 'account_of');

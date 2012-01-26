@@ -21,10 +21,18 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
             $profileType->fields = $this->_assembleFields();
             $profileType->label = $this->_getParam('type_label');
             $profileType->description = $this->_getParam('type_description');
-            $profileType->save();
-            // Redirect to browse.
-            $this->flashSuccess('The profile type was successfully added.');
-            $this->redirect->gotoSimple('browse');
+            if($profileType->save() ) {
+	            // Redirect to browse.
+	            $this->flashSuccess('The profile type was successfully added.');
+	            $this->redirect->gotoSimple('browse');
+            } else {
+            	$errors = $profileType->getErrors();
+            	foreach($errors as $error) {
+            		$this->flashError($error);
+            	}
+
+            }
+
         }
     }
 

@@ -4,7 +4,7 @@ UserProfiles requires the RecordRelations plugin.
 
 == Usage ==
 
-UserProfiles allows administrators to define different profile types. For example, you can create a "Basics" profile
+UserProfiles allows administrators to define different profile types. For example, you could create a "Basics" profile
 type for name and location, and a separate "Education" profile type for educational background. You can (and should)
 also give a description for the profile type. Within each type,
 you define the fields you want to use by giving them a name, a description, and a field type (short text, long text, 

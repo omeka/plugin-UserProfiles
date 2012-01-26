@@ -12,11 +12,12 @@ class UserProfilesProfile extends RelatableRecord {
     protected $object_record_type = 'UserProfilesProfile';
     protected $local_part = 'account_of';
     protected $_isSubject = false;
-       
-    
+
+
     protected function beforeSave()
     {
         parent::beforeSave();
         $this->values = serialize($this->values);
+
     }
 }
