@@ -1,28 +1,26 @@
 <?php
 
 class UserProfilesType extends Omeka_Record {
-    
+
     public $id;
     public $label;
     public $description;
     public $fields;
-    
+
 
     protected function _validate()
     {
-   
+
         foreach($this->fields as $index=>$field) {
-          
+
             $this->fields[$index]['valid'] = true;
             //label must be set
             if(empty($field['label'])) {
-                $this->addError('field (Empty label)', "Fields must have labels");
-                $this->fields[$index]['valid'] = false;
+                unset($this->fields[$index]);
             }
-            
-            
+
             switch($field['type']) {
-                
+
                 case 'Text':
                 case 'Textarea':
                     if(!empty($field['values'])) {
@@ -30,7 +28,7 @@ class UserProfilesType extends Omeka_Record {
                         $this->fields[$index]['valid'] = false;
                     }
                     break;
-                    
+
                 case 'Radio':
                 case 'Select':
                 case 'Checkbox':
@@ -47,25 +45,18 @@ class UserProfilesType extends Omeka_Record {
                         $this->fields[$index]['valid'] = false;
                     }
                     break;
-                    
+
                 default:
                     $this->addError('field '. $field['label'], "Type must be set in field " . $field['label']);
-                    
+
                     break;
-                
-                
-                
             }
-    
-            
-          // */
         }
-       
     }
-//  */
+
     protected function afterValidate()
     {
         $this->fields = serialize($this->fields);
     }
-    
+
 }

@@ -11,21 +11,16 @@ $fieldTypeOptions = array(
                     );
 ?>
 <script type="text/javascript">
-jQuery(document).ready(function () {
-    jQuery('#add-field').click(function () {
-        var oldDiv = jQuery('.new-field').last();
-        var div = oldDiv.clone();
-        oldDiv.parent().append(div);
-        var inputs = div.find('input');
-        inputs.val('');
-    });
 
-    jQuery('[name="field_types[]"]').change(function() {
+UserProfiles = {
+
+    toggleDisabled : function() {
 		target = jQuery(this);
 		textArea = jQuery('textarea', target.parent().next() );
 		switch(target.val()) {
 		    case "Textarea":
 		    case "Text":
+		    case "Checkbox":
 		    	textArea.attr('disabled', true);
 		    break;
 
@@ -34,8 +29,23 @@ jQuery(document).ready(function () {
 		    break;
 		}
 
+    }
+
+}
+
+
+jQuery(document).ready(function () {
+    jQuery('#add-field').click(function () {
+        var oldDiv = jQuery('.new-field').last();
+        var div = oldDiv.clone();
+        oldDiv.parent().append(div);
+        var inputs = div.find('input');
+        inputs.val('');
+        jQuery('[name="field_types[]"]', div).change(UserProfiles.toggleDisabled);
     });
 
+
+    jQuery('[name="field_types[]"]').change(UserProfiles.toggleDisabled);
 });
 </script>
 <style type="text/css">
@@ -59,21 +69,13 @@ could cause confusion or errors if users have already created their profile for 
             <th>Field Label</th>
             <th>Description</th>
             <th>Field Type</th>
-            <th>Allowed Values (separated by | )</th>
+            <th>Allowed Values (one per line)</th>
         </tr>
     </thead>
     <tbody>
 
     <?php foreach($this->fields as $field):?>
     <tr class="<?php echo $field['valid'] ? 'valid' : 'invalid'; ?>">
-    <?php
-    	if($field['values']) {
-    		$field_values = implode(' | ' , $field['values']);
-    	} else {
-    	    $field_values = '';
-    	}
-    ?>
-
             <td><?php echo __v()->formText("field_labels[]", $field['label'], array('size' => 15)); ?></td>
             <td><?php echo __v()->formTextarea("field_descriptions[]", $field['description'], array('cols' => 25, 'rows' => 3)); ?></td>
             <td><?php echo __v()->formSelect("field_types[]", $field['type'], array('multiple'=>false), $fieldTypeOptions ); ?></td>
@@ -90,6 +92,9 @@ could cause confusion or errors if users have already created their profile for 
             	    break;
             	}
 
+            ?>
+            <?php
+            	$field_values = implode("\n", $field['values']);
             ?>
             <td><?php echo __v()->formTextarea("field_values[]", $field_values, $atts); ?></td>
     </tr>

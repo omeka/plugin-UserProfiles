@@ -88,7 +88,7 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
         if ($successMessage != '') {
             $this->flashSuccess($successMessage);
         }
-        $this->redirect->goto('browse');
+        $this->redirect->gotoUrl('user-profiles');
 
 
     }
@@ -132,14 +132,8 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
         if(empty($values)) {
             return null;
         }
-        return array_map('trim', explode('|', $values));
+        return array_map('trim', explode("\n", $values));
     }
 
-    private function _getTypeForm()
-    {
-        require_once USER_PROFILES_DIR . '/forms/Type.php';
-        $form = new UserProfiles_Form_Type();
-        return $form;
-    }
 
 }

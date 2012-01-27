@@ -1,5 +1,5 @@
 <?php
-$head = array('title'=>'User Profiles', 'content_class' => 'vertical-nav', 'bodyclass'=>'');
+$head = array('title'=>'User Profiles', 'bodyclass'=>'');
 head($head);
 
 ?>
