@@ -29,9 +29,12 @@ class UserProfilesType extends Omeka_Record {
                     }
                     break;
 
+				case 'Checkbox':
+
+				break;
+
                 case 'Radio':
                 case 'Select':
-                case 'Checkbox':
                 case 'MultiCheckbox':
                     //enumerations must have a list of allowed values
                     if(empty($field['values'])) {

@@ -94,7 +94,12 @@ could cause confusion or errors if users have already created their profile for 
 
             ?>
             <?php
-            	$field_values = implode("\n", $field['values']);
+            	if(is_array($field['values'])) {
+            		$field_values = implode("\n", $field['values']);
+            	} else {
+            	    $field_values = $field['values'];
+            	}
+
             ?>
             <td><?php echo __v()->formTextarea("field_values[]", $field_values, $atts); ?></td>
     </tr>

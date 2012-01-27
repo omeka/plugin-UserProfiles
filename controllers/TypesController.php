@@ -113,8 +113,21 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
                                 'label' => $label,
                                 'description' => $descriptions[$index],
                                 'type' =>  $types[$index],
-                                'values' => $this->_parseValues($values[$index])
                              );
+             //text and single checkbox value fields are disabled, so spoof them in here
+             switch($types[$index]) {
+                 case 'Text':
+                 case 'Textarea':
+                 case 'Checkbox':
+                 	$newField['values'] = '';
+                 	array_splice($values, $index, 0, '');
+                 break;
+
+                 default:
+                 $newField['values'] = $this->_parseValues($values[$index]);
+                 break;
+             }
+
             //ignore an untouched field
             if( ! (empty($newField['label'])
                 && empty($newField['description'])
