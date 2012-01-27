@@ -7,7 +7,8 @@ $field_type_atts = array(
                     'Textarea' => array(),
                     'Radio' => array(),
                     'Select' => array(),
-                    'Checkbox' => array()
+                    'Checkbox' => array(),
+                    'MultiCheckbox' => array()
                     );
 $currentType = isset($_GET['type']) ? $_GET['type'] : $this->profile_types[0]->id;
 $types = apply_filters('user_profiles_type', $this->profile_types);
@@ -43,8 +44,25 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 	<p><?php echo $field['description']; ?></p>
 	<?php $form_type = 'form'. $field['type']; ?>
 	<div class="user-profiles-input">
-	<?php $values = isset($this->profiles[$type->id]) ? $this->profiles[$type->id]['values'][$field['label']] : array();?>
-		<?php echo __v()->$form_type('user_profiles['. $type->id . '][' . $field['label'] .']', $values, $field_type_atts[$field['type']], $field['values']); ?>
+	<?php
+		switch($field['type']) {
+		    case 'Text':
+		    case 'Textarea':
+		    	$values = isset($this->profiles[$type->id]) ? $this->profiles[$type->id]['values'][$field['label']] : '';
+		    break;
+
+		    default:
+		    	if(isset($this->profiles[$type->id]) && isset($this->profiles[$type->id]['values'][$field['label']])) {
+		    	    $values = $this->profiles[$type->id]['values'][$field['label']];
+		    	} else {
+		    	    $values = array();
+		    	}
+
+		    break;
+		}
+		echo __v()->$form_type('user_profiles['. $type->id . '][' . $field['label'] .']', $values, $field_type_atts[$field['type']], $field['values']);
+	?>
+
 	</div>
 </div>
 <?php endforeach; ?>

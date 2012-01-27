@@ -22,17 +22,14 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
             $profileType->label = $this->_getParam('type_label');
             $profileType->description = $this->_getParam('type_description');
             if($profileType->save() ) {
-	            // Redirect to browse.
 	            $this->flashSuccess('The profile type was successfully added.');
-	            $this->redirect->gotoSimple('browse');
+	            $this->redirect->gotoUrl('user-profiles');
             } else {
             	$errors = $profileType->getErrors();
             	foreach($errors as $error) {
             		$this->flashError($error);
             	}
-
             }
-
         }
     }
 

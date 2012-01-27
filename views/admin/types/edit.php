@@ -5,9 +5,9 @@ $fieldTypeOptions = array(
                     'Text' => 'Short Text',
                     'Textarea' => 'Long Text',
                     'Select' => 'Dropdown',
-                    'Checkbox' => 'Checkboxes',
+                    'Checkbox' => 'Checkbox',
                     'MultiCheckbox' => 'Multiple Checkboxes',
-                    'Radio' => 'Radio Buttons'
+                    'Radio' => 'Radio Buttons',
                     );
 ?>
 <script type="text/javascript">
@@ -19,6 +19,23 @@ jQuery(document).ready(function () {
         var inputs = div.find('input');
         inputs.val('');
     });
+
+    jQuery('[name="field_types[]"]').change(function() {
+		target = jQuery(this);
+		textArea = jQuery('textarea', target.parent().next() );
+		switch(target.val()) {
+		    case "Textarea":
+		    case "Text":
+		    	textArea.attr('disabled', true);
+		    break;
+
+		    default:
+		    	textArea.attr('disabled', false);
+		    break;
+		}
+
+    });
+
 });
 </script>
 <style type="text/css">
@@ -59,16 +76,30 @@ could cause confusion or errors if users have already created their profile for 
 
             <td><?php echo __v()->formText("field_labels[]", $field['label'], array('size' => 15)); ?></td>
             <td><?php echo __v()->formTextarea("field_descriptions[]", $field['description'], array('cols' => 25, 'rows' => 3)); ?></td>
-            <td><?php echo __v()->formSelect("field_types[]", $field['type'], null, $fieldTypeOptions ); ?></td>
-            <td><?php echo __v()->formTextarea("field_values[]", $field_values, array('cols' => 25, 'rows' => 2)); ?></td>
+            <td><?php echo __v()->formSelect("field_types[]", $field['type'], array('multiple'=>false), $fieldTypeOptions ); ?></td>
+            <?php $atts = array('cols' => 20, 'rows' => 2);
+            	switch($field['type']) {
+            	    case 'Text':
+            	    case 'Textarea':
+            	    case 'Checkbox':
+            	    	$atts['disabled'] = 'true';
+            	    break;
+
+            	    default:
+
+            	    break;
+            	}
+
+            ?>
+            <td><?php echo __v()->formTextarea("field_values[]", $field_values, $atts); ?></td>
     </tr>
 
     <?php endforeach; ?>
         <tr class="new-field">
             <td><?php echo __v()->formText("field_labels[]", null, array('size' => 15)); ?></td>
             <td><?php echo __v()->formTextarea("field_descriptions[]", null, array('cols' => 25, 'rows' => 3)); ?></td>
-            <td><?php echo __v()->formSelect("field_types[]", null, null, $fieldTypeOptions ); ?></td>
-            <td><?php echo __v()->formTextarea("field_values[]", null, array('cols' => 25, 'rows' => 2)); ?></td>
+            <td><?php echo __v()->formSelect("field_types[]", null, array('multiple'=>false), $fieldTypeOptions ); ?></td>
+            <td><?php echo __v()->formTextarea("field_values[]", null, array('cols' => 20, 'rows' => 2, 'disabled'=>'true')); ?></td>
         </tr>
     </tbody>
 </table>
