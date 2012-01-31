@@ -118,7 +118,6 @@ class UserProfiles_TypesController extends Omeka_Controller_Action
              switch($types[$index]) {
                  case 'Text':
                  case 'Textarea':
-                 case 'Checkbox':
                  	$newField['values'] = '';
                  	array_splice($values, $index, 0, '');
                  break;

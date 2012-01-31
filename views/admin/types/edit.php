@@ -20,7 +20,6 @@ UserProfiles = {
 		switch(target.val()) {
 		    case "Textarea":
 		    case "Text":
-		    case "Checkbox":
 		    	textArea.attr('disabled', true);
 		    break;
 
@@ -83,7 +82,6 @@ could cause confusion or errors if users have already created their profile for 
             	switch($field['type']) {
             	    case 'Text':
             	    case 'Textarea':
-            	    case 'Checkbox':
             	    	$atts['disabled'] = 'true';
             	    break;
 

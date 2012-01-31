@@ -32,7 +32,6 @@ class UserProfilesType extends Omeka_Record {
 				case 'Checkbox':
 
 				break;
-
                 case 'Radio':
                 case 'Select':
                 case 'MultiCheckbox':

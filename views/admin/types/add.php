@@ -20,7 +20,6 @@ UserProfiles = {
 		switch(target.val()) {
 		    case "Textarea":
 		    case "Text":
-		    case "Checkbox":
 		    	textArea.attr('disabled', true);
 		    break;
 
