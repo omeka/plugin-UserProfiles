@@ -6,7 +6,7 @@ head($head);
 <?php flash(); ?>
 <h1><?php echo $head['title']; ?></h1>
 
-<?php if(has_permission('UserProfiles_Types', 'add')): ?>
+<?php if(has_permission('UserProfiles_Type', 'add')): ?>
 <p id="add-type" class="add-button"><a class="add" href="<?php echo html_escape(uri('user-profiles/types/add')); ?>">Add a Profile Type</a></p>
 <?php endif; ?>
 <div id="primary">
@@ -24,7 +24,7 @@ head($head);
     <?php foreach($this->types as $type): ?>
     <tr>
     	<td>
-    		<?php if(has_permission('UserProfiles_Types', 'edit')): ?>
+    		<?php if(has_permission('UserProfiles_Type', 'edit')): ?>
     		<a href="user-profiles/types/edit/id/<?php echo $type->id; ?>">
     		<?php echo $type->label; ?>
     		</a>

@@ -58,14 +58,20 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
 
     public function hookDefineAcl($acl)
     {
-        $resourceList = array(
-            'UserProfiles_Types' => array('add', 'edit', 'delete')
-        );
-        $acl->loadResourceList($resourceList);
+        $acl->addResource('UserProfiles_Type');
+        $acl->addResource('UserProfiles_Profile');
+        
+        $roles = array( 'researcher', 'contributor', 'admin', 'super');
+        $acl->allow(null, 'UserProfiles_Profile', array('editSelf', 'deleteSelf', 'add', 'user'));
 
-        $acl->deny(null, 'UserProfiles_Types');
-        $acl->allow('super', 'UserProfiles_Types');
-        $acl->allow('admin', 'UserProfiles_Types');
+        $acl->allow(null, 
+                    'UserProfiles_Profile', 
+                    array('edit', 'delete'),         
+                    new Omeka_Acl_Assert_Ownership);
+        
+        $acl->deny(null, 'UserProfiles_Type');
+        $acl->allow('super', 'UserProfiles_Type');
+        $acl->allow('admin', 'UserProfiles_Type');
     }
 }
 

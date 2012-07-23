@@ -4,6 +4,7 @@ class UserProfiles_ProfilesController extends Omeka_Controller_Action
 
     public function init()
     {
+        $this->_helper->db->setDefaultModelName('UserProfilesProfile');
         $this->_modelClass = 'UserProfilesProfile';
     }
 
@@ -11,6 +12,10 @@ class UserProfiles_ProfilesController extends Omeka_Controller_Action
     {
         $profileTypes = $this->_getProfileTypes();
         $userId = $this->_getParam('id');
+        if(!$userId) {
+            $user = current_user();
+            $userId = $user->id;
+        }        
         $this->view->user = $this->getTable('User')->find($userId);
         $userProfiles = $this->getTable()->findByUserId($userId, true);
         if ($this->_getParam('user_profile_submit')) {
@@ -73,6 +78,10 @@ class UserProfiles_ProfilesController extends Omeka_Controller_Action
 
         $profileTypes = $this->_getProfileTypes();
         $userId = $this->_getParam('id');
+        if(!$userId) {
+            $user = current_user();
+            $userId = $user->id;
+        }
         $userProfiles = $this->getTable()->findByUserId($userId, true);
         $this->view->user = $this->getTable('User')->find($userId);
         if(empty($this->view->user)) {
