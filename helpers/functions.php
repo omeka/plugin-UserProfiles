@@ -31,5 +31,10 @@ function user_profiles_link_to_profile_edit($user = null, $display_label = null)
         $user = current_user();
     }
     $display_label = $display_label ? $display_label : "Edit Your Profile";
-    echo "<a href='" . html_escape(ADMIN_BASE_URL . "/user-profiles/profiles/edit/id/{$user->id}") . "'>$display_label</a>";
+    if(plugin_is_active('GuestUser')) {
+        echo "<a href='" . html_escape(PUBLIC_BASE_URL . "/user-profiles/profiles/edit/id/{$user->id}") . "'>$display_label</a>";
+    } else {
+        echo "<a href='" . html_escape(ADMIN_BASE_URL . "/user-profiles/profiles/edit/id/{$user->id}") . "'>$display_label</a>";
+    }
+    
 }

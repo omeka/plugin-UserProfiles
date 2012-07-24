@@ -88,8 +88,8 @@ class UserProfiles_ProfilesController extends Omeka_Controller_Action
             $this->flash("That doesn't seem to be a valid user or user id.");
         }
         $this->view->profiles = $userProfiles;
-        $this->view->profile_types = $profileTypes;
-        $this->view->filtered_html = apply_filters('user_profiles_user_page', '', $userId);
+        $this->view->profile_types = $profileTypes;        
+        
     }
 
     protected function _getProfileTypes()

@@ -57,29 +57,11 @@ head($head); ?>
 </div>
 <?php endforeach; ?>
 </div>
+
 <?php endforeach; ?>
-<?php echo $this->filtered_html; ?>
+<?php fire_plugin_hook('user_profiles_append_to_user_page', $this->user); ?>
 
-<?php $items = get_items(array('user' => $this->user->id, 'recent'=>true)); ?>
-<div>
-<h2>Recent Items Added by <?php echo $user->username; ?></h2>
-<?php set_items_for_loop($items); ?>
-	<?php while (loop_items()): ?>
-		<div class="item hentry">
-			<div class="item-meta">
-				<h2><?php echo link_to_item(item('Dublin Core', 'Title'), array('class'=>'permalink')); ?></h2>
-			</div>
-			<?php if (item_has_thumbnail()): ?>
-				<div class="item-thumbnail">
-				<?php echo link_to_item(item_square_thumbnail()); ?>
-				</div>
-			<?php else: ?>
-				<div class="no-thumbnail"><?php echo link_to_item('No image'); ?></div>
-			<?php endif; ?>
 
-		</div>
-<?php endwhile; ?>
-</div>
 <!--  end primary -->
 </div>
 <?php foot(); ?>

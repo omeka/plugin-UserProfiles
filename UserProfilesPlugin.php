@@ -11,10 +11,21 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
         'define_acl'
         );
 
-    protected $_filters = array( 'admin_navigation_main' );
+    protected $_filters = array( 
+            'admin_navigation_main',
+
+            );
 
     protected $_options = null;
 
+    public function setUp()
+    {
+        if(plugin_is_active('GuestUser')) {
+            $this->_filters[] = 'guest_user_links';
+        }
+        parent::setUp();
+    }
+    
     public function hookInstall()
     {
         $db = get_db();
@@ -56,6 +67,14 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
         return $tabs;
     }
 
+    public function filterGuestUserLinks($links)
+    {
+        $user = current_user();
+        
+        $links[] = "<a href='" . html_escape(PUBLIC_BASE_URL . "/user-profiles/profiles/user/id/{$user->id}") . "'>My Profile</a>";
+        return $links;
+    }
+    
     public function hookDefineAcl($acl)
     {
         $acl->addResource('UserProfiles_Type');
