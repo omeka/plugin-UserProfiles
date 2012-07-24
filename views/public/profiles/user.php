@@ -1,9 +1,11 @@
 <?php
 
-
 $head = array('title' => "User Profile | " . $this->user->username,
               'bodyclass' => '');
-head($head); ?>
+head($head); 
+
+$isOwner = current_user()->id == $this->user->id;
+?>
 
 
 
@@ -12,13 +14,14 @@ head($head); ?>
 <?php if(empty($this->user)) { die(); } ?>
     
     <h1><?php echo $head['title']; ?></h1>
-<?php if(current_user()->id == $this->user->id): ?>
+<?php if($isOwner): ?>
 	<p>
 	<?php user_profiles_link_to_profile_edit($this->user); ?>
 	</p>
 <?php endif; ?>
 <?php if(empty($this->profiles)): ?>
-<p><?php echo $this->user->username; ?> has not filled out a profile yet.</p>
+
+<p><?php echo $isOwner ? "You have" : $this->user->username . " has"; ?> not filled out a profile yet.</p>
 <?php die(); endif; ?>
 
 <?php foreach($this->profile_types as $type): ?>

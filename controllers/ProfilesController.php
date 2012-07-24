@@ -40,6 +40,7 @@ class UserProfiles_ProfilesController extends Omeka_Controller_Action
                 }
             }
             fire_plugin_hook('user_profiles_save', $_POST);
+            $this->redirect->gotoUrl('user-profiles/profiles/user/id/'. $userId);
         }
 
         $this->view->profiles = $userProfiles;
