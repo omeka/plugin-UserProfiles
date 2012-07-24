@@ -17,7 +17,7 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 <h1>Edit your profiles</h1>
 <?php if(count($types) > 1): ?>
 <p>Submit your information before switching to a different tab.</p>
-<?php endif; ?>
+
 <ul id="section-nav" class="navigation">
 	<?php foreach($types as $type): ?>
     <li class="<?php if ($currentType == $type->id )  {echo 'current';} ?>">
@@ -26,6 +26,7 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 	<?php endforeach;?>
 
 </ul>
+<?php endif; ?>
 <div id="primary">
 
 

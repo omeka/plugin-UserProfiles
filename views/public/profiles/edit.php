@@ -14,18 +14,18 @@ $currentType = isset($_GET['type']) ? $_GET['type'] : $this->profile_types[0]->i
 $types = apply_filters('user_profiles_type', $this->profile_types);
 ?>
 <p><?php user_profiles_link_to_profile($this->user, $this->user->username . "'s public profile"); ?></p>
-<h1>Edit your profiles</h1>
+<h1>Edit your profile</h1>
 <?php if(count($types) > 1): ?>
 <p>Submit your information before switching to a different tab.</p>
-<?php endif; ?>
+
 <ul id="section-nav" class="navigation">
 	<?php foreach($types as $type): ?>
     <li class="<?php if ($currentType == $type->id )  {echo 'current';} ?>">
         <a href="<?php echo html_escape(uri('user-profiles/profiles/edit/id/' . $this->user->id .'?type='.$type->id)); ?>"><?php echo $type->label; ?></a>
     </li>
 	<?php endforeach;?>
-
 </ul>
+<?php endif; ?>
 <div id="primary">
 
 
