@@ -31,6 +31,7 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
             CREATE TABLE IF NOT EXISTS `$db->UserProfilesProfile` (
                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
                 `type_id` int(10) unsigned NOT NULL ,
+                `owner_id` int(10) unsigned NOT NULL ,
                 `added` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                 `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
     			`values` text  ,
