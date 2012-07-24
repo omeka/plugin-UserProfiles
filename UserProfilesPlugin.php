@@ -80,7 +80,7 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
         $acl->addResource('UserProfiles_Profile');
         
         $roles = array( 'researcher', 'contributor', 'admin', 'super');
-        $acl->allow(null, 'UserProfiles_Profile', array('editSelf', 'deleteSelf', 'add', 'user'));
+        $acl->allow(null, 'UserProfiles_Profile', array('editSelf', 'deleteSelf', 'add', 'user', 'delete-confirm'));
 
         $acl->allow(null, 
                     'UserProfiles_Profile', 

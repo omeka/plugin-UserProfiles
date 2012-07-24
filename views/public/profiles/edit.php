@@ -79,7 +79,7 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 <?php
 if(isset($this->profiles[$currentType])) {
 	$profile = $this->profiles[$currentType];
-	echo delete_button('/Omeka/admin/user-profiles/profiles/delete-confirm/id/' . $profile->id , 'delete-page', 'Delete this Profile?');
+	echo delete_button(PUBLIC_BASE_URL . '/user-profiles/profiles/delete-confirm/id/' . $profile->id , 'delete-page', 'Delete this Profile?');
 }
 ?>
 
