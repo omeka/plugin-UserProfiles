@@ -14,7 +14,7 @@ $currentType = isset($_GET['type']) ? $_GET['type'] : $this->profile_types[0]->i
 $types = apply_filters('user_profiles_type', $this->profile_types);
 ?>
 <p><?php user_profiles_link_to_profile($this->user, $this->user->username . "'s public profile"); ?></p>
-<h1>Edit your profiles</h1>
+<h1>Edit your profile</h1>
 <?php if(count($types) > 1): ?>
 <p>Submit your information before switching to a different tab.</p>
 
@@ -24,7 +24,6 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
         <a href="<?php echo html_escape(uri('user-profiles/profiles/edit/id/' . $this->user->id .'?type='.$type->id)); ?>"><?php echo $type->label; ?></a>
     </li>
 	<?php endforeach;?>
-
 </ul>
 <?php endif; ?>
 <div id="primary">
@@ -80,7 +79,7 @@ $types = apply_filters('user_profiles_type', $this->profile_types);
 <?php
 if(isset($this->profiles[$currentType])) {
 	$profile = $this->profiles[$currentType];
-	echo delete_button('/Omeka/admin/user-profiles/profiles/delete-confirm/id/' . $profile->id , 'delete-page', 'Delete this Profile?');
+	echo delete_button('user-profiles/profiles/delete-confirm/id/' . $profile->id , 'delete-page', 'Delete this Profile?');
 }
 ?>
 
