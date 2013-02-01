@@ -1,11 +1,11 @@
 <?php
-class UserProfiles_ProfilesController extends Omeka_Controller_Action
+class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionController
 {
 
     public function init()
     {
         $this->_helper->db->setDefaultModelName('UserProfilesProfile');
-        $this->_modelClass = 'UserProfilesProfile';
+        $this->_browseRecordsPerPage = get_option('per_page_admin');
     }
 
     public function editAction()

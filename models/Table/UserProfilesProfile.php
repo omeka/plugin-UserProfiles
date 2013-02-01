@@ -1,7 +1,7 @@
 <?php
 
 
-class UserProfilesProfileTable extends Omeka_Db_Table
+class Table_UserProfilesProfile extends Omeka_Db_Table
 {
     protected $_alias = 'upp';
 

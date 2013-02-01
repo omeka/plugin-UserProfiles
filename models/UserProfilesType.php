@@ -1,6 +1,6 @@
 <?php
 
-class UserProfilesType extends Omeka_Record {
+class UserProfilesType extends Omeka_Record_AbstractRecord {
 
     public $id;
     public $label;

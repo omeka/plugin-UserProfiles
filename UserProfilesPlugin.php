@@ -1,6 +1,6 @@
 <?php
 
-class UserProfilesPlugin extends Omeka_Plugin_Abstract
+class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
 {
 
     protected $_hooks = array(
@@ -48,6 +48,37 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
+        
+        $sql = "
+            CREATE TABLE IF NOT EXISTS `$db->UserProfilesTypeElement` (
+              `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `profile_type_id` int(10) unsigned NOT NULL,
+              `element_id` int(10) unsigned NOT NULL,
+              `order` int(10) unsigned DEFAULT NULL,
+              PRIMARY KEY (`id`),
+              UNIQUE KEY `item_type_id_element_id` (`profile_type_id`,`element_id`),
+              KEY `item_type_id` (`item_type_id`),
+              KEY `element_id` (`element_id`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8;        
+        ";
+        
+        $db->query($sql);
+
+        $sql = "
+            INSERT IGNORE INTO `$db->ElementSet` (
+            `id` ,
+            `record_type` ,
+            `name` ,
+            `description`
+            )
+            VALUES (
+            NULL , 'UserProfilesType', 'User Profiles Elements', 'Elements to use with User Profiles'
+            );        
+        
+        ";
+        
+        $db->query($sql);
+        
     }
 
     public function hookUninstall()
@@ -62,7 +93,7 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
 
     public function filterAdminNavigationMain($tabs)
     {
-        $tabs['User Profiles'] = uri("user-profiles");
+        $tabs['User Profiles'] = array('label'=>'User Profiles', 'uri'=>url("user-profiles") );
         return $tabs;
     }
 
@@ -74,8 +105,9 @@ class UserProfilesPlugin extends Omeka_Plugin_Abstract
         return $links;
     }
     
-    public function hookDefineAcl($acl)
+    public function hookDefineAcl($args)
     {
+        $acl = $args['acl'];
         $acl->addResource('UserProfiles_Type');
         $acl->addResource('UserProfiles_Profile');
         

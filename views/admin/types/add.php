@@ -1,6 +1,6 @@
 <?php
 $head = array('title' => 'Edit Profile Type');
-head($head);
+echo head($head);
 $fieldTypeOptions = array(
                     'Text' => 'Short Text',
                     'Textarea' => 'Long Text',
@@ -54,9 +54,9 @@ could cause confusion or errors if users have already created their profile for 
 </p>
 <form method="post">
 <p>Type label</p>
-<?php echo __v()->formText("type_label", null, array('size' => 15)); ?>
+<?php echo $this->formText("type_label", null, array('size' => 15)); ?>
 <p>Type Description</p>
-<?php echo __v()->formTextarea("type_description", null, array('cols' => 25, 'rows' => 3)); ?>
+<?php echo $this->formTextarea("type_description", null, array('cols' => 25, 'rows' => 3)); ?>
 
 <table>
     <thead>
@@ -70,14 +70,14 @@ could cause confusion or errors if users have already created their profile for 
     <tbody>
 
         <tr class="new-field">
-            <td><?php echo __v()->formText("field_labels[]", null, array('size' => 15)); ?></td>
-            <td><?php echo __v()->formTextarea("field_descriptions[]", null, array('cols' => 25, 'rows' => 2)); ?></td>
-            <td><?php echo __v()->formSelect("field_types[]", null, array('multiple'=>false), $fieldTypeOptions ); ?></td>
-            <td><?php echo __v()->formTextarea("field_values[]", null, array('cols' => 20, 'rows' => 2, 'disabled'=>true)); ?></td>
+            <td><?php echo $this->formText("field_labels[]", null, array('size' => 15)); ?></td>
+            <td><?php echo $this->formTextarea("field_descriptions[]", null, array('cols' => 25, 'rows' => 2)); ?></td>
+            <td><?php echo $this->formSelect("field_types[]", null, array('multiple'=>false), $fieldTypeOptions ); ?></td>
+            <td><?php echo $this->formTextarea("field_values[]", null, array('cols' => 20, 'rows' => 2, 'disabled'=>true)); ?></td>
         </tr>
     </tbody>
 </table>
-<?php echo __v()->formButton('add_field', 'Add a field', array('id' => 'add-field')); ?>
-<?php echo __v()->formSubmit('submit_add_type', 'Submit', array('class' => 'submit submit-medium')); ?>
+<?php echo $this->formButton('add_field', 'Add a field', array('id' => 'add-field')); ?>
+<?php echo $this->formSubmit('submit_add_type', 'Submit', array('class' => 'submit submit-medium')); ?>
 </form>
 </div>

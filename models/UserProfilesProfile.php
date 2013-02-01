@@ -18,6 +18,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     protected function _initializeMixins()
     {
         $this->_mixins[] = new Ownable($this);
+        $this->_mixins[] = new Mixin_ElementText($this);
     }    
     
     protected function beforeSave()

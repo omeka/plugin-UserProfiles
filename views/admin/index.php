@@ -1,13 +1,13 @@
 <?php
 $head = array('title'=>'User Profiles', 'bodyclass'=>'');
-head($head);
+echo head($head);
 
 ?>
 <?php flash(); ?>
 <h1><?php echo $head['title']; ?></h1>
 
-<?php if(has_permission('UserProfiles_Type', 'add')): ?>
-<p id="add-type" class="add-button"><a class="add" href="<?php echo html_escape(uri('user-profiles/types/add')); ?>">Add a Profile Type</a></p>
+<?php if(is_allowed('UserProfiles_Type', 'add')): ?>
+<p id="add-type" class="add-button"><a class="add" href="<?php echo html_escape(url('user-profiles/types/add')); ?>">Add a Profile Type</a></p>
 <?php endif; ?>
 <div id="primary">
 
@@ -44,4 +44,4 @@ head($head);
     </tbody>
 </table>
 </div>
-<?php foot(); ?>
+<?php echo foot(); ?>
