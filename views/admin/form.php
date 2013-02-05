@@ -53,70 +53,37 @@ jQuery(document).ready(function () {
         <fieldset id="type-elements">
             <h2><?php echo __('Elements'); ?></h2>
             <div id="element-list">
-                <ul id="item-type-elements" class="sortable">
-                <?php
-                foreach ($elementInfos as $elementInfo):
-                    $element = $elementInfo['element'];
-                    $elementTempId = $elementInfo['temp_id'];
-                    $elementOrder = $elementInfo['order'];
-                    if ($element && $elementTempId === null):
-                ?>
-                    <li class="element">
-                        <div class="sortable-item">
-                        <strong><?php echo html_escape($element->name); ?></strong>
-                        <?php echo $this->formHidden("elements[$element->id][order]", $elementOrder, array('size'=>2, 'class' => 'element-order')); ?>
-                        <?php if (is_allowed('ItemTypes', 'delete-element')): ?>
-                        <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="" class="undo-delete"><?php echo __('Undo'); ?></a>
-                        <a id="remove-element-link-<?php echo html_escape($element->id); ?>" href="" class="delete-element"><?php echo __('Remove'); ?></a>
-                        <?php endif; ?>
-                        </div>
-                        
-                        <div class="drawer-contents">
-                            <div class="element-description"><?php echo html_escape($element->description); ?></div>
-                        </div>
-                    </li>
-                    <?php else: ?>
-                        <?php if (!$element->exists()):  ?>
-                        <?php echo $this->action(
-                            'add-new-element', 'item-types', null,
-                            array(
-                                'from_post' => true,
-                                'elementTempId' => $elementTempId,
-                                'elementName' => $element->name,
-                                'elementDescription' => $element->description,
-                                'elementOrder' => $elementOrder
-                            )
-                        );
-                        ?>
-                        <?php else: ?>
-                        <?php echo $this->action(
-                            'add-existing-element', 'item-types', null,
-                            array(
-                                'from_post' => true,
-                                'elementTempId' => $elementTempId,
-                                'elementId' => $element->id,
-                                'elementOrder' => $elementOrder
-                            )
-                        );
-                        ?>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endforeach; // end for each $elementInfos ?> 
+        <ul class="sortable">
+        <?php foreach ($profileType->Elements as $element): ?>
+            <li class="element">
+            <div class="sortable-item">
+                <?php echo __($element->name); ?>
+                <?php //echo $this->formHidden("elements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
+                
+                <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="#" class="undo-delete"><?php echo __('Undo'); ?></a>
+                <a id="remove-element-link-<?php echo html_escape($element->id); ?>" href="#" class="delete-element"><?php echo __('Remove'); ?></a>
+                <?php echo $this->formHidden("elements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
+            </div>
+            <div class="drawer-contents">
+                <label for="<?php echo "elements[{$element->id}][description]"; ?>"><?php echo __('Description'); ?></label>
+                <?php echo $this->formTextarea("elements[{$element->id}][description]", $element->description, array('rows' => '3')); ?>
+                <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
+            </div>
+            </li>
+        <?php endforeach; ?>
+        <?php fire_plugin_hook('admin_element_sets_form', array('element_set' => $profileType->ElementSet, 'view' => $this)); ?>            
+     
                     <li>
                         <div class="add-new">
                             <?php echo __('Add Element'); ?>
                         </div>
                         <div class="drawer-contents">
-                            <button id="add-element" name="add-element"><?php echo __('Add Element'); ?></button>
+                            <button id="add-element" name="add-element"><?php echo __('Add Element'); ?></button>            
                         </div>
                     </li>
                 </ul>
                 
                 <?php echo $this->formHidden('remove_element', null, array('value' => '')); ?>
-                
-                
-                
-                <?php //echo $this->form->getElement(Omeka_Form_ItemTypes::REMOVE_HIDDEN_ELEMENT_ID); ?>
             </div>
         </fieldset>
     
@@ -134,7 +101,11 @@ jQuery(document).ready(function () {
         </div>
     </section>
 </form>
+
 <script type="text/javascript">
-Omeka.addReadyCallback(Omeka.ItemTypes.enableSorting);
-Omeka.addReadyCallback(Omeka.ItemTypes.addHideButtons);
+//<![CDATA[
+Omeka.addReadyCallback(Omeka.ElementSets.enableSorting);
+Omeka.addReadyCallback(Omeka.ElementSets.addHideButtons);
+Omeka.addReadyCallback(Omeka.ElementSets.enableElementRemoval);
+//]]>
 </script>

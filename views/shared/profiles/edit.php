@@ -1,5 +1,6 @@
 <?php
 queue_css_file('profiles');
+
 $head = array('title' => 'Edit Profile', 'content_class' => 'horizontal-nav');
 echo head($head);
 
@@ -18,20 +19,21 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 ?>
 </ul>
 <p class='warning'>Save changes before moving to edit a new profile type.</p>
-<?php echo flash(); ?>
-
 <p>
     <?php user_profiles_link_to_profile($user, $user->username . "'s public profile"); ?>
 </p>
+<?php echo flash(); ?>
 
 <div id="primary">
+
+
+<form method="post" action="">
+<section class="user-profiles-profile seven columns alpha">
 <h1>Edit your <?php echo $profile_type->label; ?> profile</h1>
 
 <p class="user-profiles-profile-description">
     <?php echo $profile_type->description; ?>
 </p>
-<form method="post" action="">
-<section class="user-profiles-profile seven columns alpha">
     <?php echo element_form($profile_type->getElements(), $profile);?>
 </section>
 

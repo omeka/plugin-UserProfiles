@@ -1,4 +1,7 @@
 <?php
+queue_js_file('element-sets');
+queue_js_file('userprofiles');
+
 $head = array('title' => __('Edit Profile Type'));
 echo head($head);
 ?>
