@@ -37,10 +37,9 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <section class="three columns omega">
     <div id='save' class='panel'>
-        <input type="submit" value='Save Changes to <?php echo $type->label; ?>' name='submit' class='big green button'/>    
+        <input type="submit" value='Save Changes to <?php echo $profile_type->label; ?>' name='submit' class='big green button'/>    
     </div>
 </section>
-
 </form>
 </div>
 

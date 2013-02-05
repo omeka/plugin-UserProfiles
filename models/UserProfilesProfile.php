@@ -1,8 +1,8 @@
 <?php
 require_once(PLUGIN_DIR . '/RecordRelations/models/RelatableRecord.php');
 //require_once(PLUGIN_DIR . '/UserProfiles/models/Mixin/UserProfileElement.php');
-//class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_Interface {
-class UserProfilesProfile extends Omeka_Record_AbstractRecord {
+class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_Interface {
+//class UserProfilesProfile extends Omeka_Record_AbstractRecord {
 
     public $id;
     public $type_id;
@@ -77,9 +77,6 @@ class UserProfilesProfile extends Omeka_Record_AbstractRecord {
      */
     private static $_elementsByRecordType = array();
 
-    
-    
-
     public function getProfileType()
     {
         $profileType = $this->getTable('UserProfilesType')->find($this->type_id);
@@ -101,12 +98,12 @@ class UserProfilesProfile extends Omeka_Record_AbstractRecord {
     protected function _initializeMixins()
     {
         $this->_mixins[] = new Mixin_Owner($this);
+        $this->_mixins[] = new Mixin_Timestamp($this);
     }    
     public function afterSave($args)
     {
-        $this->saveElementTexts();
-    
-        
+        parent::afterSave($args);
+        $this->saveElementTexts();       
     }
     
     /**

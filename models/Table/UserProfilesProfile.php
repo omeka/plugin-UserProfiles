@@ -6,15 +6,17 @@ class Table_UserProfilesProfile extends Omeka_Db_Table
     protected $_alias = 'upp';
 
     
-    public function findByUserIdAndType($userId, $type)
+    public function findByUserIdAndTypeId($userId, $typeId)
     {
         $db = $this->getDb();
         $params =  array(
                     'subject_id' => $userId,
                     'object_record_type' => 'UserProfilesProfile',
                     );
-        debug(print_r($params, true));
-        $profiles = $db->getTable('RecordRelationsRelation')->findObjectRecordsByParams($params);        
+        $profiles = $db->getTable('RecordRelationsRelation')->findObjectRecordsByParams($params, array('type_id'=>$typeId));
+        if(empty($profiles)) {
+            return false;
+        }        
         return $profiles[0];
     }
 

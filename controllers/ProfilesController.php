@@ -15,36 +15,29 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
         $allTypes = $this->_helper->db->getTable('UserProfilesType')->findAll();
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
         $userId = $this->_getParam('id');
-        if(!$userId) {
+        if($userId) {
+            $user = $this->_helper->db->getTable('User')->find($userId);
+        } else {
             $user = current_user();
-            $userId = $user->id;
-        }        
-        $this->view->user = $this->_helper->db->getTable('User')->find($userId);
-        //$userProfile = $this->_helper->db->getTable()->findByUserIdAndType($userId, $type);
-        $userProfile = $this->_helper->db->getTable('UserProfilesProfile')->find(22);
-        /*
-        if($profiles = $this->_getParam('submit') ) {
-            $currProfile = new UserProfilesProfile();
-            $currProfile->setPostData($_POST);
-            foreach($typeIds as $typeId) {
-                if(!isset($userProfiles[$typeId])) {
-
-                    $currProfile->setRelationData(array('subject_id'=>$userId, 'public'=>true));
-                    $currProfile->type_id = $typeId;
-                    $userProfiles[$typeId] = $currProfile;
-                } else {
-                    $currProfile = $userProfiles[$typeId];
-                    $currProfile->type_id = $typeId;
-                }
-                $currProfile = new UserProfilesProfile();
-                $elTexts= $currProfile->_getElementTextsToSaveFromPost();
-                $currProfile->save();
-            }
+            $userId = $user->id;            
+        }      
+        $this->view->user = $user; 
+        $userProfile = $this->_helper->db->getTable()->findByUserIdAndTypeId($userId, $typeId);
+        if(!$userProfile) {
+            $userProfile = new UserProfilesProfile();
+            $userProfile->setOwner($user);
+            $userProfile->type_id = $typeId;
+            $userProfile->setRelationData(array('subject_id'=>$userId));
             
-            fire_plugin_hook('user_profiles_save', array('post'=>$_POST, 'profile'=>$currProfile));
+        }
+        //$userProfile = $this->_helper->db->getTable('UserProfilesProfile')->find(22);
+ 
+        if($this->_getParam('submit') ) {
+            $userProfile->setPostData($_POST);
+            $userProfile->save();
+            fire_plugin_hook('user_profiles_save', array('post'=>$_POST, 'profile'=>$userProfile, 'type'=>$profileType));
             //$this->redirect('user-profiles/profiles/user/id/'. $userId);
         }
-*/
         $this->view->profile = $userProfile;
         $this->view->profile_type = $profileType;
         $this->view->profile_types = $allTypes;
