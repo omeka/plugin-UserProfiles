@@ -5,60 +5,45 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public $id;
     public $label;
     public $description;
-    public $fields;
-
-
-    protected function _validate()
+    public $element_set_id;
+    private $_elements;
+    private $_elementInfos;
+    protected $_related = array('ElementSet' => 'getElementSet', 'Elements'=>'getElements');    
+    
+    public function init()
     {
+        parent::init();        
+    }
 
-        foreach($this->fields as $index=>$field) {
-
-            $this->fields[$index]['valid'] = true;
-            //label must be set
-            if(empty($field['label'])) {
-                unset($this->fields[$index]);
-            }
-
-            switch($field['type']) {
-
-                case 'Text':
-                case 'Textarea':
-                    if(!empty($field['values'])) {
-                        $this->addError('field '. $field['label'], "Text fields should not have restrictions on values");
-                        $this->fields[$index]['valid'] = false;
-                    }
-                    break;
-
-				case 'Checkbox':
-
-				break;
-                case 'Radio':
-                case 'Select':
-                case 'MultiCheckbox':
-                    //enumerations must have a list of allowed values
-                    if(empty($field['values'])) {
-                        $this->addError('field '. $field['label'], "Allowed values must be set in field " . $field['label']);
-                        $this->fields[$index]['valid'] = false;
-                    }
-                    //no duplicates
-                    $unique = array_unique($field['values']);
-                    if(count($field['values']) != count($unique)) {
-                        $this->addError('field '. $field['label'], "Allowed values must be unique in field " . $field['label']);
-                        $this->fields[$index]['valid'] = false;
-                    }
-                    break;
-
-                default:
-                    $this->addError('field '. $field['label'], "Type must be set in field " . $field['label']);
-
-                    break;
-            }
+    protected function afterSave($args) {
+        debug('after save');
+        foreach($this->_elementInfos as $elementInfo) {
+            $element=$elementInfo['element'];
+            $element->save();
         }
     }
-
-    protected function afterValidate()
+    
+    public function getElementSet()
     {
-        $this->fields = serialize($this->fields);
+        return $this->_db->getTable('ElementSet')->find($this->element_set_id);
     }
+    
+    public function getElements()
+    {
+        return $this->ElementSet->getElements();
+    }
+    
+    public function setElementInfos($elementInfos)
+    {
+        $this->_elementInfos = $elementInfos;
+    }
+    
+    
+    
+    private function _loadElements()
+    {
+        $this->_elements = $this->getTable('Element')->findBy(array('element_set_id'=>$this->id));
+    }
+    
 
 }

@@ -3,7 +3,7 @@ $head = array('title'=>'User Profiles', 'bodyclass'=>'');
 echo head($head);
 
 ?>
-<?php flash(); ?>
+<?php echo flash(); ?>
 <h1><?php echo $head['title']; ?></h1>
 
 <?php if(is_allowed('UserProfiles_Type', 'add')): ?>
@@ -16,7 +16,7 @@ echo head($head);
 <tr>
 <th>Profile Type</th>
 <th>Description</th>
-<th>Fields</th>
+<th>Elements</th>
 <th>Edit My Profile</th>
 </tr>
 </thead>
@@ -24,7 +24,7 @@ echo head($head);
     <?php foreach($this->types as $type): ?>
     <tr>
     	<td>
-    		<?php if(has_permission('UserProfiles_Type', 'edit')): ?>
+    		<?php if(is_allowed('UserProfiles_Type', 'edit')): ?>
     		<a href="user-profiles/types/edit/id/<?php echo $type->id; ?>">
     		<?php echo $type->label; ?>
     		</a>
@@ -34,8 +34,8 @@ echo head($head);
     	</td>
     	<td><?php echo $type->description; ?></td>
     	<td><ul>
-    	<?php foreach( unserialize($type->fields) as $field): ?>
-    	<li><?php echo $field['label']; ?> : <?php echo $field['type']; ?></li>
+    	<?php foreach($type->Elements as $element): ?>
+    	<li><?php echo $element->name; ?></li>
     	<?php endforeach; ?>
     	</ul></td>
     	<td><a href="user-profiles/profiles/edit/id/<?php echo current_user()->id . '?type=' . $type->id; ?>">Edit</a></td>

@@ -5,24 +5,17 @@ class Table_UserProfilesProfile extends Omeka_Db_Table
 {
     protected $_alias = 'upp';
 
-    public function findByUserId($userId, $keyByType = false)
+    
+    public function findByUserIdAndType($userId, $type)
     {
         $db = $this->getDb();
-        $accountOfId = $this->getAccountOfId();
-        $params =  array(//'property_id' => $accountOfId,  //commented out to try Institutions profile
+        $params =  array(
                     'subject_id' => $userId,
-                   // 'subject_record_type' => 'User', //commented out to try Institutions profile
                     'object_record_type' => 'UserProfilesProfile',
                     );
-        $profiles = $db->getTable('RecordRelationsRelation')->findObjectRecordsByParams($params);
-        if($keyByType) {
-            $rekeyed = array();
-            foreach($profiles as $profile) {
-                $rekeyed[$profile->type_id] = $profile;
-            }
-            return $rekeyed;
-        }
-        return $profiles;
+        debug(print_r($params, true));
+        $profiles = $db->getTable('RecordRelationsRelation')->findObjectRecordsByParams($params);        
+        return $profiles[0];
     }
 
     public function findUserByProfileId($profileId)
@@ -38,36 +31,6 @@ class Table_UserProfilesProfile extends Omeka_Db_Table
         $users = $db->getTable('RecordRelationsRelation')->findSubjectRecordsByParams($params);
         return $user;
     }
-
-
-    public function applySearchFilters($select, $params)
-    {
-        if(empty($params)) {
-            return $select;
-        }
-        $paramNames = array('id',
-                            'type_id'
-                            );
-        foreach($paramNames as $paramName) {
-            if (isset($params[$paramName])) {
-                if(is_array($params[$paramName])) {
-                    $select->where('upp.' . $paramName . ' = ?', $params[$paramName]);
-                } else {
-                    $select->where('upp.' . $paramName . ' = ?', array($params[$paramName]));
-                }
-
-            }
-        }
-        return $select;
-    }
-
-    protected function recordFromData($data)
-    {
-        //unserialize the values column
-        $data['values'] = unserialize($data['values']);
-        return parent::recordFromData($data);
-    }
-
 
     public function getAccountOfId()
     {

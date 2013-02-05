@@ -100,8 +100,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     public function filterGuestUserLinks($links)
     {
         $user = current_user();
-        
-        $links[] = "<a href='" . html_escape(PUBLIC_BASE_URL . "/user-profiles/profiles/user/id/{$user->id}") . "'>My Profile</a>";
+        $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}"));
         return $links;
     }
     
