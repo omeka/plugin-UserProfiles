@@ -1,6 +1,8 @@
 <?php
 
-$head = array('title' => "User Profile | " . $this->user->username,
+$user = $profiles[0]->getOwner();
+
+$head = array('title' => "User Profile | " . $user->name,
               'bodyclass' => '');
 echo head($head); 
 
