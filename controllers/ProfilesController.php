@@ -69,20 +69,12 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
 
     public function userAction()
     {
-
-        $profileTypes = $this->_helper->db->getTable('UserProfilesType')->findAll();
         $userId = $this->_getParam('id');
         if(!$userId) {
             $user = current_user();
             $userId = $user->id;
         }
         $userProfiles = $this->_helper->db->getTable()->findByUserId($userId, true);
-        $this->view->user = $this->_helper->db->getTable('User')->find($userId);
-        if(empty($this->view->user)) {
-            $this->flash("That doesn't seem to be a valid user or user id.");
-        }
         $this->view->profiles = $userProfiles;
-        $this->view->profile_types = $profileTypes;        
-        
     }
 }

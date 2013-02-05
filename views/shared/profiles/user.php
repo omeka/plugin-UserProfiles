@@ -10,7 +10,6 @@ echo head($head);
 
 <div id="primary">
 <?php echo flash(); ?>
-<?php if(empty($this->user)) { die(); } ?>
     
     <h1><?php echo $head['title']; ?></h1>
 <?php if(is_allowed('UserProfiles_Profile', 'editOwn')): ?>
