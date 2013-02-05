@@ -11,7 +11,6 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
     public function editAction()
     {
         $typeId = $this->getParam('type');
-        debug($typeId);
         $allTypes = $this->_helper->db->getTable('UserProfilesType')->findAll();
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
         $userId = $this->_getParam('id');
@@ -30,8 +29,6 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
             $userProfile->setRelationData(array('subject_id'=>$userId));
             
         }
-        //$userProfile = $this->_helper->db->getTable('UserProfilesProfile')->find(22);
- 
         if($this->_getParam('submit') ) {
             $userProfile->setPostData($_POST);
             $userProfile->save();

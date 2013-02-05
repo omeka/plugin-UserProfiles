@@ -8,8 +8,6 @@ jQuery(document).ready(function () {
 });
 </script>
 
-<?php $elementInfos = array(); ?>
-
 <form action="" method="post">
     <section class="seven columns alpha">
         <fieldset id="type-information">
@@ -33,7 +31,6 @@ jQuery(document).ready(function () {
                     </div>
                 </div>
 
-                <?php //echo $this->form->getElement(Omeka_Form_ItemTypes::NAME_ELEMENT_ID); ?>
             </div>
                         
             <div class="field">
@@ -52,7 +49,6 @@ jQuery(document).ready(function () {
                 </div>
             </div>
                 
-                <?php //echo $this->form->getElement(Omeka_Form_ItemTypes::DESCRIPTION_ELEMENT_ID); ?>
         </fieldset>
         <fieldset id="type-elements">
             <h2><?php echo __('Elements'); ?></h2>
@@ -63,7 +59,6 @@ jQuery(document).ready(function () {
                     $element = $elementInfo['element'];
                     $elementTempId = $elementInfo['temp_id'];
                     $elementOrder = $elementInfo['order'];
-    
                     if ($element && $elementTempId === null):
                 ?>
                     <li class="element">
@@ -139,3 +134,7 @@ jQuery(document).ready(function () {
         </div>
     </section>
 </form>
+<script type="text/javascript">
+Omeka.addReadyCallback(Omeka.ItemTypes.enableSorting);
+Omeka.addReadyCallback(Omeka.ItemTypes.addHideButtons);
+</script>

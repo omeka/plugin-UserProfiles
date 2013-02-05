@@ -16,9 +16,9 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     }
 
     protected function afterSave($args) {
-        debug('after save');
         foreach($this->_elementInfos as $elementInfo) {
             $element=$elementInfo['element'];
+            $element->order = $elementInfo['order'];
             $element->save();
         }
     }

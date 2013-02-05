@@ -80,14 +80,17 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
         $this->view->profileType = $profileType;
         
+        $this->_setViewElementInfos($profileType);
         // Handle edit vocabulary form.
         if ($this->_getParam('submit')) {
 
             $profileType->label = $this->_getParam('name');
             $profileType->description = $this->_getParam('description');
-
+            $this->_elementSet = $profileType->ElementSet;
+            $elementInfos = $this->_getElementInfos();
+            $profileType->setElementInfos($elementInfos);
             if($profileType->save() ) {
-                $this->_helper->flashMessenger('The profile type was successfully edited.', 'success');
+                $this->_helper->flashMessenger(__('The profile type ' . $profileType->label . ' was successfully edited.'), 'success');
             } else {
                 $errors = $profileType->getErrors();
                 $this->_helper->flashMessenger($errors, 'error');
@@ -145,7 +148,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
 
     protected function _getElementInfos()
     {
-        
+        $elementTable = $this->_helper->db->getTable('Element');   
         if (isset($_POST['elements'])) {
             $currentElements = $_POST['elements'];
             foreach ($currentElements as $elementId => $info) {
@@ -219,6 +222,22 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                 }
             }
         }
+    }
+    
+    private function _setViewElementInfos($profileType)
+    {
+        $elementInfos = array();
+        $elementOrder = 1;
+        foreach($profileType->Elements as $element) {
+            $elementInfo = array(
+                    'element' => $element,
+                    'temp_id' => null,
+                    'order' => $elementOrder,
+            );
+            $elementInfos[] = $elementInfo;
+            $elementOrder++;
+        }        
+        $this->view->elementInfos = $elementInfos;
     }
     
     
