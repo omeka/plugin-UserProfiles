@@ -8,7 +8,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public $element_set_id;
     private $_elements;
     private $_elementInfos;
-    protected $_related = array('ElementSet' => 'getElementSet', 'Elements'=>'getElements');    
+    protected $_related = array('ElementSet' => 'getElementSet', 'Elements'=>'getAllElements');    
     
     public function init()
     {
@@ -28,7 +28,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
         return $this->_db->getTable('ElementSet')->find($this->element_set_id);
     }
     
-    public function getElements()
+    public function getAllElements()
     {
         return $this->ElementSet->getElements();
     }

@@ -18,16 +18,15 @@ echo head($head);
 	<?php user_profiles_link_to_profile_edit($this->user); ?>
 	</p>
 <?php endif; ?>
-<?php if(empty($this->profiles) && is_allowed('UserProfiles_Profile', 'editOwn')): ?>
+<?php if(empty($profiles) && is_allowed('UserProfiles_Profile', 'editOwn')): ?>
 
 <p><?php echo is_allowed('UserProfiles_Profile', 'editOwn') ? "You have" : $this->user->username . " has"; ?> not filled out a profile yet.</p>
 <?php endif; ?>
 
-<?php foreach($this->profile_types as $type): ?>
-
+<?php foreach($profiles as $profile): ?>
+<?php $type = $profile->getProfileType();?>
 <div class="user-profiles-profile">
-<h2><?php echo $type->label; ?></h2>
-
+<?php echo all_element_texts($profile); ?>
 </div>
 
 <?php endforeach; ?>

@@ -3,6 +3,18 @@
 
 class Table_UserProfilesProfile extends Omeka_Db_Table
 {
+
+    public function findByUserId($userId)
+    {
+        $db = $this->getDb();
+        $params =  array(
+                'subject_id' => $userId,
+                'object_record_type' => 'UserProfilesProfile',
+        );
+        $profiles = $db->getTable('RecordRelationsRelation')->findObjectRecordsByParams($params);        
+        return $profiles;
+    }
+    
     
     public function findByUserIdAndTypeId($userId, $typeId)
     {
