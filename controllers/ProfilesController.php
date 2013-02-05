@@ -10,9 +10,15 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
 
     public function editAction()
     {
-        $typeId = $this->getParam('type');
         $allTypes = $this->_helper->db->getTable('UserProfilesType')->findAll();
+        $typeId = $this->getParam('type');
+        
+        //if no typeId, as happens on the public side, give the first profile typeId
+        if(!$typeId) {
+            $typeId = $allTypes['0']->id;
+        }
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
+        
         $userId = $this->_getParam('id');
         if($userId) {
             $user = $this->_helper->db->getTable('User')->find($userId);
@@ -21,6 +27,8 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
             $userId = $user->id;            
         }      
         $this->view->user = $user; 
+        
+
         $userProfile = $this->_helper->db->getTable()->findByUserIdAndTypeId($userId, $typeId);
         if(!$userProfile) {
             $userProfile = new UserProfilesProfile();

@@ -34,7 +34,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 <p class="user-profiles-profile-description">
     <?php echo $profile_type->description; ?>
 </p>
-    <?php echo element_form($profile_type->getElements(), $profile);?>
+    <?php echo element_form($profile_type->Elements, $profile);?>
 </section>
 
 <section class="three columns omega">
