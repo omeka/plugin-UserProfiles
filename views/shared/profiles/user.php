@@ -16,12 +16,12 @@ echo head($head);
     <h1><?php echo $head['title']; ?></h1>
 <?php if(is_allowed('UserProfiles_Profile', 'editOwn')): ?>
 	<p>
-	<?php user_profiles_link_to_profile_edit($this->user); ?>
+	    <?php echo link_to($profiles[0], 'edit', 'Edit profile', array(), array('id'=>$user->id) ); ?>
 	</p>
 <?php endif; ?>
 <?php if(empty($profiles) && is_allowed('UserProfiles_Profile', 'editOwn')): ?>
 
-<p><?php echo is_allowed('UserProfiles_Profile', 'editOwn') ? "You have" : $this->user->username . " has"; ?> not filled out a profile yet.</p>
+<p><?php echo is_allowed('UserProfiles_Profile', 'editOwn') ? "You have" : $user->username . " has"; ?> not filled out a profile yet.</p>
 <?php endif; ?>
 
 <?php foreach($profiles as $profile): ?>

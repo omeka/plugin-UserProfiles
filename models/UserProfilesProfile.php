@@ -727,4 +727,12 @@ SQL
     {
         return 'UserProfiles_Profile';
     }
+    
+    public function getRecordUrl($action = 'user')
+    {
+        $user = $this->getOwner();
+        $base = is_admin_theme() ? ADMIN_BASE_URL : PUBLIC_BASE_URL;
+        $url = "$base/user-profiles/profiles/$action/id/{$user->id}";
+        return $url;
+    }
 }

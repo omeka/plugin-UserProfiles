@@ -1,5 +1,7 @@
 <?php
 
+define('USER_PROFILES_DIR', dirname(__FILE__) );
+
 class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
 {
 

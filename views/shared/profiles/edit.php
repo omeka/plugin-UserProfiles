@@ -1,67 +1,14 @@
 <?php
 queue_css_file('profiles');
 queue_css_file('skeleton');
-
-$css = "
-.field label {
-  clear: left;
-  float: left;
-  font-weight: bold;
-  line-height: 1.5em;
-  margin: 0 0 10px;
-  min-width: 120px;
+if(!is_admin_theme()) {
+    queue_css_file('admin-theme');
 }
-
-.field input[type='submit'] {
-    display:block;
-}
-
-#section-nav, #section-nav ul {
-  list-style-type: none;
-  margin: -20px 0 16px;
-  padding: 0;
-}
-
-#section-nav li {
-    display: inline-block;
-}
-
-#section-nav li.active {
-    font-weight: bold;
-}
-
-.inputs .input-block {
-  margin: 0 0 20px;
-}
-
-.input-block {
-    overflow:auto;
-
-}
-
-.inputs textarea {
-    -moz-box-sizing: border-box;
-    width: 100%;
-}
-textarea {
-    -moz-box-sizing: border-box;
-    border: 1px solid #D8D8D8;
-    border-radius: 0 0 0 0;
-    box-shadow: 0 0 0.375em #D6D6D6 inset;
-    color: #666666;
-    font-size: 14px;
-    padding: 5px 10px;
-    width: 100%;
-}
-
-
-";
 
 queue_js_file('admin-globals');
 queue_js_file('tiny_mce', 'javascripts/vendor/tiny_mce');
 queue_js_file('elements');
 
-queue_css_string($css);
 $head = array('title' => 'Edit Profile', 'content_class' => 'horizontal-nav');
 echo head($head);
 
@@ -102,7 +49,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 </ul>
 <p class='warning'>Save changes before moving to edit a new profile type.</p>
 <p>
-    <?php user_profiles_link_to_profile($user, $user->username . "'s public profile"); ?>
+    <?php echo link_to($userprofilesprofile, 'user', 'View profile'); ?>
 </p>
 <?php echo flash(); ?>
 

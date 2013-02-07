@@ -11,17 +11,13 @@ jQuery(document).ready(function () {
 <form action="" method="post">
     <section class="seven columns alpha">
         <fieldset id="type-information">
-            <h2><?php echo __('Profile Type Information'); ?></h2>
             <p class='explanation'>* <?php echo __('required field'); ?></p>
-                
-                
-                
             <div class="field">
                 <div class="two columns alpha">
-                    <label><?php echo __("Name"); ?></label>
+                    <label><?php echo __("Name"); ?> *</label>
                 </div>
                 <div class="inputs five columns omega">
-                    <p><?php echo __('The name of the profile type'); ?>
+                    <p class='explanation'><?php echo __('The name of the profile type'); ?></p>
                     <div class="input-block">
                     <?php echo $this->formText('name', $profileType->label, array(
                             'required' => true,
@@ -35,10 +31,10 @@ jQuery(document).ready(function () {
                         
             <div class="field">
                 <div class="two columns alpha">
-                    <label><?php echo __('Description'); ?></label>    
+                    <label><?php echo __('Description'); ?> *</label>    
                 </div>
                 <div class="inputs five columns omega">
-                    <p class="explanation"><?php echo __('The description of the item type.'); ?></p>
+                    <p class="explanation"><?php echo __('The description of the profile type.'); ?></p>
                     <div class="input-block">     
                     <?php echo $this->formTextarea('description', $profileType->description, array(
                             'cols' => 50,
