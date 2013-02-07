@@ -43,8 +43,8 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
             fire_plugin_hook('user_profiles_save', array('post'=>$_POST, 'profile'=>$userProfile, 'type'=>$profileType));
             //$this->redirect('user-profiles/profiles/user/id/'. $userId);
         }
-        $this->view->profile = $userProfile;
-        $this->view->profile_type = $profileType;
+        $this->view->userprofilesprofile = $userProfile;
+        $this->view->userprofilestype = $profileType;
         $this->view->profile_types = $allTypes;
     }
 
@@ -85,4 +85,25 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
         $userProfiles = $this->_helper->db->getTable()->findByUserId($userId, true);
         $this->view->profiles = $userProfiles;
     }
+    
+    public function elementFormAction()
+    {
+        $elementId = (int)$_POST['element_id'];
+        $recordType = $_POST['record_type'];
+        $recordId  = (int)$_POST['record_id'];
+         
+        // Re-index the element form posts so that they are displayed in the correct order
+        // when one is removed.
+        $_POST['Elements'][$elementId] = array_merge($_POST['Elements'][$elementId]);
+    
+        $element = $this->_helper->db->getTable('Element')->find($elementId);
+        $record = $this->_helper->db->getTable($recordType)->find($recordId);
+    
+        if (!$record) {
+            $record = new $recordType;
+        }
+    
+        $this->view->assign(compact('element', 'record'));
+    }    
+    
 }
