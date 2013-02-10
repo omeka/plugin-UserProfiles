@@ -4,7 +4,7 @@ if(!is_admin_theme()) {
     queue_css_file('skeleton');
     queue_css_file('admin-theme');
 }
-
+queue_js_file('admin-globals');
 $user = $profiles[0]->getOwner();
 
 $head = array('title' => "User Profile | " . $user->name,
@@ -12,7 +12,14 @@ $head = array('title' => "User Profile | " . $user->name,
 echo head($head); 
 
 ?>
-
+<script type="text/javascript" charset="utf-8">
+//<![CDATA[
+// TinyMCE hates document.ready.
+jQuery(window).load(function () {
+    Omeka.saveScroll();
+});
+//]]>
+</script>
 <?php if(!is_admin_theme()) :?>
 <div class="container container-twelve">
 <?php endif;?>
