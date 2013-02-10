@@ -50,9 +50,6 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 ?>
 </ul>
 <p class='warning'>Save changes before moving to edit a new profile type.</p>
-<p>
-    <?php echo link_to($userprofilesprofile, 'user', 'View profile'); ?>
-</p>
 <?php echo flash(); ?>
 
 <div id="primary" class="ten columns alpha">
@@ -73,7 +70,8 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <section class="three columns omega">
     <div id='save' class='panel'>
-        <input type="submit" value='Save Changes to <?php echo $userprofilestype->label; ?>' name='submit' class='big green button'/>    
+        <input type="submit" value='Save Changes to <?php echo $userprofilestype->label; ?>' name='submit' class='big green button'/>
+        <?php echo link_to($userprofilesprofile, 'user', 'View profile', array('class'=>'big blue button')); ?>    
     </div>
 </section>
 </form>

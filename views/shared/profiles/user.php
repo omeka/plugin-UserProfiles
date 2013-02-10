@@ -22,19 +22,15 @@ echo head($head);
 <?php echo flash(); ?>
     
     <h1><?php echo $head['title']; ?></h1>
-<?php if(is_allowed('UserProfiles_Profile', 'editOwn')): ?>
-	<p>
-	    <?php echo link_to($profiles[0], 'edit', 'Edit profile', array(), array('id'=>$user->id) ); ?>
-	</p>
-<?php endif; ?>
+
 <?php if(empty($profiles) && is_allowed('UserProfiles_Profile', 'editOwn')): ?>
 
 <p><?php echo is_allowed('UserProfiles_Profile', 'editOwn') ? "You have" : $user->username . " has"; ?> not filled out a profile yet.</p>
 <?php endif; ?>
-
+<section class="seven columns alpha">
 <?php foreach($profiles as $profile): ?>
 <?php $type = $profile->getProfileType();?>
-<div class="user-profiles-profile">
+
     <div class="element-set">
         <h2><?php echo html_escape(__($type->label)); ?></h2>
         <?php foreach($profile->getElements() as $element):?>
@@ -69,12 +65,17 @@ echo head($head);
     </div><!-- end element-set -->
 
 <?php endforeach; ?>
-<?php // echo all_element_texts($profile); ?>
-</div>
+</section>
 
 <?php fire_plugin_hook('user_profiles_append_to_user_page', array($this->user) ); ?>
+<?php if(is_allowed('UserProfiles_Profile', 'editOwn')): ?>
 
-
+<section class="three columns omega">
+    <div id='save' class='panel'>
+        <?php echo link_to($profiles[0], 'edit', 'Edit profile', array('class'=>'big green button'), array('id'=>$user->id) ); ?>    
+    </div>
+</section>
+<?php endif; ?>
 <!--  end primary -->
 </div>
 
