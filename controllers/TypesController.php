@@ -35,13 +35,19 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $elementDescriptionName = $stem . '[description]';
         $elementOrderName = $stem . '[order]';
     
-        $this->view->assign(array('element_name_name' => $elementNameName,
+        $elementData = array('element_name_name' => $elementNameName,
                 'element_name_value' => $elementName,
                 'element_description_name' => $elementDescriptionName,
                 'element_description_value' => $elementDescription,
                 'element_order_name' => $elementOrderName,
                 'element_order_value' => $elementOrder,
-        ));
+        );
+        $multistem = "new-multi[$elementTempId]";
+        $type = $this->getParam('type');
+        $elementData['options'] = $stem . "[options]";
+        $elementData['type'] = $stem . "[type]";
+        $elementData['raw_type'] = $type;
+        $this->view->assign($elementData);
     }
     
     
@@ -89,6 +95,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $this->_elementSet = $profileType->ElementSet;
             $elementInfos = $this->_getElementInfos();
             $profileType->setElementInfos($elementInfos);
+            $multiInfos = $this->_getMultiElementInfos();
+            $profileType->setMultiElementInfos($multiInfos);
             if($profileType->save() ) {
                 $this->_helper->flashMessenger(__('The profile type ' . $profileType->label . ' was successfully edited.'), 'success');
             } else {
@@ -146,6 +154,46 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         return array_map('trim', explode("\n", $values));
     }
 
+    protected function _getMultiElementInfos()
+    {
+        $multiElementTable = $this->_helper->db->getTable('UserProfilesMultiElement');
+        if(isset($_POST['multielements'])) {
+            foreach($_POST['multielements'] as $elementId=>$info) {
+                $multiInfos[] = array(
+                        'multielement' => $multiElementTable->find($elementId),
+                        'order' => $info['order'],
+                        'description' => $info['description'],
+                        'options' => $info['options']
+                        
+                        );
+            }
+        }
+        
+        $newElements = $_POST['new-elements'];
+        foreach ($newElements as $tempId => $info) {
+            if (empty($info['name']) || !isset($info['type'])) {
+                continue;
+            }
+        
+            $multiEl = new UserProfilesMultiElement();
+            $multiEl->element_set_id = $this->_elementSet->id;
+            $multiEl->setName($info['name']);
+            $multiEl->setDescription($info['description']);
+            $multiEl->order = $info['order'];
+            $multiEl->type = $info['type'];
+            $multiInfos[] = array(
+                    'multielement' => $multiEl,
+                    'order' => $info['order'],
+                    'description' => $info['description'],
+                    'options' => $info['options']
+                    
+                    
+                    );
+        
+        }
+        return $multiInfos;        
+    }
+    
     protected function _getElementInfos()
     {
         $elementTable = $this->_helper->db->getTable('Element');   
@@ -155,6 +203,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                 $elementInfos[] = array(
                         'element' => $elementTable->find($elementId),
                         'temp_id' => null,
+                        'description' => $info['description'],
                         'order' => $info['order']
                 );
             }
@@ -162,7 +211,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         
         $newElements = $_POST['new-elements'];
         foreach ($newElements as $tempId => $info) {
-            if (empty($info['name'])) {
+            debug(print_r($info, true));
+            if (empty($info['name']) || isset($info['type'])) {
                 continue;
             }
         

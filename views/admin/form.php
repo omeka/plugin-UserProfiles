@@ -5,6 +5,29 @@ jQuery(document).ready(function () {
     var changeExistingElementUrl = '<?php echo admin_url('item-types/change-existing-element'); ?>';
 <!-- somewhat cheesily reusing the javascript from ItemTypes. we never reuse for profile types, so use the url twice !>
     Omeka.ItemTypes.manageItemTypes(addNewRequestUrl, addNewRequestUrl, changeExistingElementUrl);
+
+    jQuery('#add-element').unbind('click');
+
+    jQuery('#add-element').click( function (event) {
+        event.preventDefault();
+        var elementCount = jQuery('#item-type-elements li').length;
+        var typeValue = jQuery('input[name=add-element-type]:checked').val();
+        var requestUrl;
+        requestUrl = addNewRequestUrl;
+        jQuery.ajax({
+            url: requestUrl,
+            dataType: 'text',
+            data: {elementCount: elementCount, type: typeValue},
+            success: function (responseText) {
+                var response = responseText || 'no response text';
+                jQuery('.add-new').parent().before(response);
+            },
+            error: function () {
+                alert('Unable to get a new element.');
+            }
+        });
+    });    
+    
 });
 </script>
 
@@ -52,9 +75,10 @@ jQuery(document).ready(function () {
         <ul class="sortable">
         <?php foreach ($profileType->Elements as $element): ?>
             <li class="element">
+            <?php if(get_class($element) == 'Element'): ?>
             <div class="sortable-item">
                 <?php echo __($element->name); ?>
-                <?php //echo $this->formHidden("elements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
+                <?php echo $this->formHidden("elements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
                 
                 <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="#" class="undo-delete"><?php echo __('Undo'); ?></a>
                 <a id="remove-element-link-<?php echo html_escape($element->id); ?>" href="#" class="delete-element"><?php echo __('Remove'); ?></a>
@@ -65,6 +89,25 @@ jQuery(document).ready(function () {
                 <?php echo $this->formTextarea("elements[{$element->id}][description]", $element->description, array('rows' => '3')); ?>
                 <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
             </div>
+            <?php else: ?>
+            <div class="sortable-item">
+                <?php echo __($element->name); ?>
+                <?php echo $this->formHidden("multielements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
+                
+                <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="#" class="undo-delete"><?php echo __('Undo'); ?></a>
+                <a id="remove-element-link-<?php echo html_escape($element->id); ?>" href="#" class="delete-element"><?php echo __('Remove'); ?></a>
+                <?php echo $this->formHidden("multielements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
+            </div>
+            <div class="drawer-contents">
+                <label for="<?php echo "multielements[{$element->id}][description]"; ?>"><?php echo __('Description'); ?></label>
+                <?php echo $this->formTextarea("multielements[{$element->id}][description]", $element->description, array('rows' => '3')); ?>
+                <label for="<?php echo "multielements[{$element->id}][options]"; ?>"><?php echo __('Allowed values, comma-separated'); ?></label>
+                <?php echo $this->formTextarea("multielements[{$element->id}][options]", implode(',', $element->getOptions() ), array('rows' => '3')); ?>
+                <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
+            </div>            
+            
+            
+            <?php endif;?>
             </li>
         <?php endforeach; ?>
         <?php fire_plugin_hook('admin_element_sets_form', array('element_set' => $profileType->ElementSet, 'view' => $this)); ?>            
@@ -73,7 +116,14 @@ jQuery(document).ready(function () {
                         <div class="add-new">
                             <?php echo __('Add Element'); ?>
                         </div>
-                        <div class="drawer-contents">
+                        <div >
+                            <p>
+                                <input type="radio" name="add-element-type" value="text" checked="checked" /><?php echo __('Text'); ?>
+                                <input type="radio" name="add-element-type" value="radio" /><?php echo __('Radio'); ?>
+                                <input type="radio" name="add-element-type" value="checkbox" /><?php echo __('Checkbox'); ?>
+                                <input type="radio" name="add-element-type" value="select" /><?php echo __('Select (Single Option)'); ?>
+                                <input type="radio" name="add-element-type" value="multiselect" /><?php echo __('Select (Multiple Options)'); ?>
+                            </p>
                             <button id="add-element" name="add-element"><?php echo __('Add Element'); ?></button>            
                         </div>
                     </li>

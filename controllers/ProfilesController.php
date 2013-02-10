@@ -10,6 +10,7 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
 
     public function editAction()
     {
+        $this->view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
         $allTypes = $this->_helper->db->getTable('UserProfilesType')->findAll();
         $typeId = $this->getParam('type');
         

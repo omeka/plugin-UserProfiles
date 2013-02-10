@@ -8,6 +8,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public $element_set_id;
     private $_elements;
     private $_elementInfos;
+    private $_multiInfos;
     protected $_related = array('ElementSet' => 'getElementSet', 'Elements'=>'getAllElements');    
     
     public function init()
@@ -21,6 +22,14 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
             $element->order = $elementInfo['order'];
             $element->save();
         }
+        
+        foreach($this->_multiInfos as $multiInfo) {
+            $multiEl = $multiInfo['multielement'];
+            $multiEl->order = $multiInfo['order'];
+            $multiEl->setOptions($multiInfo['options']);
+            $multiEl->save();
+        }
+            
     }
     
     public function getElementSet()
@@ -28,9 +37,15 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
         return $this->_db->getTable('ElementSet')->find($this->element_set_id);
     }
     
+    /*
+     * Do a weird splice of regular elements and UserProfilesMultiElements
+     */
+    
     public function getAllElements()
     {
-        return $this->ElementSet->getElements();
+        $elements = $this->ElementSet->getElements();
+        $multiElements = $this->_db->getTable('UserProfilesMultiElement')->findBy(array('element_set_id'=>$this->element_set_id));
+        return array_merge($elements, $multiElements); 
     }
     
     public function setElementInfos($elementInfos)
@@ -38,7 +53,10 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
         $this->_elementInfos = $elementInfos;
     }
     
-    
+    public function setMultiElementInfos($multiInfos)
+    {
+        $this->_multiInfos = $multiInfos;
+    }
     
     private function _loadElements()
     {

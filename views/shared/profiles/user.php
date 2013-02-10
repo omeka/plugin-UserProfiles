@@ -1,4 +1,9 @@
 <?php
+queue_css_file('profiles');
+if(!is_admin_theme()) {
+    queue_css_file('skeleton');
+    queue_css_file('admin-theme');
+}
 
 $user = $profiles[0]->getOwner();
 
@@ -8,6 +13,9 @@ echo head($head);
 
 ?>
 
+<?php if(!is_admin_theme()) :?>
+<div class="container container-twelve">
+<?php endif;?>
 
 
 <div id="primary">
@@ -27,13 +35,48 @@ echo head($head);
 <?php foreach($profiles as $profile): ?>
 <?php $type = $profile->getProfileType();?>
 <div class="user-profiles-profile">
-<?php echo all_element_texts($profile); ?>
-</div>
+    <div class="element-set">
+        <h2><?php echo html_escape(__($type->label)); ?></h2>
+        <?php foreach($profile->getElements() as $element):?>
+        <div class="element">
+            <div class="field two columns alpha">
+                <label><?php echo html_escape(__($element->name)); ?></label>
+            </div>
+            <?php $i = 0; ?>
+            <?php if(get_class($element) == 'Element'): ?>
+                <?php foreach ($profile->getElementTextsByRecord($element) as $text):
+                $i++;
+                if( $i == 1): ?>
+                    <div class="element-text five columns omega"><p><?php echo $text->text; ?></p></div>
+                <?php else: ?>
+                    <div class="element-text five columns offset-by-two"><p><?php echo $text->text; ?></p></div>
+                <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?php $valueObject = $profile->getValueRecordForMulti($element);?>
+                <div class="element-text five columns omega">
+                    <?php if($valueObject): ?>
+                    <?php $values = $valueObject->getValuesForDisplay(); ?>
+                    <?php foreach($values as $value): ?>
+                    <p><?php echo $value ?></p>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            
+            <?php endif; ?>
+        </div><!-- end element -->
+        <?php endforeach; ?>
+    </div><!-- end element-set -->
 
 <?php endforeach; ?>
+<?php // echo all_element_texts($profile); ?>
+</div>
+
 <?php fire_plugin_hook('user_profiles_append_to_user_page', array($this->user) ); ?>
 
 
 <!--  end primary -->
+</div>
+
 </div>
 <?php echo foot(); ?>

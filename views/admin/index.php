@@ -6,7 +6,7 @@ echo head($head);
 <?php echo flash(); ?>
 
 <?php if(is_allowed('UserProfiles_Type', 'add')): ?>
-<p id="add-type" class="add-button"><a class="add" href="<?php echo html_escape(url('user-profiles/types/add')); ?>">Add a Profile Type</a></p>
+<p id="add-type" class="add-button"><a class="add green button" href="<?php echo html_escape(url('user-profiles/types/add')); ?>">Add a Profile Type</a></p>
 <?php endif; ?>
 <div id="primary">
 

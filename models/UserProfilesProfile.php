@@ -104,6 +104,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     {
         parent::afterSave($args);
         $this->saveElementTexts();       
+        $this->saveMultiElementValues();
     }
     
     /**
@@ -735,4 +736,36 @@ SQL
         $url = "$base/user-profiles/profiles/$action/id/{$user->id}";
         return $url;
     }
+    
+    public function getValuesForMulti($element)
+    {
+        $valuesObject = $this->getTable('UserProfilesMultiValue')->findByMultiElement($element);
+        if($valuesObject) {
+            return $valuesObject->getValues();
+        } 
+        return array();
+        
+        
+    }
+    
+    public function getValueRecordForMulti($element)
+    {
+        return $this->getTable('UserProfilesMultiValue')->findByMultiElement($element);
+    }
+    
+    public function saveMultiElementValues()
+    {
+        foreach($_POST['MultiElements'] as $multiElementId=>$values) {
+            $multiElementValue = $this->getTable('UserProfilesMultiValue')->findByMultiElement($multiElementId);
+            if(!$multiElementValue) {
+                $multiElementValue = new UserProfilesMultiValue();
+                $multiElementValue->profile_id = $this->id;
+                $multiElementValue->profile_type_id = $this->type_id;
+                $multiElementValue->multi_id = $multiElementId;    
+            } 
+            $multiElementValue->setValues($values);
+            $multiElementValue->save();
+        }
+    }
+   
 }

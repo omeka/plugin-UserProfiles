@@ -34,8 +34,10 @@ jQuery(document).bind('omeka:elementformload', function (event) {
 });
 //]]>
 </script>
-
+<?php if(!is_admin_theme()) :?>
 <div class="container container-twelve">
+<?php endif;?>
+
 <ul id='section-nav' class='navigation tabs'>
 <?php 
 
@@ -63,7 +65,10 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 <p class="user-profiles-profile-description">
     <?php echo $userprofilestype->description; ?>
 </p>
-    <?php echo element_form($userprofilestype->Elements, $userprofilesprofile);?>
+    <?php foreach($userprofilestype->Elements as $element):?>
+    <?php echo $this->profileElementForm($element, $userprofilesprofile); ?>
+    <?php endforeach; ?>
+    <?php // echo element_form($userprofilestype->Elements, $userprofilesprofile); ?>
 </section>
 
 <section class="three columns omega">
@@ -73,5 +78,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 </section>
 </form>
 </div>
+<?php if(!is_admin_theme()) :?>
 </div>
+<?php endif; ?>
 <?php echo foot(); ?>

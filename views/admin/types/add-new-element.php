@@ -25,5 +25,13 @@
             )
         );
         ?>
+        
+        <?php if($raw_type != 'text') {
+            echo $this->formTextarea($options, '', array('placeholder'=>__("Allowed Values, comma-separated"), 'rows'=>'3', 'cols'=>'30'));
+            echo $this->formHidden($type, $raw_type);
+        }
+        ?>
+        
+        
     </div>
 </li>
