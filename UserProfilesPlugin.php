@@ -58,8 +58,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
               `element_id` int(10) unsigned NOT NULL,
               `order` int(10) unsigned DEFAULT NULL,
               PRIMARY KEY (`id`),
-              UNIQUE KEY `item_type_id_element_id` (`profile_type_id`,`element_id`),
-              KEY `item_type_id` (`item_type_id`),
+              UNIQUE KEY `profile_type_id_element_id` (`profile_type_id`,`element_id`),
+              KEY `profile_type_id` (`item_type_id`),
               KEY `element_id` (`element_id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;        
         ";
