@@ -62,6 +62,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
               `comment` text COLLATE utf8_unicode_ci,
               PRIMARY KEY (`id`)
             ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A parallel to Elements for checkboxes, radio, selects ' ;      
+
         ";
         
         $db->query($sql);
