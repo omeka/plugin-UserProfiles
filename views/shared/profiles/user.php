@@ -1,9 +1,10 @@
 <?php
-queue_css_file('profiles');
+
 if(!is_admin_theme()) {
     queue_css_file('skeleton');
     queue_css_file('admin-theme');
 }
+queue_css_file('profiles');
 queue_js_file('admin-globals');
 $head = array('title' => "User Profile | " . $user->name,
               'bodyclass' => '');
@@ -19,7 +20,7 @@ jQuery(window).load(function () {
 //]]>
 </script>
 <?php if(!is_admin_theme()) :?>
-<div class="container container-twelve">
+<div class="container-twelve">
 <?php endif;?>
 
 
@@ -66,6 +67,8 @@ jQuery(window).load(function () {
                     <?php foreach($values as $value): ?>
                     <p><?php echo $value ?></p>
                     <?php endforeach; ?>
+                    <?php else: ?>
+                    <p></p>
                     <?php endif; ?>
                 </div>
             
