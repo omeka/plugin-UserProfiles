@@ -24,7 +24,6 @@ class Table_UserProfilesProfile extends Omeka_Db_Table
                     'object_record_type' => 'UserProfilesProfile',
                     );
         $profiles = $db->getTable('RecordRelationsRelation')->findObjectRecordsByParams($params, array(), array('type_id'=>$typeId));
-        $profile = $profiles[0];
         if(empty($profiles)) {
             return false;
         }        

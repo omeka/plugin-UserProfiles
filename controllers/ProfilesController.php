@@ -79,10 +79,14 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
     public function userAction()
     {
         $userId = $this->_getParam('id');
-        if(!$userId) {
+        if($userId) {
+            $user = $this->_helper->db->getTable('User')->find($userId);
+        } else {
             $user = current_user();
-            $userId = $user->id;
+            $userId = $user->id;            
         }
+        
+        $this->view->user = $user;
         $userProfiles = $this->_helper->db->getTable()->findByUserId($userId, true);
         $this->view->profiles = $userProfiles;
     }

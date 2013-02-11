@@ -36,7 +36,6 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 `owner_id` int(10) unsigned NOT NULL ,
                 `added` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                 `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-    			`values` text  ,
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
@@ -46,40 +45,42 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
                 `label` text,
                 `description` text,
-    			`fields` text ,
+    			`element_set_id` int(10) unsigned NOT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
         
         $sql = "
-            CREATE TABLE IF NOT EXISTS `$db->UserProfilesTypeElement` (
+            CREATE TABLE IF NOT EXISTS `$db->UserProfilesMultiElement` (
               `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-              `profile_type_id` int(10) unsigned NOT NULL,
-              `element_id` int(10) unsigned NOT NULL,
-              `order` int(10) unsigned DEFAULT NULL,
-              PRIMARY KEY (`id`),
-              UNIQUE KEY `item_type_id_element_id` (`profile_type_id`,`element_id`),
-              KEY `item_type_id` (`item_type_id`),
-              KEY `element_id` (`element_id`)
-            ) ENGINE=MyISAM DEFAULT CHARSET=utf8;        
+              `name` text COLLATE utf8_unicode_ci NOT NULL,
+              `description` text COLLATE utf8_unicode_ci NOT NULL,
+              `type` enum('radio','select','multiselect','checkbox') COLLATE utf8_unicode_ci NOT NULL,
+              `options` text COLLATE utf8_unicode_ci NOT NULL,
+              `element_set_id` int(10) unsigned NOT NULL,
+              `order` int(11) DEFAULT NULL,
+              `comment` text COLLATE utf8_unicode_ci,
+              PRIMARY KEY (`id`)
+            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A parallel to Elements for checkboxes, radio, selects ' ;      
         ";
         
         $db->query($sql);
 
         $sql = "
-            INSERT IGNORE INTO `$db->ElementSet` (
-            `id` ,
-            `record_type` ,
-            `name` ,
-            `description`
-            )
-            VALUES (
-            NULL , 'UserProfilesType', 'User Profiles Elements', 'Elements to use with User Profiles'
-            );        
+            CREATE TABLE IF NOT EXISTS `$db->UserProfilesMultiValue` (
+              `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `profile_type_id` int(10) unsigned NOT NULL,
+              `profile_id` int(10) unsigned NOT NULL,
+              `values` text COLLATE utf8_unicode_ci NOT NULL,
+              `multi_id` int(10) unsigned NOT NULL,
+              PRIMARY KEY (`id`)
+            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;            
+        
         
         ";
         
         $db->query($sql);
+  
         
     }
 

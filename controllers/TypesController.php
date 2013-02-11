@@ -68,6 +68,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $profileType->element_set_id = $elementSet->id;
             $elementInfos = $this->_getElementInfos();
             $profileType->setElementInfos($elementInfos);
+            $multiInfos = $this->_getMultiElementInfos();
+            $profileType->setMultiElementInfos($multiInfos);
             if($profileType->save() ) {
 	            $this->_helper->flashMessenger('The profile type was successfully added.', 'success');
 	            $this->redirect('user-profiles');

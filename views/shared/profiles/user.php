@@ -5,8 +5,6 @@ if(!is_admin_theme()) {
     queue_css_file('admin-theme');
 }
 queue_js_file('admin-globals');
-$user = $profiles[0]->getOwner();
-
 $head = array('title' => "User Profile | " . $user->name,
               'bodyclass' => '');
 echo head($head); 
@@ -33,6 +31,11 @@ jQuery(window).load(function () {
 <?php if(empty($profiles) && is_allowed('UserProfiles_Profile', 'editOwn')): ?>
 
 <p><?php echo is_allowed('UserProfiles_Profile', 'editOwn') ? "You have" : $user->username . " has"; ?> not filled out a profile yet.</p>
+<?php echo link_to('user-profiles/profile', 'edit', __('Fill out your profile'), array(), array('id'=>current_user()->id)); ?>
+
+<a href="<?php echo url('user-profiles/profiles/edit/id' . current_user()->id);   ?>">Edit</a>
+
+
 <?php endif; ?>
 <section class="seven columns alpha">
 <?php foreach($profiles as $profile): ?>
@@ -75,7 +78,7 @@ jQuery(window).load(function () {
 </section>
 
 <?php fire_plugin_hook('user_profiles_append_to_user_page', array($this->user) ); ?>
-<?php if(is_allowed('UserProfiles_Profile', 'editOwn')): ?>
+<?php if(is_allowed('UserProfiles_Profile', 'editOwn') && !empty($profiles)): ?>
 
 <section class="three columns omega">
     <div id='save' class='panel'>

@@ -62,6 +62,9 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     
     public function getAllElements()
     {
+        if(!$this->exists()) {
+            return array();   
+        }
         $elements = $this->ElementSet->getElements();
         $multiElements = $this->_db->getTable('UserProfilesMultiElement')->findBy(array('element_set_id'=>$this->element_set_id));
         $allElements = array_merge($elements, $multiElements);
