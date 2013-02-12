@@ -16,3 +16,13 @@ div.element-text > p {
 	margin-top: 0px;
 	
 }
+
+input.big, input.button, a.big, a.button {
+
+	margin: 10px auto;
+	width: 100% !important;
+	display: block;
+	text-align: center;
+	
+}
+

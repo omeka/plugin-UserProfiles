@@ -162,10 +162,11 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         if(isset($_POST['multielements'])) {
             foreach($_POST['multielements'] as $elementId=>$info) {
                 $multiInfos[] = array(
-                        'multielement' => $multiElementTable->find($elementId),
+                        'element' => $multiElementTable->find($elementId),
                         'order' => $info['order'],
                         'description' => $info['description'],
-                        'options' => $info['options']
+                        'options' => $info['options'],
+                        'required' => isset($info['required'])
                         
                         );
             }
@@ -173,6 +174,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         
         $newElements = $_POST['new-elements'];
         foreach ($newElements as $tempId => $info) {
+            //checking for type being set tells us whether it really is a multiinfo
             if (empty($info['name']) || !isset($info['type'])) {
                 continue;
             }
@@ -184,11 +186,11 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $multiEl->order = $info['order'];
             $multiEl->type = $info['type'];
             $multiInfos[] = array(
-                    'multielement' => $multiEl,
+                    'element' => $multiEl,
                     'order' => $info['order'],
                     'description' => $info['description'],
-                    'options' => $info['options']
-                    
+                    'options' => $info['options'],
+                    'required' => isset($info['required'])
                     
                     );
         
@@ -206,14 +208,14 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                         'element' => $elementTable->find($elementId),
                         'temp_id' => null,
                         'description' => $info['description'],
-                        'order' => $info['order']
+                        'order' => $info['order'],
+                        'required' => isset($info['required'])
                 );
             }
         }        
         
         $newElements = $_POST['new-elements'];
         foreach ($newElements as $tempId => $info) {
-            debug(print_r($info, true));
             if (empty($info['name']) || isset($info['type'])) {
                 continue;
             }
@@ -227,7 +229,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $elementInfos[] = array(
                     'element' => $element,
                     'temp_id' => $tempId,
-                    'order' => $info['order']
+                    'order' => $info['order'],
+                    'required' => isset($info['required'])
             );
         }        
         
@@ -291,6 +294,5 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         }        
         $this->view->elementInfos = $elementInfos;
     }
-    
     
 }

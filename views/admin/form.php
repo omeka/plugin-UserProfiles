@@ -1,4 +1,6 @@
-<?php echo js_tag('item-types'); ?>
+<?php echo js_tag('item-types'); 
+
+?>
 <script type="text/javascript">
 jQuery(document).ready(function () {
     var addNewRequestUrl = '<?php echo admin_url('user-profiles/types/add-new-element'); ?>';
@@ -10,7 +12,7 @@ jQuery(document).ready(function () {
 
     jQuery('#add-element').click( function (event) {
         event.preventDefault();
-        var elementCount = jQuery('#item-type-elements li').length;
+        var elementCount = jQuery('#element-list li').length;
         var typeValue = jQuery('input[name=add-element-type]:checked').val();
         var requestUrl;
         requestUrl = addNewRequestUrl;
@@ -85,6 +87,7 @@ jQuery(document).ready(function () {
                 <?php echo $this->formHidden("elements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
             </div>
             <div class="drawer-contents">
+                <label style="float:left;">Required</label><input type='checkbox' name=<?php echo "elements[{$element->id}][required]"; ?>  <?php echo $profileType->requiredElement($element) ? "checked='checked'" : ""; ?> />
                 <label for="<?php echo "elements[{$element->id}][description]"; ?>"><?php echo __('Description'); ?></label>
                 <?php echo $this->formTextarea("elements[{$element->id}][description]", $element->description, array('rows' => '3')); ?>
                 <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
@@ -99,6 +102,7 @@ jQuery(document).ready(function () {
                 <?php echo $this->formHidden("multielements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
             </div>
             <div class="drawer-contents">
+                <label style="float:left;">Required</label><input type='checkbox' name=<?php echo "multielements[{$element->id}][required]"; ?>  <?php echo $profileType->requiredElement($element) ? "checked='checked'" : ""; ?> />
                 <label for="<?php echo "multielements[{$element->id}][description]"; ?>"><?php echo __('Description'); ?></label>
                 <?php echo $this->formTextarea("multielements[{$element->id}][description]", $element->description, array('rows' => '3')); ?>
                 <label for="<?php echo "multielements[{$element->id}][options]"; ?>"><?php echo __('Allowed values, comma-separated'); ?></label>

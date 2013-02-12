@@ -1,6 +1,6 @@
 <?php
 queue_css_file('profiles');
-queue_css_file('skeleton');
+queue_css_file('admin-skeleton');
 if(!is_admin_theme()) {
     queue_css_file('admin-theme');
 }
@@ -65,7 +65,6 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <?php foreach($userprofilestype->Elements as $element):?>
     <?php echo $this->profileElementForm($element, $userprofilesprofile); ?>
     <?php endforeach; ?>
-    <?php // echo element_form($userprofilestype->Elements, $userprofilesprofile); ?>
 </section>
 
 <section class="three columns omega">

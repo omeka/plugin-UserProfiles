@@ -82,7 +82,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         
         $db->query($sql);
   
-        
+        set_option('user_profiles_required_elements', serialize(array()));
+        set_option('user_profiles_required_multielements', serialize(array()));
     }
 
     public function hookUninstall()

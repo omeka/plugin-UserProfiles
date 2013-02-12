@@ -11,6 +11,7 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
     
     public function profileElementForm(Element $element, Omeka_Record_AbstractRecord $record, $options = array())
     {
+
         $divWrap = isset($options['divWrap']) ? $options['divWrap'] : true;
         $extraFieldCount = isset($options['extraFieldCount']) ? $options['extraFieldCount'] : null;
         $isUserProfilesMultiElement = (get_class($element) == 'UserProfilesMultiElement') ? true : false;
@@ -67,7 +68,7 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
         $html .= '<div class="two columns alpha">';
         $html .= $components['label'];
         $html .= $components['add_input'];
-        $html .= '</div>'; // Close div //ya think?
+        $html .= '</div>';
         
         $html .= '<div class="inputs five columns omega">';
         $html .= $components['description'];
@@ -105,19 +106,7 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
             case 'select':
                 $html .= $this->view->formSelect($inputNameStem, $values, null, $options);
                 break;
-                
             default:
-                
-                
-            
-        }
-        
-        return $html;
-        //just still here for reference while I dev on this
-        for ($i=0; $i < $fieldCount; $i++) {
-            $html .= $this->view->elementInput(
-                    $this->_element, $this->_record, $i,
-                    $this->_getValueForField($i), $this->_getHtmlFlagForField($i));
         }
         return $html;
     }   
@@ -128,4 +117,21 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
         
         
     }
+    
+    protected function _getLabelComponent()
+    {
+        $requiredElements = unserialize(get_option('user_profiles_required_elements'));
+        $requiredMultiElements = unserialize(get_option('user_profiles_required_multielements'));
+        
+        if(in_array($this->_element->id, $requiredElements) || in_array($this->_element->id, $requiredMultiElements)) {
+            $required = " (Required)";
+        } else {
+            $required = '';
+        }
+        
+        
+        
+        return '<label>' . __($this->_getFieldLabel()) . $required . '</label>';
+    }    
+    
 }

@@ -6,49 +6,46 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public $label;
     public $description;
     public $element_set_id;
+    public $required_element_ids;
+    public $required_multielement_ids;
     private $_elements;
     private $_elementInfos;
     private $_multiInfos;
     protected $_related = array('ElementSet' => 'getElementSet', 'Elements'=>'getAllElements');    
     
-    public function init()
+    public function setArray($data)
     {
-        parent::init();        
+        $data['required_element_ids'] = unserialize($data['required_element_ids']);
+        $data['required_multielement_ids'] = unserialize($data['required_multielement_ids']);
+        parent::setArray($data);
     }
 
-    protected function afterSave($args) {
-        //need to run through setting all the data and order, then reorder elements before saving to avoid collisions
-        //first, set all the orders to null
-        $allExtantElements = $this->getAllElements();
-        foreach($allExtantElements as $element) {
-            $element->order = null;
-            $element->save();
-        }
-        
-        //then, run through the elements to rebuild order
-        $allElements = array();
+    protected function beforeSave($args) {
+        $this->required_element_ids = array();
+        $this->required_multielement_ids = array();
         foreach($this->_elementInfos as $elementInfo) {
             $element=$elementInfo['element'];
             $element->order = $elementInfo['order'];
-            $allElements[] = $element;
+            $element->description = $elementInfo['description'];
+            $element->save();
+            if($elementInfo['required']) {
+                $this->required_element_ids[] = $element->id;
+            }
+            
         }
         
         foreach($this->_multiInfos as $multiInfo) {
-            $multiEl = $multiInfo['multielement'];
+            $multiEl = $multiInfo['element'];
             $multiEl->order = $multiInfo['order'];
+            $multiEl->description = $multiInfo['description'];
             $multiEl->setOptions($multiInfo['options']);
-            $allElements[] = $multiEl;
+            $multiEl->save();
+            if($multiInfo['required']) {
+                $this->required_multielement_ids[] = $multiEl->id;
+            }            
         }
-        
-        //and make sure the orders are sequential
-        usort($allElements, array($this, '_sortElements'));
-        $order = 1;
-        foreach($allElements as $element) {
-            $element->order = $order;
-            $element->save();
-            $order++;
-        }
-        
+        $this->required_element_ids = serialize($this->required_element_ids);
+        $this->required_multielement_ids = serialize($this->required_multielement_ids);
     }
     
     public function getElementSet()
@@ -81,6 +78,20 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public function setMultiElementInfos($multiInfos)
     {
         $this->_multiInfos = $multiInfos;
+    }
+    
+    public function requiredElement($element)
+    {
+        return (in_array($element->id, $this->required_element_ids) || in_array($element->id, $this->required_multielement_ids));
+    }
+    
+    private function _sortElementInfos($a, $b)
+    {
+        if($a['order'] == $b['order']) {
+            return 0;
+        }
+        
+        return ($a['order'] < $b['order']) ? -1 : 1;        
     }
     
     private function _sortElements($a, $b)
