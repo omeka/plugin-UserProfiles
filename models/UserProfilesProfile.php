@@ -9,6 +9,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     public $owner_id;
     public $added;
     public $modified;
+    public $public;
 
     protected $namespace = SIOC;
     protected $subject_record_type = 'User';

@@ -143,12 +143,17 @@ jQuery(document).ready(function () {
     
     <section class="three columns omega">
         <div id="save" class="panel">
-        <?php if($profileType->exists()): ?>
-        <?php echo $this->formSubmit('submit', __('Save Changes'), array('class'=>'big green button')); ?>
-        <a class="big red button delete-confirm" href="/Omeka/admin/user-profiles/types/delete-confirm/id/1">Delete</a>
-        <?php else: ?>
-        <?php echo $this->formSubmit('submit', __('Add Profile Type'), array('class'=>'big green button')); ?>
-        <?php endif;?>
+            <?php if($profileType->exists()): ?>
+            <?php echo $this->formSubmit('submit', __('Save Changes'), array('class'=>'big green button')); ?>
+            <a class="big red button delete-confirm" href="/Omeka/admin/user-profiles/types/delete-confirm/id/<?php echo $profileType->id; ?>">Delete</a>
+            <?php else: ?>
+            <?php echo $this->formSubmit('submit', __('Add Profile Type'), array('class'=>'big green button')); ?>
+            <?php endif;?>
+            <div class="public">
+                <label for="public">Public:</label>        
+                <input type="hidden" value="0" name="public" />
+                <input type="checkbox" value="1" id="public" name="public" <?php echo  $profileType->public ? "checked='checked'" : ""; ?> />
+            </div>
         </div>
     </section>
 </form>

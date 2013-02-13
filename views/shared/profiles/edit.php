@@ -69,6 +69,11 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 <section class="three columns omega">
     <div id='save' class='panel'>
         <input type="submit" value='Save Changes to <?php echo $userprofilestype->label; ?>' name='submit' class='big green button'/>
+        <div class="public">
+            <label for="public">Public:</label> 
+            <input type="hidden" value="0" name="public" />
+            <input type="checkbox" value="1" id="public" name="public" <?php echo  $userprofilesprofile->public ? "checked='checked'" : ""; ?> />                    
+        </div>        
     </div>
 </section>
 </form>

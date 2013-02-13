@@ -8,6 +8,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public $element_set_id;
     public $required_element_ids;
     public $required_multielement_ids;
+    public $public;
     private $_elements;
     private $_elementInfos;
     private $_multiInfos;
@@ -85,6 +86,11 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     {
         return (in_array($element->id, $this->required_element_ids) || in_array($element->id, $this->required_multielement_ids));
     }    
+    
+    protected function beforeDelete()
+    {
+        $this->getElementSet()->delete();   
+    }
     
     private function _sortElementInfos($a, $b)
     {

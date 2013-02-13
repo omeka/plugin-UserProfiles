@@ -94,7 +94,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $this->_setViewElementInfos($profileType);
         // Handle edit vocabulary form.
         if ($this->_getParam('submit')) {
-
+            $profileType->public = $this->_getParam('public');
             $profileType->label = $this->_getParam('name');
             $profileType->description = $this->_getParam('description');
             $this->_elementSet = $profileType->ElementSet;

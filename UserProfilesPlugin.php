@@ -36,6 +36,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 `owner_id` int(10) unsigned NOT NULL ,
                 `added` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                 `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+                `public` tinyint(1) NOT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
@@ -48,6 +49,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     			`element_set_id` int(10) unsigned NOT NULL,
     			`required_element_ids` text NOT NULL,
                 `required_multielement_ids` text NOT NULL,
+                `public` tinyint(1) NOT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
@@ -121,8 +123,11 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $user = current_user();
         $firstProfileTypes = $this->_db->getTable('UserProfilesType')->findBy(array(), 1);
-        $type = $firstProfileTypes[0];
-        $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}?type={$type->id}"));
+        if(!empty($firstProfileTypes)) {
+            $type = $firstProfileTypes[0];
+            $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}?type={$type->id}"));
+                        
+        }
         return $links;
     }
     
