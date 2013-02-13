@@ -46,6 +46,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 `label` text,
                 `description` text,
     			`element_set_id` int(10) unsigned NOT NULL,
+    			`required_element_ids` text NOT NULL,
+                `required_multielement_ids` text NOT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
@@ -89,11 +91,23 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     public function hookUninstall()
     {
         $db = get_db();
+        //Delete all elements, elementsets, and elementtexts UP is using
+        $types = $db->getTable('UserProfilesType')->findAll();
+        foreach($types as $type) {
+            $type->getElementSet()->delete();
+        }
+        
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesProfile` ";
         $db->query($sql);
 
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesType` ";
         $db->query($sql);
+        
+        $sql = "DROP TABLE IF EXISTS `$db->UserProfilesMultiValue` ";
+        $db->query($sql);
+
+        $sql = "DROP TABLE IF EXISTS `$db->UserProfilesMultiElement` ";
+        $db->query($sql);        
     }
 
     public function filterAdminNavigationMain($tabs)

@@ -9,16 +9,20 @@ class UserProfilesMultiElement extends Element
     public function getOptions()
     {
         return unserialize($this->options);
-        
     }
     
     public function setOptions($options)
     {
+        if(empty($options)) {
+            $this->options = serialize($options);
+            return false;
+        }
         if(!is_array($options)) {
             $options = explode(',', $options);
         }
         $options = array_map('trim', $options);
         $this->options = serialize($options);
+        return true;
     }
     
 }

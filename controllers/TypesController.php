@@ -3,6 +3,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
 {
 
     protected $_elementSet;
+    private $_profileType;
     
     public function init()
     {
@@ -55,6 +56,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
     {
         // Handle edit vocabulary form.
         $profileType = new UserProfilesType();
+        $this->_profileType = $profileType;
         $this->view->profileType = $profileType;
         if ($this->_getParam('submit')) {
             $profileType->label = $this->_getParam('name');
@@ -86,6 +88,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
     {
         $typeId = $this->_getParam('id');
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
+        $this->_profileType = $profileType;
         $this->view->profileType = $profileType;
         
         $this->_setViewElementInfos($profileType);
@@ -99,14 +102,19 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $profileType->setElementInfos($elementInfos);
             $multiInfos = $this->_getMultiElementInfos();
             $profileType->setMultiElementInfos($multiInfos);
-            if($profileType->save() ) {
+            
+            try {
+                $profileType->save();
+                debug('after profile type save');
                 $this->_helper->flashMessenger(__('The profile type ' . $profileType->label . ' was successfully edited.'), 'success');
-            } else {
+                $this->redirect('user-profiles');
+            } catch (Exception $e) {
+                debug('exception saving profile type');
+                //debug($e);
                 $errors = $profileType->getErrors();
-                $this->_helper->flashMessenger($errors, 'error');
+                debug(count($errors));
+                $this->_helper->flashMessenger($errors, 'error');                
             }
-            // Redirect to browse.
-            $this->redirect('user-profiles');
         }
     }
 
@@ -161,8 +169,14 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $multiElementTable = $this->_helper->db->getTable('UserProfilesMultiElement');
         if(isset($_POST['multielements'])) {
             foreach($_POST['multielements'] as $elementId=>$info) {
+                $element = $multiElementTable->find($elementId);
+                if(empty($info['options'])) {
+                    debug('empty');
+                    $this->_profileType->addError(__('Options for "%s" must be set', $element->name));
+                    //$this->_helper->flashMessenger(__('Options for "%s" must be set', $element->name), 'error');
+                }
                 $multiInfos[] = array(
-                        'element' => $multiElementTable->find($elementId),
+                        'element' => $element,
                         'order' => $info['order'],
                         'description' => $info['description'],
                         'options' => $info['options'],
@@ -172,29 +186,35 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             }
         }
         
-        $newElements = $_POST['new-elements'];
-        foreach ($newElements as $tempId => $info) {
-            //checking for type being set tells us whether it really is a multiinfo
-            if (empty($info['name']) || !isset($info['type'])) {
-                continue;
-            }
-        
-            $multiEl = new UserProfilesMultiElement();
-            $multiEl->element_set_id = $this->_elementSet->id;
-            $multiEl->setName($info['name']);
-            $multiEl->setDescription($info['description']);
-            $multiEl->order = $info['order'];
-            $multiEl->type = $info['type'];
-            $multiInfos[] = array(
-                    'element' => $multiEl,
-                    'order' => $info['order'],
-                    'description' => $info['description'],
-                    'options' => $info['options'],
-                    'required' => isset($info['required'])
-                    
-                    );
-        
+        if(isset($_POST['new-elements'])) {
+            $newElements = $_POST['new-elements'];
+            foreach ($newElements as $tempId => $info) {
+                if(empty($info['options'])) {
+                    $this->_profileType->addError(__('Options for "%s" must be set', $info['name']));
+                   // $this->_helper->flashMessenger(__('Options for "%s" must be set', $info['name']), 'error');
+                }
+                //checking for type being set tells us whether it really is a multiinfo
+                if (empty($info['name']) || !isset($info['type'])) {
+                    continue;
+                }
+            
+                $multiEl = new UserProfilesMultiElement();
+                $multiEl->element_set_id = $this->_elementSet->id;
+                $multiEl->setName($info['name']);
+                $multiEl->setDescription($info['description']);
+                $multiEl->order = $info['order'];
+                $multiEl->type = $info['type'];
+                $multiInfos[] = array(
+                        'element' => $multiEl,
+                        'order' => $info['order'],
+                        'description' => $info['description'],
+                        'options' => $info['options'],
+                        'required' => isset($info['required'])
+            
+                );
+            }            
         }
+
         return $multiInfos;        
     }
     
@@ -214,25 +234,28 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             }
         }        
         
-        $newElements = $_POST['new-elements'];
-        foreach ($newElements as $tempId => $info) {
-            if (empty($info['name']) || isset($info['type'])) {
-                continue;
-            }
-        
-            $element = new Element;
-            $element->element_set_id = $this->_elementSet->id;
-            $element->setName($info['name']);
-            $element->setDescription($info['description']);
-            $element->order = null;
-        
-            $elementInfos[] = array(
-                    'element' => $element,
-                    'temp_id' => $tempId,
-                    'order' => $info['order'],
-                    'required' => isset($info['required'])
-            );
-        }        
+        if(isset($_POST['new-elements'])) {
+            $newElements = $_POST['new-elements'];
+            foreach ($newElements as $tempId => $info) {
+                if (empty($info['name']) || isset($info['type'])) {
+                    continue;
+                }
+            
+                $element = new Element;
+                $element->element_set_id = $this->_elementSet->id;
+                $element->setName($info['name']);
+                $element->setDescription($info['description']);
+                $element->order = null;
+            
+                $elementInfos[] = array(
+                        'element' => $element,
+                        'temp_id' => $tempId,
+                        'order' => $info['order'],
+                        'required' => isset($info['required'])
+                );
+            }            
+        }
+
         
         return $elementInfos;
         

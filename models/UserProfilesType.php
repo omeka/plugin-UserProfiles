@@ -28,22 +28,23 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
             $element->order = $elementInfo['order'];
             $element->description = $elementInfo['description'];
             $element->save();
+            $this->addErrorsFrom($element);
             if($elementInfo['required']) {
                 $this->required_element_ids[] = $element->id;
             }
-            
         }
         
         foreach($this->_multiInfos as $multiInfo) {
             $multiEl = $multiInfo['element'];
             $multiEl->order = $multiInfo['order'];
             $multiEl->description = $multiInfo['description'];
-            $multiEl->setOptions($multiInfo['options']);
             $multiEl->save();
             if($multiInfo['required']) {
                 $this->required_multielement_ids[] = $multiEl->id;
-            }            
+            }                
+
         }
+        debug(count($this->getErrors()));
         $this->required_element_ids = serialize($this->required_element_ids);
         $this->required_multielement_ids = serialize($this->required_multielement_ids);
     }
@@ -83,7 +84,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public function requiredElement($element)
     {
         return (in_array($element->id, $this->required_element_ids) || in_array($element->id, $this->required_multielement_ids));
-    }
+    }    
     
     private function _sortElementInfos($a, $b)
     {

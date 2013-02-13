@@ -32,6 +32,7 @@ jQuery(document).ready(function () {
     
 });
 </script>
+<?php echo flash(); ?>
 
 <form action="" method="post">
     <section class="seven columns alpha">
