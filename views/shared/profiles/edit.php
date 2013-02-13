@@ -1,8 +1,8 @@
 <?php
-queue_css_file('profiles');
-queue_css_file('admin-skeleton');
 if(!is_admin_theme()) {
     queue_css_file('admin-theme');
+    queue_css_file('profiles');
+    queue_css_file('admin-skeleton');
 }
 
 queue_js_file('admin-globals');
@@ -12,7 +12,6 @@ queue_js_file('elements');
 $head = array('title' => 'Edit Profile', 'content_class' => 'horizontal-nav');
 echo head($head);
 
-$types = apply_filters('user_profiles_type', $profile_types);
 ?>
 <script type="text/javascript" charset="utf-8">
 //<![CDATA[
@@ -35,14 +34,14 @@ jQuery(document).bind('omeka:elementformload', function (event) {
 //]]>
 </script>
 <?php if(!is_admin_theme()) :?>
-<div class="container container-twelve">
+<div class="container-twelve">
 <?php endif;?>
 
 <ul id='section-nav' class='navigation tabs'>
 <?php 
 
 $typesNav = array();
-foreach($types as $type) {
+foreach($profile_types as $type) {
     $typesNav[$type->label] = array('label'=>$type->label, 'uri'=>url('user-profiles/profiles/edit/id/' . $user->id .'?type='.$type->id));
 }
 
@@ -70,7 +69,6 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 <section class="three columns omega">
     <div id='save' class='panel'>
         <input type="submit" value='Save Changes to <?php echo $userprofilestype->label; ?>' name='submit' class='big green button'/>
-        <?php echo link_to($userprofilesprofile, 'user', 'View profile', array('class'=>'big blue button')); ?>    
     </div>
 </section>
 </form>

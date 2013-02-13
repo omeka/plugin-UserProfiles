@@ -93,6 +93,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $db = get_db();
         //Delete all elements, elementsets, and elementtexts UP is using
         $types = $db->getTable('UserProfilesType')->findAll();
+        debug(count($types));
         foreach($types as $type) {
             $type->getElementSet()->delete();
         }
@@ -119,7 +120,9 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     public function filterGuestUserLinks($links)
     {
         $user = current_user();
-        $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}"));
+        $firstProfileTypes = $this->_db->getTable('UserProfilesType')->findBy(array(), 1);
+        $type = $firstProfileTypes[0];
+        $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}?type={$type->id}"));
         return $links;
     }
     

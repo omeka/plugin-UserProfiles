@@ -17,7 +17,7 @@ div.element-text > p {
 	
 }
 
-input.big, input.button, a.big, a.button {
+div#primary input.big, div#primary input.button, div#primary a.big, div#primary a.button {
 
 	margin: 10px auto;
 	width: 100% !important;

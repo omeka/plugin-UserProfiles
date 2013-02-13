@@ -38,13 +38,13 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
             $multiEl = $multiInfo['element'];
             $multiEl->order = $multiInfo['order'];
             $multiEl->description = $multiInfo['description'];
+            $multiEl->setOptions($multiInfo['options']);
             $multiEl->save();
             if($multiInfo['required']) {
                 $this->required_multielement_ids[] = $multiEl->id;
             }                
 
         }
-        debug(count($this->getErrors()));
         $this->required_element_ids = serialize($this->required_element_ids);
         $this->required_multielement_ids = serialize($this->required_multielement_ids);
     }
