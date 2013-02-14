@@ -17,6 +17,11 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         return;
     }
 
+    protected function _redirectAfterDelete($record)
+    {
+        $this->redirect('user-profiles');
+    }    
+    
     public function addNewElementAction()
     {
         if ($this->_getParam('from_post') == 'true') {
@@ -126,37 +131,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         }
     }
 
-    public function deleteAction()
-    {
-        if (!$this->getRequest()->isPost()) {
-            $this->_forward('method-not-allowed', 'error', 'default');
-            return;
-        }
 
-        $record = $this->_helper->db->getTable('UserProfilesType')->find($this->_getParam('id'));
-
-        $form = $this->_getDeleteForm();
-
-        if ($form->isValid($_POST)) {
-            //delete the profiles of this type, and their relations
-            $profilesToDelete = $this->_helper->db->getTable('UserProfilesProfile')->findBy(array('type_id' => $record->id));
-            foreach($profilesToDelete as $profile) {
-                $profile->deleteWithRelation();
-            }
-            $record->delete();
-        } else {
-            $this->_forward('error');
-            return;
-        }
-
-        $successMessage = $this->_getDeleteSuccessMessage($record);
-        if ($successMessage != '') {
-            $this->flashSuccess($successMessage);
-        }
-        $this->redirect('user-profiles');
-
-
-    }
 
     public function browseAction()
     {

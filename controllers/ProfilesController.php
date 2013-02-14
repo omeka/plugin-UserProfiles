@@ -8,6 +8,11 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
         $this->_browseRecordsPerPage = get_option('per_page_admin');
     }
 
+    protected function _redirectAfterDelete($record)
+    {
+        $this->_helper->redirector('user');
+    }    
+    
     public function editAction()
     {
         $this->view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
@@ -50,33 +55,6 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
         $this->view->userprofilesprofile = $userProfile;
         $this->view->userprofilestype = $profileType;
         $this->view->profile_types = apply_filters('user_profiles_type', $allTypes);
-    }
-
-    public function deleteAction()
-    {
-        if (!$this->getRequest()->isPost()) {
-            $this->_forward('method-not-allowed', 'error', 'default');
-            return;
-        }
-
-        $record = $this->findById();
-
-        $form = $this->_getDeleteForm();
-
-        if ($form->isValid($_POST)) {
-            $record->delete();
-        } else {
-            $this->_forward('error');
-            return;
-        }
-
-        $successMessage = $this->_getDeleteSuccessMessage($record);
-        if ($successMessage != '') {
-            $this->flashSuccess($successMessage);
-        }
-        $user = current_user();
-        $this->redirect('user-profiles/profiles/edit/id/' . $user->id);
-        //$this->redirect->goto('edit/id/' . $user->id );
     }
 
     public function userAction()

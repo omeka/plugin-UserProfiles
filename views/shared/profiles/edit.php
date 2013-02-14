@@ -72,6 +72,9 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 <section class="three columns omega">
     <div id='save' class='panel'>
         <input type="submit" value='Save Changes to <?php echo $userprofilestype->label; ?>' name='submit' class='big green button'/>
+        <?php if($userprofilesprofile->exists()): ?>
+        <a href="<?php echo url('user-profiles/profiles/delete-confirm/id/' . $userprofilesprofile->id); ?>" class="big red button delete-confirm">Delete</a>
+        <?php endif; ?>
         <div class="public">
             <?php if($userprofilestype->public == 0): ?>
             <p>This profile type is private</p>

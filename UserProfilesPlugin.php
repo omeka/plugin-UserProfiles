@@ -137,19 +137,27 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $acl->addResource('UserProfiles_Type');
         $acl->addResource('UserProfiles_Profile');
                 
+        //null as 1st param in allow includes not logged in, so manage roles here
+        $roles = array('super', 'admin', 'contributor', 'researcher');
+        if(plugin_is_active('GuestUser')) {
+            $roles[] = 'guest';
+        }
+        
         $acl->allow(null,
                 'UserProfiles_Profile',
                 array('edit', 'delete'),
                 new Omeka_Acl_Assert_Ownership);
                 
         $acl->allow(null, 'UserProfiles_Profile', array('user'));
-        $acl->allow(array('super', 'admin', 'contributor', 'researcher', 'guest'), 'UserProfiles_Profile', array('add', 'editSelf', 'delete-confirm', 'showSelfNotPublic', 'deleteSelf'));
+        $acl->allow($roles, 'UserProfiles_Profile', array('add', 'editSelf', 'delete-confirm', 'showSelfNotPublic', 'deleteSelf'));
 
         $acl->allow(array('admin', 'super', 'researcher'), 'UserProfiles_Profile', array('showNotPublic'));
         $acl->allow(array('admin', 'super'), 'UserProfiles_Profile', array('deleteAll'));
         
         $acl->deny(null, 'UserProfiles_Type');
         $acl->allow(array('super', 'admin'), 'UserProfiles_Type');
-        $acl->allow(array('super', 'admin', 'contributor', 'researcher', 'guest'), 'UserProfiles_Type', array('showNotPublic'));
+        //let all logged in people see the types available, but hide non-public ones from searches
+        //since public/private is managed by Omeka_Db_Select_PublicPermission, this keeps them out of the navigation
+        $acl->allow($roles, 'UserProfiles_Type', array('showNotPublic'));
     }
 }
