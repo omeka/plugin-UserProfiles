@@ -37,7 +37,7 @@ echo head($head);
     	<li><?php echo $element->name; ?></li>
     	<?php endforeach; ?>
     	</ul></td>
-    	<td><a href="user-profiles/profiles/edit/id/<?php echo current_user()->id . '?type=' . $type->id; ?>">Edit</a></td>
+    	<td><a href="<?php echo url('user-profiles/profiles/edit/id/' . current_user()->id . '?type=' . $type->id); ?>">Edit</a></td>
     </tr>
     <?php endforeach; ?>
     </tbody>

@@ -4,6 +4,14 @@
 class Table_UserProfilesProfile extends Omeka_Db_Table
 {
 
+    public function getSelect()
+    {
+        $select = parent::getSelect();
+        $permissions = new Omeka_Db_Select_PublicPermissions('UserProfiles_Profile');
+        $permissions->apply($select, 'user_profiles_profiles');
+        return $select;
+    }    
+    
     public function findByUserId($userId)
     {
         $db = $this->getDb();

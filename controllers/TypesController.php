@@ -61,6 +61,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         if ($this->_getParam('submit')) {
             $profileType->label = $this->_getParam('name');
             $profileType->description = $this->_getParam('description');
+            $profileType->public = $this->_getParam('public');
             $elementSet = new ElementSet();
             $elementSet->name = $profileType->label . " Elements";
             $elementSet->description = "Elements for " . $profileType->label;
@@ -89,9 +90,13 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $typeId = $this->_getParam('id');
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
         $this->_profileType = $profileType;
-        $this->view->profileType = $profileType;
-        
+        $this->view->profileType = $profileType;        
         $this->_setViewElementInfos($profileType);
+        
+        //remember whether the type is public, so that if it is changed to private
+        //we can make all the existing profiles private, too
+        $wasPublic = (boolean) $profileType->public;
+        
         // Handle edit vocabulary form.
         if ($this->_getParam('submit')) {
             $profileType->public = $this->_getParam('public');
@@ -105,12 +110,17 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             
             try {
                 $profileType->save();
+                if($wasPublic && $profileType->public == 0) {
+                    $profiles = $this->_helper->db->getTable('UserProfilesProfile')->findBy(array('type_id'=>$profileType->id));
+                    foreach($profiles as $profile) {
+                        $profile->public = 0;
+                        $profile->save();
+                    }
+                }
                 $this->_helper->flashMessenger(__('The profile type ' . $profileType->label . ' was successfully edited.'), 'success');
                 $this->redirect('user-profiles');
             } catch (Exception $e) {
-                debug($e);
                 $errors = $profileType->getErrors();
-                debug(count($errors));
                 $this->_helper->flashMessenger($errors, 'error');                
             }
         }

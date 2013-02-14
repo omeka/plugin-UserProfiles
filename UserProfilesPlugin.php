@@ -136,17 +136,20 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $acl = $args['acl'];
         $acl->addResource('UserProfiles_Type');
         $acl->addResource('UserProfiles_Profile');
-        
-        $roles = array( 'researcher', 'contributor', 'admin', 'super');
-        $acl->allow(null, 'UserProfiles_Profile', array('editSelf', 'deleteSelf', 'add', 'user', 'delete-confirm'));
+                
+        $acl->allow(null,
+                'UserProfiles_Profile',
+                array('edit', 'delete'),
+                new Omeka_Acl_Assert_Ownership);
+                
+        $acl->allow(null, 'UserProfiles_Profile', array('user'));
+        $acl->allow(array('super', 'admin', 'contributor', 'researcher', 'guest'), 'UserProfiles_Profile', array('add', 'editSelf', 'delete-confirm', 'showSelfNotPublic', 'deleteSelf'));
 
-        $acl->allow(null, 
-                    'UserProfiles_Profile', 
-                    array('edit', 'delete'),         
-                    new Omeka_Acl_Assert_Ownership);
+        $acl->allow(array('admin', 'super', 'researcher'), 'UserProfiles_Profile', array('showNotPublic'));
+        $acl->allow(array('admin', 'super'), 'UserProfiles_Profile', array('deleteAll'));
         
         $acl->deny(null, 'UserProfiles_Type');
-        $acl->allow('super', 'UserProfiles_Type');
-        $acl->allow('admin', 'UserProfiles_Type');
+        $acl->allow(array('super', 'admin'), 'UserProfiles_Type');
+        $acl->allow(array('super', 'admin', 'contributor', 'researcher', 'guest'), 'UserProfiles_Type', array('showNotPublic'));
     }
 }

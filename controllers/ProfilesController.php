@@ -37,6 +37,10 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
             $userProfile->setRelationData(array('subject_id'=>$userId));
             
         }
+        
+        if(!is_allowed($userProfile, 'edit')) {
+            throw new Omeka_Controller_Exception_403; 
+        }
         if($this->_getParam('submit') ) {
             $userProfile->setPostData($_POST);
             $userProfile->save();

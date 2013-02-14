@@ -1,8 +1,6 @@
 <?php
 require_once(PLUGIN_DIR . '/RecordRelations/models/RelatableRecord.php');
-//require_once(PLUGIN_DIR . '/UserProfiles/models/Mixin/UserProfileElement.php');
 class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_Interface {
-//class UserProfilesProfile extends Omeka_Record_AbstractRecord {
 
     public $id;
     public $type_id;

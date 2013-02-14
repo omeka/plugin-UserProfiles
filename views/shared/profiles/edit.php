@@ -48,7 +48,10 @@ foreach($profile_types as $type) {
 echo nav($typesNav, 'user_profiles_types_user_edit');
 ?>
 </ul>
+<?php if(count($profile_types) > 1): ?>
 <p class='warning'>Save changes before moving to edit a new profile type.</p>
+<?php endif; ?>
+
 <?php echo flash(); ?>
 
 <div id="primary" class="ten columns alpha">
@@ -70,9 +73,14 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <div id='save' class='panel'>
         <input type="submit" value='Save Changes to <?php echo $userprofilestype->label; ?>' name='submit' class='big green button'/>
         <div class="public">
+            <?php if($userprofilestype->public == 0): ?>
+            <p>This profile type is private</p>
+            <input type="hidden" value="0" name="public" />
+            <?php else: ?>
             <label for="public">Public:</label> 
             <input type="hidden" value="0" name="public" />
-            <input type="checkbox" value="1" id="public" name="public" <?php echo  $userprofilesprofile->public ? "checked='checked'" : ""; ?> />                    
+            <input type="checkbox" value="1" id="public" name="public" <?php echo  $userprofilesprofile->public ? "checked='checked'" : ""; ?> />
+            <?php endif; ?>                    
         </div>        
     </div>
 </section>
