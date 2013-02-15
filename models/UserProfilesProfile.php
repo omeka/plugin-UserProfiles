@@ -451,7 +451,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     
     /**
      * The application flow is thus:
-     *
+     *  0) Validate required elements
      *  1) Build ElementText objects from the POST.
      *  2) Validate the ElementText objects and assign error messages if
      *     necessary.
@@ -463,6 +463,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
      */
     public function beforeSaveElements($post)
     {
+        $this->_validateRequiredElements($post);
         $this->_getElementTextsToSaveFromPost($post);
         $this->_validateElementTexts();
     }
@@ -573,6 +574,36 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         }
     }
     
+    private function _validateRequiredElements($post)
+    {
+        $type = $this->getProfileType();
+        $elementPost = $post['Elements'];
+        $multiElementPost = $post['MultiElements'];
+        foreach ($elementPost as $elementId => $texts) {
+            // Pull this from the list of prior retrieved data instead of a new SQL query each time.
+            $element = $this->getElementById($elementId);
+        
+            // Add this to the stack of elements that are stored on the form.
+            $this->_elementsOnForm[$element->id] = $element;
+        
+            foreach ($texts as $key => $textAttributes) {
+                $elementText = $this->getTextStringFromFormPost($textAttributes, $element);
+                if(in_array($elementId, $type->required_element_ids) && empty($elementText)) {
+                    $errorMessage = __('The "%s" field is required.', $element->name);
+                    $this->addError($element->name, $errorMessage);                
+                }
+            }
+        }
+        $postedMultiElements = array_keys($multiElementPost);
+        foreach($type->required_multielement_ids as $requiredId) {
+            if(!in_array($requiredId, $postedMultiElements)) {
+                $multiEl = $this->getTable('UserProfilesMultiElement')->find($requiredId);
+                $errorMessage = __('The "%s" field is required.', $multiEl->name);
+                $this->addError($multiEl->name, $errorMessage);
+            }
+        }
+    }
+    
     /**
      * Return whether the given ElementText record is valid.
      *
@@ -614,7 +645,6 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
                         'element' => $elementRecord,
                 )
         );
-    
         return $isValid;
     }
     

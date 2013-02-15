@@ -8,7 +8,11 @@ class UserProfilesMultiElement extends Element
     
     public function getOptions()
     {
-        return unserialize($this->options);
+        $options = unserialize($this->options);
+        if(!is_array($options)) {
+            $options = array();
+        } 
+        return $options;
     }
     
     public function setOptions($options)

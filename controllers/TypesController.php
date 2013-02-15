@@ -113,18 +113,18 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $multiInfos = $this->_getMultiElementInfos();
             $profileType->setMultiElementInfos($multiInfos);
             
-            try {
-                $profileType->save();
+            if($profileType->save(false)) {
                 if($wasPublic && $profileType->public == 0) {
                     $profiles = $this->_helper->db->getTable('UserProfilesProfile')->findBy(array('type_id'=>$profileType->id));
                     foreach($profiles as $profile) {
                         $profile->public = 0;
                         $profile->save();
                     }
-                }
+                }                
                 $this->_helper->flashMessenger(__('The profile type ' . $profileType->label . ' was successfully edited.'), 'success');
                 $this->redirect('user-profiles');
-            } catch (Exception $e) {
+                
+            } else {
                 $errors = $profileType->getErrors();
                 $this->_helper->flashMessenger($errors, 'error');                
             }
@@ -154,8 +154,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             foreach($_POST['multielements'] as $elementId=>$info) {
                 $element = $multiElementTable->find($elementId);
                 if(empty($info['options'])) {
-                    debug('empty');
-                    $this->_profileType->addError(__('Options for "%s" must be set', $element->name));
+                    $this->_profileType->addError($element->name, __('Options for "%s" must be set', $element->name));
                 }
                 $multiInfos[] = array(
                         'element' => $element,
@@ -176,7 +175,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                     continue;
                 }
                 if(empty($info['options'])) {
-                    $this->_profileType->addError(__('Options for "%s" must be set', $info['name']));
+                    $this->_profileType->addError($element->name, __('Options for "%s" must be set', $info['name']));
                 }     
                 $multiEl = new UserProfilesMultiElement();
                 $multiEl->element_set_id = $this->_elementSet->id;
@@ -205,7 +204,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                 $elementInfos[] = array(
                         'element' => $elementTable->find($elementId),
                         'temp_id' => null,
-                        'description' => $info['description'],
+                        'description' => isset($info['description']) ? $info['description'] : '',
                         'order' => $info['order'],
                         'required' => isset($info['required'])
                 );

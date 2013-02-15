@@ -48,9 +48,13 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
         }
         if($this->_getParam('submit') ) {
             $userProfile->setPostData($_POST);
-            $userProfile->save();
-            fire_plugin_hook('user_profiles_save', array('post'=>$_POST, 'profile'=>$userProfile, 'type'=>$profileType));
-            $this->redirect('user-profiles/profiles/user/id/'. $userId);
+            if($userProfile->save(false)) {
+                fire_plugin_hook('user_profiles_save', array('post'=>$_POST, 'profile'=>$userProfile, 'type'=>$profileType));
+                $this->redirect('user-profiles/profiles/user/id/'. $userId);
+            } else {
+                $this->_helper->flashMessenger($userProfile->getErrors());
+            }
+            
         }
         $this->view->userprofilesprofile = $userProfile;
         $this->view->userprofilestype = $profileType;
