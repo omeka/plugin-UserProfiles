@@ -60,9 +60,9 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <?php $type = $userprofilesprofile->getProfileType();?>
         <?php if(is_allowed($userprofilesprofile, 'edit')): ?>
             <?php if($userprofilesprofile->public == 1): ?>
-                <p>Public</p>
+                <p>(Public)</p>
             <?php else: ?>
-                <p>Private</p>
+                <p>(Private)</p>
             <?php endif; ?>
         <?php endif; ?>
         <div class="element-set">

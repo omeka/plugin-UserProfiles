@@ -17,7 +17,7 @@ echo head($head);
 <th>Profile Type</th>
 <th>Description</th>
 <th>Elements</th>
-<th>Edit My Profile</th>
+<th>My Profile</th>
 </tr>
 </thead>
     <tbody>
@@ -44,7 +44,7 @@ echo head($head);
     	</li>
     	<?php endforeach; ?>
     	</ul></td>
-    	<td><a href="<?php echo url('user-profiles/profiles/edit/id/' . current_user()->id . '?type=' . $type->id); ?>">Edit</a></td>
+    	<td><a href="<?php echo url('user-profiles/profiles/user/id/' . current_user()->id . '?type=' . $type->id); ?>">View</a> | <a href="<?php echo url('user-profiles/profiles/edit/id/' . current_user()->id . '?type=' . $type->id); ?>">Edit</a></td>
     </tr>
     <?php endforeach; ?>
     </tbody>
