@@ -120,8 +120,8 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
     
     protected function _getLabelComponent()
     {
-        $requiredElements = unserialize(get_option('user_profiles_required_elements'));
-        $requiredMultiElements = unserialize(get_option('user_profiles_required_multielements'));
+        $requiredElements = $this->_record->getProfileType()->required_element_ids;
+        $requiredMultiElements = $this->_record->getProfileType()->required_multielement_ids; 
         
         if(in_array($this->_element->id, $requiredElements) || in_array($this->_element->id, $requiredMultiElements)) {
             $required = " (Required)";
