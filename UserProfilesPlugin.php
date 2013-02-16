@@ -8,7 +8,12 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_hooks = array(
     	'install',
         'uninstall',
-        'define_acl'
+        'define_acl',
+        'config',
+        'config_form',
+        'admin_items_show_sidebar',
+        'public_items_show'
+            
         );
 
     protected $_filters = array( 
@@ -129,6 +134,40 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                         
         }
         return $links;
+    }
+    
+    
+    public function hookPublicItemsShow($args) 
+    {
+        if(get_option('user_profiles_link_to_owner')) {
+            $view = $args['view'];
+            echo $view->partial('link_to_owner_profile.php', array('item' =>$args['item']));
+        }
+            
+    }
+    
+    public function hookAdminItemsShowSidebar($args) 
+    {
+        if(get_option('user_profiles_link_to_owner')) {
+            $view = $args['view'];
+            echo "<div class='panel'>";
+            echo "<h4>Owner Info</h4>";
+            echo $view->partial('link_to_owner_profile.php', array('item' =>$args['item']));
+            echo "</div>";
+        }
+        
+    }
+    public function hookConfig($args)
+    {
+       $post = $args['post'];
+       foreach($post as $option=>$value) {
+           set_option($option, $value);
+       }
+    }
+    
+    public function hookConfigForm($args)
+    {
+        include(USER_PROFILES_DIR . '/config_form.php');    
     }
     
     public function hookDefineAcl($args)
