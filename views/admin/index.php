@@ -31,6 +31,11 @@ echo head($head);
     		<?php else: ?>
     		<?php echo $type->label; ?>
     		<?php endif; ?>
+    		<?php if($type->public): ?>
+    		<?php echo __('(Public)')?>
+    		<?php else: ?>
+    		<?php echo __('(Private)')?>
+    		<?php endif;?>
     	</td>
     	<td><?php echo $type->description; ?></td>
     	<td><ul id="user-profiles-element-list">
