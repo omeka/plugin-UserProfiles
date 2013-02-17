@@ -98,12 +98,23 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     {
         $this->_mixins[] = new Mixin_Owner($this);
         $this->_mixins[] = new Mixin_Timestamp($this);
+        $this->_mixins[] = new Mixin_Search($this);
     }    
+    
     public function afterSave($args)
     {
-        parent::afterSave($args);
+        if (!$this->public) {
+            $this->setSearchTextPrivate();
+        }
+        
         $this->saveElementTexts();       
         $this->saveMultiElementValues();
+        foreach ($this->getAllElementTexts() as $elementText) {
+            $this->addSearchText($elementText->text);
+        }        
+        $owner = $this->getOwner();
+        $this->setSearchTextTitle($owner->name);
+        parent::afterSave($args);
     }
     
     /**
@@ -762,7 +773,14 @@ SQL
     {
         $user = $this->getOwner();
         $base = is_admin_theme() ? ADMIN_BASE_URL : PUBLIC_BASE_URL;
-        $url = "$base/user-profiles/profiles/$action/id/{$user->id}";
+        switch($action) {
+            case 'user':
+                $url = "$base/user-profiles/profiles/user/id/{$user->id}";                
+                break;
+            case 'show':
+                $type = $this->getProfileType();
+                $url = "$base/user-profiles/profiles/user/id/{$user->id}?type=" . $type->id;
+        }
         return $url;
     }
     
@@ -796,5 +814,7 @@ SQL
             $multiElementValue->save();
         }
     }
+    
+    
    
 }
