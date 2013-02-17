@@ -100,7 +100,6 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $db = get_db();
         //Delete all elements, elementsets, and elementtexts UP is using
         $types = $db->getTable('UserProfilesType')->findAll();
-        debug(count($types));
         foreach($types as $type) {
             $type->getElementSet()->delete();
         }
