@@ -12,7 +12,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         'config',
         'config_form',
         'admin_items_show_sidebar',
-        'public_items_show'
+        'public_items_show',
+        'admin_users_browse_each'
             
         );
 
@@ -145,9 +146,15 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     {
         if(get_option('user_profiles_link_to_owner')) {
             $view = $args['view'];
-            echo $view->partial('link_to_owner_profile.php', array('item' =>$args['item']));
+            echo $view->partial('link_to_owner_profile.php', array('item' =>$args['item'], 'text'=>"Added by "));
         }
             
+    }
+    public function hookAdminUsersBrowseEach($args)
+    {
+        $user = $args['user'];
+        $view = $args['view'];
+        echo $view->partial('link_to_owner_profile.php', array('owner'=>$user,  'text'=>"Profile: "));
     }
     
     public function hookAdminItemsShowSidebar($args) 
