@@ -146,7 +146,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     {
         if(get_option('user_profiles_link_to_owner')) {
             $view = $args['view'];
-            echo $view->partial('link_to_owner_profile.php', array('item' =>$args['item'], 'text'=>"Added by "));
+            $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
+            echo $view->linkToOwnerProfile(array('item' =>$args['item'], 'text'=>"Added by "));            
         }
             
     }
@@ -154,7 +155,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $user = $args['user'];
         $view = $args['view'];
-        echo $view->partial('link_to_owner_profile.php', array('owner'=>$user,  'text'=>"Profile: "));
+        $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
+        echo $view->linkToOwnerProfile(array('owner'=>$user,  'text'=>"Profile: "));        
     }
     
     public function hookAdminItemsShowSidebar($args) 
@@ -163,7 +165,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
             $view = $args['view'];
             echo "<div class='panel'>";
             echo "<h4>Owner Info</h4>";
-            echo $view->partial('link_to_owner_profile.php', array('item' =>$args['item']));
+            $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
+            echo $view->linkToOwnerProfile(array('item' =>$args['item']));
             echo "</div>";
         }
         
