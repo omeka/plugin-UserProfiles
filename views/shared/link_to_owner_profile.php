@@ -9,6 +9,9 @@ if(!isset($type)) {
     $type = $types[0];
 }
 
+if(!isset($text)) {
+    $text = '';
+}
 ?>
 
 <div id="user-profiles-link-to-owner">
