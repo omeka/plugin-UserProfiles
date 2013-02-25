@@ -802,16 +802,18 @@ SQL
     
     public function saveMultiElementValues()
     {
-        foreach($_POST['MultiElements'] as $multiElementId=>$values) {
-            $multiElementValue = $this->getTable('UserProfilesMultiValue')->findByMultiElement($multiElementId);
-            if(!$multiElementValue) {
-                $multiElementValue = new UserProfilesMultiValue();
-                $multiElementValue->profile_id = $this->id;
-                $multiElementValue->profile_type_id = $this->type_id;
-                $multiElementValue->multi_id = $multiElementId;    
-            } 
-            $multiElementValue->setValues($values);
-            $multiElementValue->save();
+        if(isset($_POST['MultiElements'])) {
+            foreach($_POST['MultiElements'] as $multiElementId=>$values) {
+                $multiElementValue = $this->getTable('UserProfilesMultiValue')->findByMultiElement($multiElementId);
+                if(!$multiElementValue) {
+                    $multiElementValue = new UserProfilesMultiValue();
+                    $multiElementValue->profile_id = $this->id;
+                    $multiElementValue->profile_type_id = $this->type_id;
+                    $multiElementValue->multi_id = $multiElementId;    
+                } 
+                $multiElementValue->setValues($values);
+                $multiElementValue->save();
+            }
         }
     }
     

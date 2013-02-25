@@ -173,10 +173,47 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     }
     public function hookConfig($args)
     {
+       $db = get_db();
        $post = $args['post'];
        foreach($post as $option=>$value) {
            set_option($option, $value);
        }
+       set_option('user_profiles_import_contributors', 0);
+       if($post['user_profiles_import_contributors'] == 1) {
+           $elementSet = new ElementSet();
+           $elementSet->record_type = "UserProfilesType";
+           $elementSet->name = "Contributor Elements";
+           $elementSet->description = "";
+           $elementSet->save();
+           $importData = $this->_importContributorFields($elementSet);
+           $type_id = $importData['type_id'];
+           $elementInfos = $importData['elementInfos'];
+           $contributorUserMap = $this->_importContributors();
+           $elementSet = $db->getTable('ElementSet')->findByName('Contributor Elements');
+           foreach($contributorUserMap as $contribId=>$userId) {
+               $sql = "SELECT * FROM $db->ContributionContributorValue WHERE `contributor_id` = $userId";
+               $res = $db->query($sql);
+               $contributorValues = $res->fetchAll();
+               $profile = new UserProfilesProfile();
+               $profile->owner_id = $userId;
+               $profile->public = true;
+               $profile->element_set_id = $elementSet->id;   
+               $profile->type_id = $type_id;  
+               $profile->setRelationData(array('subject_id'=>$userId));
+
+               $elTextArray = array();
+               foreach($contributorValues as $value) {
+                   //dig up element_id
+                   $fieldId = $value['field_id'];
+                   $elementId = $this->_elementIdFromElementInfos($elementInfos, $fieldId);
+                   $elTextArray[] = array('element_id' => $elementId, 'text'=>$value['value'], 'html'=>0 );
+                   
+               }
+               $profile->addElementTextsByArray($elTextArray);
+               $profile->save();
+           }
+       }
+       
     }
     
     public function hookConfigForm($args)
@@ -212,5 +249,81 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         //let all logged in people see the types available, but hide non-public ones from searches
         //since public/private is managed by Omeka_Db_Select_PublicPermission, this keeps them out of the navigation
         $acl->allow($roles, 'UserProfiles_Type', array('showNotPublic'));
+    }
+    
+    private function _importContributorFields($elementSet)
+    {
+        $db = get_db();
+        
+        //create the ProfileType
+        $elementInfos = $this->_contributorFieldsToElementInfos($elementSet->id);
+        $profileType = new UserProfilesType();
+        $profileType->label = "Contributor Info";
+        $profileType->description = "Contributor Info";
+        $profileType->element_set_id = $elementSet->id;
+        $profileType->public = true;
+        $profileType->setElementInfos($elementInfos);
+        $profileType->setMultiElementInfos(array());
+        $profileType->save();
+        return array('type_id'=>$profileType->id, 'elementInfos'=>$elementInfos);
+    }
+    
+    private function _contributorFieldsToElementInfos($elementSetId)
+    {
+        $db = get_db();
+        $sql = "SELECT * FROM $db->ContributionContributorFields";
+        $res = $db->query($sql);
+        $contributorFields = $res->fetchAll();
+        $elementInfos = array();
+        foreach($contributorFields as $elementInfo) {
+            $element = new Element();
+            $element->name = $elementInfo['prompt'];
+            $element->element_set_id = $elementSetId;
+            $elementInfos[] = array(
+                    'element' => $element,
+                    'order' => $elementInfo['order'],
+                    'description' => $elementInfo['prompt'],
+                    'element_set_id' => $elementSetId,
+                    'contributor_field_id' =>$elementInfo['id']
+                    );
+        }   
+        
+        return $elementInfos;
+        
+    }
+    
+    private function _importContributors()
+    {
+        $db = get_db();
+        //import the contributors to Guest Users
+        $sql = "SELECT * FROM $db->ContributionContributors";
+        $res = $db->query($sql);
+        $data = $res->fetchAll();
+        //key: contributor id; value user id
+        $contributorUserMap = array();
+        foreach($data as $contributor) {
+            $user = new User();
+            //the text contributor name to user::username should probably work by doing the same tableizing to deal with spaces, etc.
+            $user->username = Inflector::variablize($contributor['name']);
+            $user->name = $contributor['name'];
+            $user->email = $contributor['email'];
+            $user->role = "guest";
+            $user->active = true;
+            $user->save();            
+            $contributorUserMap[$contributor['id']] = $user->id;
+        }
+        return $contributorUserMap;
+    }
+    
+    private function _elementIdFromElementInfos($elementInfos, $contributionFieldId)
+    {
+        foreach($elementInfos as $info) {
+            if($info['contribution_field_id'] == $contributionFieldId) {
+                $element = $info['element'];
+                return $element->id;
+            }
+            
+        }
+        return false;
     }
 }
