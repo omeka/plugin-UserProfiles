@@ -42,7 +42,13 @@ jQuery(document).bind('omeka:elementformload', function (event) {
 
 $typesNav = array();
 foreach($profile_types as $type) {
-    $typesNav[$type->label] = array('label'=>$type->label, 'uri'=>url('user-profiles/profiles/edit/id/' . $user->id .'?type='.$type->id));
+    $navArray = array('label'=>$type->label, 'uri'=>url('user-profiles/profiles/edit/id/' . $user->id .'/type/'.$type->id));
+    if($type->id == 20) {
+        $navArray['active'] = true;
+    } else {
+        $navArray['active'] = false;
+    }
+    $typesNav[$type->label] = $navArray ;
 }
 
 echo nav($typesNav, 'user_profiles_types_user_edit');

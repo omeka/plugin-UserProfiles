@@ -30,11 +30,8 @@ jQuery(window).load(function () {
 $typesNav = array();
 foreach($profile_types as $index=>$type) {
     $typesNav[$type->label] = array('label'=>$type->label, 
-                                    'uri'=>url('user-profiles/profiles/user/id/' . $user->id .'?type='.$type->id),                                    
+                                    'uri'=>url('user-profiles/profiles/user/id/' . $user->id .'/type/'.$type->id),                                    
                                     );
-    if($index == 0) {
-        $typesNav[$type->label]['active'] = true;
-    }
 }
 
 echo nav($typesNav, 'user_profiles_types_user_edit');
