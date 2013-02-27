@@ -94,6 +94,11 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
   
         set_option('user_profiles_required_elements', serialize(array()));
         set_option('user_profiles_required_multielements', serialize(array()));
+        
+        $plugin = get_db()->getTable('Plugin')->findByDirectoryName('Contribution');
+        if($plugin) {
+            set_option('user_profiles_import_contributors', 1);
+        }
     }
 
     public function hookUninstall()
@@ -178,7 +183,6 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
        foreach($post as $option=>$value) {
            set_option($option, $value);
        }
-       set_option('user_profiles_import_contributors', 0);
        if($post['user_profiles_import_contributors'] == 1) {
            Zend_Registry::get('bootstrap')->getResource('jobs')->sendLongRunning('UserProfilesImportContribution');
        }
