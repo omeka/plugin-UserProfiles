@@ -24,16 +24,21 @@ class UserProfilesImportContribution extends Omeka_Job_AbstractJob
            $profile->element_set_id = $elementSet->id;   
            $profile->type_id = $type_id;  
            $profile->setRelationData(array('subject_id'=>$userId));
+           $profile->save();
            $elTextArray = array();
            foreach($contributorValues as $value) {
                //dig up element_id
                $fieldId = $value['field_id'];
                $elementId = $contribFieldElementMap[$fieldId];
-               $elTextArray[] = array('element_id' => $elementId, 'text'=>$value['value'], 'html'=>0 );
-               
+               $elementText = new ElementText();
+               $elementText->element_id = $elementId;
+               $elementText->text = $value['value'];
+               $elementText->html = 0;
+               $elementText->record_type = 'UserProfilesProfile';
+               $elementText->record_id = $profile->id;
+               $elementText->save();               
            }
-           $profile->addElementTextsByArray($elTextArray);
-           $profile->save();
+           
            release_object($profile);
        }
     }
