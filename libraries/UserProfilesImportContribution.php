@@ -12,7 +12,7 @@ class UserProfilesImportContribution extends Omeka_Job_AbstractJob
        $importData = $this->_importContributorFields($elementSet);
        $type_id = $importData['type_id'];
        $contribFieldElementMap = $importData['contribFieldElementMap'];
-       $userContributorMap = unserialize(get_option('contribution_user_contributor_map'));
+       $userContributorMap = unserialize(file_get_contents(CONTRIBUTION_PLUGIN_DIR . '/upgrade_files/user_contributor_map.txt'));
        foreach($userContributorMap as $userId=>$contributorIds) {
            $contribIds = implode(',' , $contributorIds);
            $sql = "SELECT * FROM $db->ContributionContributorValue WHERE `contributor_id` IN ($contribIds)";
@@ -36,9 +36,9 @@ class UserProfilesImportContribution extends Omeka_Job_AbstractJob
                $elementText->html = 0;
                $elementText->record_type = 'UserProfilesProfile';
                $elementText->record_id = $profile->id;
-               $elementText->save();               
+               $elementText->save();
+               release_object($elementText);               
            }
-           
            release_object($profile);
        }
     }

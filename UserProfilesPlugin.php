@@ -97,7 +97,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         
         $plugin = get_db()->getTable('Plugin')->findByDirectoryName('Contribution');
         if($plugin) {
-            set_option('user_profiles_import_contributors', 1);
+            set_option('user_profiles_contributors_imported', 0);
         }
     }
 
@@ -184,7 +184,10 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
            set_option($option, $value);
        }
        if($post['user_profiles_import_contributors'] == 1) {
-           Zend_Registry::get('bootstrap')->getResource('jobs')->sendLongRunning('UserProfilesImportContribution');
+           //Zend_Registry::get('bootstrap')->getResource('jobs')->sendLongRunning('UserProfilesImportContribution');
+           $importer = new UserProfilesImportContribution(array());
+           debug('starting import');
+           $importer->perform();
        }
     }
     
