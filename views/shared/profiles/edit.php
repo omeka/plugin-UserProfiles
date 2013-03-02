@@ -43,11 +43,6 @@ jQuery(document).bind('omeka:elementformload', function (event) {
 $typesNav = array();
 foreach($profile_types as $type) {
     $navArray = array('label'=>$type->label, 'uri'=>url('user-profiles/profiles/edit/id/' . $user->id .'/type/'.$type->id));
-    if($type->id == 20) {
-        $navArray['active'] = true;
-    } else {
-        $navArray['active'] = false;
-    }
     $typesNav[$type->label] = $navArray ;
 }
 
@@ -55,7 +50,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 ?>
 </ul>
 <?php if(count($profile_types) > 1): ?>
-<p class='warning'>Save changes before moving to edit a new profile type.</p>
+<p class='warning'><?php echo __("Save changes before moving to edit a new profile type."); ?></p>
 <?php endif; ?>
 
 <?php echo flash(); ?>
@@ -65,7 +60,8 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <form method="post" action="">
 <section id="edit-form" class="seven columns alpha">
-<h1>Edit your <?php echo $userprofilestype->label; ?> profile</h1>
+
+<h1><?php echo __('Edit your %s profile', $userprofilestype->label); ?></h1>
 
 <p class="user-profiles-profile-description">
     <?php echo $userprofilestype->description; ?>
@@ -77,16 +73,16 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <section class="three columns omega">
     <div id='save' class='panel'>
-        <input type="submit" value='Save Changes to <?php echo $userprofilestype->label; ?>' name='submit' class='big green button'/>
+        <input type="submit" value='<?php echo $userprofilestype->label . ": " . __('Save Changes'); ?>' name='submit' class='big green button'/>
         <?php if($userprofilesprofile->exists()): ?>
         <a href="<?php echo url('user-profiles/profiles/delete-confirm/id/' . $userprofilesprofile->id); ?>" class="big red button delete-confirm">Delete</a>
         <?php endif; ?>
         <div class="public">
             <?php if($userprofilestype->public == 0): ?>
-            <p>This profile type is private</p>
+            <p><?php echo __('This profile type is private'); ?></p>
             <input type="hidden" value="0" name="public" />
             <?php else: ?>
-            <label for="public">Public:</label> 
+            <label for="public"><?php echo __('Public'); ?></label> 
             <input type="hidden" value="0" name="public" />
             <input type="checkbox" value="1" id="public" name="public" <?php echo  $userprofilesprofile->public ? "checked='checked'" : ""; ?> />
             <?php endif; ?>                    

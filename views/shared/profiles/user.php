@@ -107,7 +107,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     
     <section class="three columns omega">
         <div id='save' class='panel'>
-            <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '?type=' . $userprofilestype->id); ?>"><?php echo __('Edit ' . $userprofilestype->label); ?></a>    
+            <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '/type/' . $userprofilestype->id); ?>"><?php echo __('Edit ' . $userprofilestype->label); ?></a>    
         </div>
     </section>
     <?php endif; ?>
