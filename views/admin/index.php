@@ -49,7 +49,7 @@ echo head($head);
     	</li>
     	<?php endforeach; ?>
     	</ul></td>
-    	<td><a href="<?php echo url('user-profiles/profiles/user/id/' . current_user()->id . '?type=' . $type->id); ?>">View</a> | <a href="<?php echo url('user-profiles/profiles/edit/id/' . current_user()->id . '?type=' . $type->id); ?>">Edit</a></td>
+    	<td><a href="<?php echo url('user-profiles/profiles/user/id/' . current_user()->id . '/type/' . $type->id); ?>">View</a> | <a href="<?php echo url('user-profiles/profiles/edit/id/' . current_user()->id . '/type/' . $type->id); ?>">Edit</a></td>
     </tr>
     <?php endforeach; ?>
     </tbody>

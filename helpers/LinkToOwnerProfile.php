@@ -15,6 +15,9 @@ class UserProfiles_View_Helper_LinkToOwnerProfile extends Omeka_View_Helper_Elem
         if(!isset($args['type'])) {
             //get the first type
             $types = get_db()->getTable('UserProfilesType')->findBy(array(), 1);
+            if(!isset($types[0])) {
+                return '';
+            }
             $type = $types[0];
         }
         
@@ -25,7 +28,7 @@ class UserProfiles_View_Helper_LinkToOwnerProfile extends Omeka_View_Helper_Elem
         }  
 
         $html = "<div id='user-profiles-link-to-owner'>";
-        $html .= "$text <a href='" . url('user-profiles/profiles/user/id/' . $owner->id . '?type=' . $type->id) . "'>{$owner->name}</a>";
+        $html .= "$text <a href='" . url('user-profiles/profiles/user/id/' . $owner->id . '/type/' . $type->id) . "'>{$owner->name}</a>";
         $html .= "</div>";
         return $html;
     }
