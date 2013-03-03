@@ -135,7 +135,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $firstProfileTypes = $this->_db->getTable('UserProfilesType')->findBy(array(), 1);
         if(!empty($firstProfileTypes)) {
             $type = $firstProfileTypes[0];
-            $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}?type={$type->id}"));
+            $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}/type/{$type->id}"));
                         
         }
         return $links;
