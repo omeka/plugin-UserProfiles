@@ -2,7 +2,6 @@
 
 class Table_UserProfilesMultiValue extends Omeka_Db_Table
 {
-    
     public function findByMultiElement($multiElement)
     {
         if(is_numeric($multiElement)) {
@@ -14,5 +13,4 @@ class Table_UserProfilesMultiValue extends Omeka_Db_Table
         $select->where("multi_id = ?", $id);
         return $this->fetchObject($select);
     }
-    
 }

@@ -112,6 +112,13 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         foreach ($this->getAllElementTexts() as $elementText) {
             $this->addSearchText($elementText->text);
         }        
+        
+        foreach($this->getAllMultiValues() as $multiValueRecord) {
+            $displayValues = $multiValueRecord->getValuesForDisplay();
+            foreach($displayValues as $value) {
+                $this->addSearchText($value);
+            }
+        }
         $owner = $this->getOwner();
         $this->setSearchTextTitle($owner->name);
         parent::afterSave($args);
@@ -245,6 +252,11 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         }
     
         return $this->_textsByNaturalOrder;
+    }
+    
+    public function getAllMultiValues()
+    {
+       return $this->getTable('UserProfilesMultiValue')->findBy(array('profile_id'=>$this->id)); 
     }
     
     /**
