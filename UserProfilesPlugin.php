@@ -13,7 +13,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         'config_form',
         'admin_items_show_sidebar',
         'public_items_show',
-        'admin_users_browse_each'
+        'admin_users_browse_each',
+        'after_delete_user'
             
         );
 
@@ -72,7 +73,6 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
               `comment` text COLLATE utf8_unicode_ci,
               PRIMARY KEY (`id`)
             ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A parallel to Elements for checkboxes, radio, selects ' ;      
-
         ";
         
         $db->query($sql);
@@ -86,8 +86,6 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
               `multi_id` int(10) unsigned NOT NULL,
               PRIMARY KEY (`id`)
             ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;            
-        
-        
         ";
         
         $db->query($sql);
@@ -123,6 +121,15 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $db->query($sql);        
     }
 
+    public function hookAfterDeleteUser($args)
+    {
+        $user = $args['record'];
+        $profiles = get_db()->getTable('UserProfilesProfile')->findByUserId($user->id);
+        foreach($profiles as $profile) {
+            $profile->deleteWithRelation();
+        }
+    }
+    
     public function filterAdminNavigationMain($tabs)
     {
         $tabs['User Profiles'] = array('label'=>'User Profiles', 'uri'=>url("user-profiles") );
@@ -154,8 +161,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
             $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
             echo $view->linkToOwnerProfile(array('item' =>$args['item'], 'text'=>"Added by "));            
         }
-            
     }
+
     public function hookAdminUsersBrowseEach($args)
     {
         $user = $args['user'];
@@ -174,8 +181,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
             echo $view->linkToOwnerProfile(array('item' =>$args['item']));
             echo "</div>";
         }
-        
     }
+
     public function hookConfig($args)
     {
        $db = get_db();
@@ -184,9 +191,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
            set_option($option, $value);
        }
        if($post['user_profiles_import_contributors'] == 1) {
-           //Zend_Registry::get('bootstrap')->getResource('jobs')->sendLongRunning('UserProfilesImportContribution');
            $importer = new UserProfilesImportContribution(array());
-           debug('starting import');
            $importer->perform();
        }
     }
@@ -212,7 +217,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 'UserProfiles_Profile',
                 array('edit', 'delete'),
                 new Omeka_Acl_Assert_Ownership);
-                
+
         $acl->allow(null, 'UserProfiles_Profile', array('user'));
         $acl->allow($roles, 'UserProfiles_Profile', array('add', 'editSelf', 'delete-confirm', 'showSelfNotPublic', 'deleteSelf'));
 
@@ -225,5 +230,4 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         //since public/private is managed by Omeka_Db_Select_PublicPermission, this keeps them out of the navigation
         $acl->allow($roles, 'UserProfiles_Type', array('showNotPublic'));
     }
- 
 }
