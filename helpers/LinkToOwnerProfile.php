@@ -27,9 +27,12 @@ class UserProfiles_View_Helper_LinkToOwnerProfile extends Omeka_View_Helper_Elem
             $text = '';
         }  
 
-        $html = "<div id='user-profiles-link-to-owner'>";
-        $html .= "$text <a href='" . url('user-profiles/profiles/user/id/' . $owner->id . '/type/' . $type->id) . "'>{$owner->name}</a>";
-        $html .= "</div>";
+        $html = "";
+        if($owner) {
+            $html .= "<div id='user-profiles-link-to-owner'>";
+            $html .= "$text <a href='" . url('user-profiles/profiles/user/id/' . $owner->id . '/type/' . $type->id) . "'>{$owner->name}</a>";
+            $html .= "</div>";            
+        }
         return $html;
     }
 }
