@@ -40,7 +40,6 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
             $userProfile->setOwner($user);
             $userProfile->type_id = $typeId;
             $userProfile->setRelationData(array('subject_id'=>$userId));
-            
         }
         
         if(!is_allowed($userProfile, 'edit')) {

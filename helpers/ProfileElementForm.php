@@ -127,5 +127,22 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
             $required = '';
         }
         return '<label>' . __($this->_getFieldLabel()) . $required . '</label>';
+    }
+
+    /*
+     * Override to use ProfileElementInput instead of ElementInput
+     */
+    
+    protected function _getInputsComponent($extraFieldCount = null)
+    {
+        $fieldCount = $this->_getFormFieldCount() + (int) $extraFieldCount;
+        $html = '';
+        for ($i=0; $i < $fieldCount; $i++) {
+            $html .= $this->view->profileElementInput(
+                    $this->_element, $this->_record, $i,
+                    $this->_getValueForField($i), $this->_getHtmlFlagForField($i));
+        }
+        return $html;
     }    
+    
 }

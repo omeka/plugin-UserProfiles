@@ -173,15 +173,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     {
         $elements = $this->getElements();
         $recordType = $this->_getRecordType();
-        
-        /*
-        if (!array_key_exists($recordType, self::$_elementsByRecordType) || $reload) {
-            $elements = $this->_getElementRecords();
-            self::$_elementsByRecordType[$recordType] = $elements;
-        } else {
-            $elements = self::$_elementsByRecordType[$recordType];
-        }
-*/
+
         $this->_elementsBySet = $this->_indexElementsBySet($elements);
         $this->_elementsById = $this->_indexElementsById($elements);
     }
@@ -516,7 +508,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
      */
     private function _getElementTextsToSaveFromPost($post)
     {
-        if (!$elementPost = $post['Elements']) {
+        if (!$elementPost = $post['ProfileElements']) {
             return;
         }
     
@@ -600,7 +592,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     private function _validateRequiredElements($post)
     {
         $type = $this->getProfileType();
-        $elementPost = $post['Elements'];
+        $elementPost = $post['ProfileElements'];
         $multiElementPost = $post['MultiElements'];
         foreach ($elementPost as $elementId => $texts) {
             // Pull this from the list of prior retrieved data instead of a new SQL query each time.
