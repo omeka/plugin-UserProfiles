@@ -9,6 +9,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     public $required_element_ids;
     public $required_multielement_ids;
     public $public;
+    public $required;
     private $_elements;
     private $_elementInfos;
     private $_multiInfos;

@@ -57,6 +57,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     			`required_element_ids` text NOT NULL,
                 `required_multielement_ids` text NOT NULL,
                 `public` tinyint(1) NOT NULL,
+                `required` tinyint(1) NOT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);

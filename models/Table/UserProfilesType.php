@@ -9,5 +9,12 @@ class Table_UserProfilesType extends Omeka_Db_Table
         $permissions->apply($select, 'user_profiles_types');
         return $select;
     }    
+
+    protected function _getColumnPairs()
+    {
+        $alias = $this->getTableAlias();
+        return array($alias . '.id', $alias . '.label');        
+    }
+    
     
 }

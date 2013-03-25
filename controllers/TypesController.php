@@ -67,6 +67,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $profileType->label = $this->_getParam('name');
             $profileType->description = $this->_getParam('description');
             $profileType->public = $this->_getParam('public');
+            $profileType->required = $this->_getParam('required');
             $elementSet = new ElementSet();
             $elementSet->name = $profileType->label . " Elements";
             $elementSet->description = "Elements for " . $profileType->label;
@@ -105,6 +106,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         // Handle edit vocabulary form.
         if ($this->_getParam('submit')) {
             $profileType->public = $this->_getParam('public');
+            $profileType->required = $this->_getParam('required');
             $profileType->label = $this->_getParam('name');
             $profileType->description = $this->_getParam('description');
             $this->_elementSet = $profileType->ElementSet;
@@ -123,15 +125,12 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                 }                
                 $this->_helper->flashMessenger(__('The profile type ' . $profileType->label . ' was successfully edited.'), 'success');
                 $this->redirect('user-profiles');
-                
             } else {
                 $errors = $profileType->getErrors();
                 $this->_helper->flashMessenger($errors, 'error');                
             }
         }
     }
-
-
 
     public function browseAction()
     {

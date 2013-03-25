@@ -114,8 +114,6 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
     protected function _getValuesForMulti()
     {
         return $this->_record->getValuesForMulti($this->_element);
-        
-        
     }
     
     protected function _getLabelComponent()
@@ -128,10 +126,6 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
         } else {
             $required = '';
         }
-        
-        
-        
         return '<label>' . __($this->_getFieldLabel()) . $required . '</label>';
     }    
-    
 }

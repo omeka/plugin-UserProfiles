@@ -149,11 +149,16 @@ jQuery(document).ready(function () {
             <?php else: ?>
             <?php echo $this->formSubmit('submit', __('Add Profile Type'), array('class'=>'big green button')); ?>
             <?php endif;?>
-            <div class="public">
+            <span class="public">
                 <label for="public">Public:</label>        
                 <input type="hidden" value="0" name="public" />
                 <input type="checkbox" value="1" id="public" name="public" <?php echo  $profileType->public ? "checked='checked'" : ""; ?> />
-            </div>
+            </span>
+            <span id="required">
+                <label for="required">Required:</label>
+                <input type="hidden" value="0" name="required" />
+                <input type="checkbox" value="1" id="required" name="required" <?php echo  $profileType->required ? "checked='checked'" : ""; ?> />
+            </span>
         </div>
     </section>
 </form>
