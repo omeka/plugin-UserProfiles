@@ -99,7 +99,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
             <?php endforeach; ?>
         </div><!-- end element-set -->
         
-        <?php fire_plugin_hook('user_profiles_user_page', array($user) ); ?>
+        <?php fire_plugin_hook('user_profiles_user_page', array('user'=>$user, 'view'=>$this) ); ?>
     </section>
 
 
