@@ -145,4 +145,29 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
         return $html;
     }    
     
+    protected function _getHtmlFlagForField($index)
+    {
+        $isHtml = false;
+        if ($this->_isPosted()) {
+            $isHtml = (boolean) @$_POST['ProfileElements'][$this->_element['id']][$index]['html'];
+        } else {
+            $elementText = $this->getElementTexts($index);
+            if (isset($elementText)) {
+                $isHtml = (boolean) $elementText->html;
+            }
+        }
+        return $isHtml;
+    }
+
+    
+    protected function _getPostArray()
+    {
+        if (array_key_exists('ProfileElements', $_POST)) {
+            return $_POST['ProfileElements'][$this->_element['id']];
+        } else if (array_key_exists('MultiElements', $_POST)) {
+            return $_POST['MultiElements'][$this->_element['id']];
+        } else {
+            return array();
+        }
+    }    
 }

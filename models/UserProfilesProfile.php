@@ -593,7 +593,12 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     {
         $type = $this->getProfileType();
         $elementPost = $post['ProfileElements'];
-        $multiElementPost = $post['MultiElements'];
+        if(isset($post['MultiElements'])) {
+            $multiElementPost = $post['MultiElements'];
+        } else {
+            $multiElementPost = array();
+        }
+        
         foreach ($elementPost as $elementId => $texts) {
             // Pull this from the list of prior retrieved data instead of a new SQL query each time.
             $element = $this->getElementById($elementId);

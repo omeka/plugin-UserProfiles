@@ -93,7 +93,7 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
          
         // Re-index the element form posts so that they are displayed in the correct order
         // when one is removed.
-        $_POST['Elements'][$elementId] = array_merge($_POST['Elements'][$elementId]);
+        $_POST['ProfileElements'][$elementId] = array_merge($_POST['ProfileElements'][$elementId]);
     
         $element = $this->_helper->db->getTable('Element')->find($elementId);
         $record = $this->_helper->db->getTable($recordType)->find($recordId);
