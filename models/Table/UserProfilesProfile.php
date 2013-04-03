@@ -43,9 +43,7 @@ class Table_UserProfilesProfile extends Omeka_Db_Table
         $db = $this->getDb();
         $accountOfId = $this->getAccountOfId();
 
-        $params =  array(// 'property_id' => $accountOfId,  //commented out to try Institutions profile
-                    'object_id' => $profileId,
-               //     'subject_record_type' => 'User',  //commented out to try Institutions profile
+        $params =  array('object_id' => $profileId,
                     'object_record_type' => 'UserProfilesProfile',
                     );
         $users = $db->getTable('RecordRelationsRelation')->findSubjectRecordsByParams($params);
