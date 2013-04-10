@@ -13,6 +13,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         'config_form',
         'admin_items_show_sidebar',
         'public_items_show',
+        'public_content_top',
         'admin_users_browse_each',
         'after_delete_user'
             
@@ -162,6 +163,24 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
             $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
             echo $view->linkToOwnerProfile(array('item' =>$args['item'], 'text'=>"Added by "));            
         }
+    }
+    
+    public function hookPublicContentTop($args)
+    {
+        $request = Zend_Controller_Front::getInstance()->getRequest();
+        $module = $request->getModuleName();
+        $action = $request->getActionName();
+        //check if they are already editing a profile, and if so don't ask them to edit a profile
+        if($module == 'user-profiles' && ($action == 'user' || $action == 'edit')) {
+            return '';
+        }
+        $view = $args['view'];
+        $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
+        $html = "<div class='userprofiles required-profile'>";
+        $html .= "<p>The site builders ask that you fill out profile info to help make connections.</p>";
+        $html .= $view->linksToIncompleteProfiles();
+        $html .= "</div>";
+        echo $html;
     }
 
     public function hookAdminUsersBrowseEach($args)
