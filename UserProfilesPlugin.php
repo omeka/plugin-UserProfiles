@@ -172,15 +172,12 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $action = $request->getActionName();
         //check if they are already editing a profile, and if so don't ask them to edit a profile
         if($module == 'user-profiles' && ($action == 'user' || $action == 'edit')) {
-            return '';
+            return;
         }
         $view = $args['view'];
         $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
-        $html = "<div class='userprofiles required-profile'>";
-        $html .= "<p>The site builders ask that you fill out profile info to help make connections.</p>";
-        $html .= $view->linksToIncompleteProfiles();
-        $html .= "</div>";
-        echo $html;
+
+        echo $view->linksToIncompleteProfiles();
     }
 
     public function hookAdminUsersBrowseEach($args)
