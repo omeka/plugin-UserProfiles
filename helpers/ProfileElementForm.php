@@ -149,7 +149,7 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
     {
         $isHtml = false;
         if ($this->_isPosted()) {
-            $isHtml = (boolean) @$_POST['ProfileElements'][$this->_element['id']][$index]['html'];
+            $isHtml = (boolean) @$_POST['Elements'][$this->_element['id']][$index]['html'];
         } else {
             $elementText = $this->getElementTexts($index);
             if (isset($elementText)) {
@@ -162,8 +162,8 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
     
     protected function _getPostArray()
     {
-        if (array_key_exists('ProfileElements', $_POST)) {
-            return $_POST['ProfileElements'][$this->_element['id']];
+        if (array_key_exists('Elements', $_POST)) {
+            return $_POST['Elements'][$this->_element['id']];
         } else if (array_key_exists('MultiElements', $_POST)) {
             return $_POST['MultiElements'][$this->_element['id']];
         } else {

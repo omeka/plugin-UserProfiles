@@ -508,7 +508,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
      */
     private function _getElementTextsToSaveFromPost($post)
     {
-        if (!$elementPost = $post['ProfileElements']) {
+        if (!$elementPost = $post['Elements']) {
             return;
         }
     
@@ -592,7 +592,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     private function _validateRequiredElements($post)
     {
         $type = $this->getProfileType();
-        $elementPost = $post['ProfileElements'];
+        $elementPost = $post['Elements'];
         if(isset($post['MultiElements'])) {
             $multiElementPost = $post['MultiElements'];
         } else {
@@ -684,7 +684,6 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         if (count($elementIdsFromForm)) {
             $this->deleteElementTextsByElementId($elementIdsFromForm);
         }
-    
         foreach ($this->_textsToSave as $textRecord) {
             $textRecord->record_id = $this->id;
             $textRecord->save();
