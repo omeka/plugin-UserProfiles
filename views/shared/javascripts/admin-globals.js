@@ -10,6 +10,7 @@ if (!Omeka) {
      * @param {Object} [params] Parameters to pass to TinyMCE, these override the
      * defaults.
      */
+    
     Omeka.wysiwyg = function (params) {
         // Default parameters
         initParams = {
@@ -26,8 +27,6 @@ if (!Omeka) {
             media_strict: false,
             width: "100%"
         };
-
-        tinyMCE.init($.extend(initParams, params));
     };
 
     Omeka.deleteConfirm = function () {

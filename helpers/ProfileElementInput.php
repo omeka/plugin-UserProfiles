@@ -49,12 +49,10 @@ class UserProfiles_View_Helper_ProfileElementInput extends Omeka_View_Helper_Ele
                         'element' => $this->_element,
                         'index' => $index,
                         'is_html' => $isHtml));
-    
-    
+        
         if ($components['html'] !== null) {
             return strval($components['html']);
         }
-    
         $html = '<div class="input-block">'
         . '<div class="input">'
         . $components['input']

@@ -22,6 +22,7 @@ jQuery(window).load(function () {
         mode: "none",
         forced_root_block: ""
     });
+    
     // Must run the element form scripts AFTER reseting textarea ids.
     jQuery(document).trigger('omeka:elementformload');
     Omeka.saveScroll();
