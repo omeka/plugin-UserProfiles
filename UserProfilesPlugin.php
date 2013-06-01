@@ -15,8 +15,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         'public_items_show',
         'public_content_top',
         'admin_users_browse_each',
-        'after_delete_user'
-            
+        'after_delete_user',
+        'initialize'
         );
 
     protected $_filters = array( 
@@ -32,6 +32,11 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
             $this->_filters[] = 'guest_user_links';
         }
         parent::setUp();
+    }
+    
+    public function hookInitialize()
+    {
+        add_translation_source(dirname(__FILE__) . '/languages');
     }
     
     public function hookInstall()

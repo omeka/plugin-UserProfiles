@@ -80,7 +80,7 @@ jQuery(document).ready(function () {
             <li class="element">
             <?php if(get_class($element) == 'Element'): ?>
             <div class="sortable-item">
-                <?php echo __($element->name); ?>
+                <?php echo __('%s', $element->name); ?>
                 <?php echo $this->formHidden("elements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
                 
                 <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="#" class="undo-delete"><?php echo __('Undo'); ?></a>
@@ -88,14 +88,14 @@ jQuery(document).ready(function () {
                 <?php echo $this->formHidden("elements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
             </div>
             <div class="drawer-contents">
-                <label style="float:left;">Required</label><input type='checkbox' name=<?php echo "elements[{$element->id}][required]"; ?>  <?php echo $profileType->requiredElement($element) ? "checked='checked'" : ""; ?> />
+                <label style="float:left;"><?php echo __('Required'); ?></label><input type='checkbox' name=<?php echo "elements[{$element->id}][required]"; ?>  <?php echo $profileType->requiredElement($element) ? "checked='checked'" : ""; ?> />
                 <label for="<?php echo "elements[{$element->id}][description]"; ?>"><?php echo __('Description'); ?></label>
-                <?php echo $this->formTextarea("elements[{$element->id}][description]", $element->description, array('rows' => '3')); ?>
+                <?php echo $this->formTextarea("elements[{$element->id}][description]", __('%s', $element->description), array('rows' => '3')); ?>
                 <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
             </div>
             <?php else: ?>
             <div class="sortable-item">
-                <?php echo __($element->name); ?>
+                <?php echo __('%s', $element->name); ?>
                 <?php echo $this->formHidden("multielements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
                 
                 <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="#" class="undo-delete"><?php echo __('Undo'); ?></a>
@@ -103,9 +103,9 @@ jQuery(document).ready(function () {
                 <?php echo $this->formHidden("multielements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
             </div>
             <div class="drawer-contents">
-                <label style="float:left;">Required</label><input type='checkbox' name=<?php echo "multielements[{$element->id}][required]"; ?>  <?php echo $profileType->requiredElement($element) ? "checked='checked'" : ""; ?> />
+                <label style="float:left;"><?php echo __("Required"); ?></label><input type='checkbox' name=<?php echo "multielements[{$element->id}][required]"; ?>  <?php echo $profileType->requiredElement($element) ? "checked='checked'" : ""; ?> />
                 <label for="<?php echo "multielements[{$element->id}][description]"; ?>"><?php echo __('Description'); ?></label>
-                <?php echo $this->formTextarea("multielements[{$element->id}][description]", $element->description, array('rows' => '3')); ?>
+                <?php echo $this->formTextarea("multielements[{$element->id}][description]", __('%s', $element->description), array('rows' => '3')); ?>
                 <label for="<?php echo "multielements[{$element->id}][options]"; ?>"><?php echo __('Allowed values, comma-separated'); ?></label>
                 <?php echo $this->formTextarea("multielements[{$element->id}][options]", implode(',', $element->getOptions() ), array('rows' => '3')); ?>
                 <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
@@ -145,17 +145,17 @@ jQuery(document).ready(function () {
         <div id="save" class="panel">
             <?php if($profileType->exists()): ?>
             <?php echo $this->formSubmit('submit', __('Save Changes'), array('class'=>'big green button')); ?>
-            <a class="big red button delete-confirm" href="/Omeka/admin/user-profiles/types/delete-confirm/id/<?php echo $profileType->id; ?>">Delete</a>
+            <a class="big red button delete-confirm" href="/Omeka/admin/user-profiles/types/delete-confirm/id/<?php echo $profileType->id; ?>"><?php echo __('Delete'); ?></a>
             <?php else: ?>
             <?php echo $this->formSubmit('submit', __('Add Profile Type'), array('class'=>'big green button')); ?>
             <?php endif;?>
             <span class="public">
-                <label for="public">Public:</label>        
+                <label for="public"><?php echo __("Public"); ?></label>        
                 <input type="hidden" value="0" name="public" />
                 <input type="checkbox" value="1" id="public" name="public" <?php echo  $profileType->public ? "checked='checked'" : ""; ?> />
             </span>
             <span id="required">
-                <label for="required">Required:</label>
+                <label for="required"><?php echo __("Required"); ?></label>
                 <input type="hidden" value="0" name="required" />
                 <input type="checkbox" value="1" id="required" name="required" <?php echo  $profileType->required ? "checked='checked'" : ""; ?> />
             </span>

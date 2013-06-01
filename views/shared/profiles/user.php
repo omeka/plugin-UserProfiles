@@ -7,7 +7,7 @@ if(!is_admin_theme()) {
 }
 
 queue_js_file('admin-globals');
-$head = array('title' => "User Profile | " . $user->name,
+$head = array('title' => __("User Profile | %s" , $user->name),
               'bodyclass' => '');
 echo head($head); 
 
@@ -40,8 +40,6 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <div id="primary">
 <?php echo flash(); ?>
-    
-    <h1><?php echo $head['title']; ?></h1>
 
 <?php if(empty($userprofilesprofile)):?>
     <?php if(current_user() && $user->id == current_user()->id || is_allowed('UserProfiles_Profile', 'edit')):  ?>
@@ -57,9 +55,9 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <?php $type = $userprofilesprofile->getProfileType();?>
         <?php if(is_allowed($userprofilesprofile, 'edit')): ?>
             <?php if($userprofilesprofile->public == 1): ?>
-                <p>(Public)</p>
+                <p><?php echo __("(Public)"); ?></p>
             <?php else: ?>
-                <p>(Private)</p>
+                <p><?php echo __("(Private)");?></p>
             <?php endif; ?>
         <?php endif; ?>
         <div class="element-set">
@@ -107,7 +105,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     
     <section class="three columns omega">
         <div id='save' class='panel'>
-            <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '/type/' . $userprofilestype->id); ?>"><?php echo __('Edit ' . $userprofilestype->label); ?></a>    
+            <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '/type/' . $userprofilestype->id); ?>"><?php echo __('Edit %s' ,$userprofilestype->label); ?></a>    
         </div>
     </section>
     <?php endif; ?>

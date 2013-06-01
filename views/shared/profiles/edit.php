@@ -9,7 +9,7 @@ queue_js_file('admin-globals');
 queue_js_file('tiny_mce', 'javascripts/vendor/tiny_mce');
 queue_js_file('elements');
 
-$head = array('title' => 'Edit Profile', 'content_class' => 'horizontal-nav');
+$head = array('title' => __('Edit Profile'), 'content_class' => 'horizontal-nav');
 echo head($head);
 
 ?>
@@ -76,7 +76,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <div id='save' class='panel'>
         <input type="submit" value='<?php echo $userprofilestype->label . ": " . __('Save Changes'); ?>' name='submit' class='big green button'/>
         <?php if($userprofilesprofile->exists()): ?>
-        <a href="<?php echo url('user-profiles/profiles/delete-confirm/id/' . $userprofilesprofile->id); ?>" class="big red button delete-confirm">Delete</a>
+        <a href="<?php echo url('user-profiles/profiles/delete-confirm/id/' . $userprofilesprofile->id); ?>" class="big red button delete-confirm"><?php echo __('Delete'); ?></a>
         <?php endif; ?>
         <div class="public">
             <?php if($userprofilestype->public == 0): ?>

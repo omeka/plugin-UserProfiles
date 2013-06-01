@@ -12,7 +12,7 @@ class UserProfiles_View_Helper_LinksToIncompleteProfiles extends Zend_View_Helpe
             return $html;
         }
         $html = "<div class='userprofiles required-profile error' style='border: 1px solid red'>";
-        $html .= "<p>The site builders ask that you fill out profile info to help make connections.</p>";        
+        $html .= "<p>" . __("The site builders ask that you fill out profile info to help make connections.") . "</p>";        
         $html .= "<ul>";
         foreach($types as $type) {
             $url = PUBLIC_BASE_URL . "/user-profiles/profiles/user/id/{$user->id}?type=" . $type->id;
