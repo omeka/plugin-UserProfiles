@@ -1,5 +1,5 @@
 <?php
-$head = array('title'=> __('User Profiles'), 'bodyclass'=>'');
+$head = array('title'=> __('User Profiles'), 'bodyclass'=>'browse');
 queue_css_file('user-profiles');
 echo head($head);
 
@@ -9,7 +9,6 @@ echo head($head);
 <?php if(is_allowed('UserProfiles_Type', 'add')): ?>
 <p id="add-type" class="add-button"><a class="add green button" href="<?php echo html_escape(url('user-profiles/types/add')); ?>"><?php echo __('Add a Profile Type'); ?></a></p>
 <?php endif; ?>
-<div id="primary">
 
 <table>
 <thead>
@@ -24,18 +23,30 @@ echo head($head);
     <?php foreach($this->types as $type): ?>
     <tr>
     	<td>
+    	    <?php echo $type->label; ?>
+    		<?php if($type->public): ?>
+        		<?php echo __('(Public)')?>
+        		<?php else: ?>
+        		<?php echo __('(Private)')?>
+    		<?php endif;?>
     		<?php if(is_allowed('UserProfiles_Type', 'edit')): ?>
-    		<a href="user-profiles/types/edit/id/<?php echo $type->id; ?>">
-    		<?php echo $type->label; ?>
-    		</a>
+    		<ul class="action-links group">
+    		    <li>
+            		<a href="user-profiles/types/edit/id/<?php echo $type->id; ?>">
+            		<?php echo __('Edit');?>
+            		</a>    		    
+    		    </li>
+    		    <li>
+            		<a  class='delete-confirm' href="user-profiles/types/delete-confirm/id/<?php echo $type->id; ?>">
+            		<?php echo __('Delete');?>
+            		</a>    		    
+    		    </li>
+    		</ul>
+
     		<?php else: ?>
     		<?php echo $type->label; ?>
     		<?php endif; ?>
-    		<?php if($type->public): ?>
-    		<?php echo __('(Public)')?>
-    		<?php else: ?>
-    		<?php echo __('(Private)')?>
-    		<?php endif;?>
+
     	</td>
     	<td><?php echo __('%s', $type->description); ?></td>
     	<td><ul id="user-profiles-element-list">
@@ -54,5 +65,4 @@ echo head($head);
     <?php endforeach; ?>
     </tbody>
 </table>
-</div>
 <?php echo foot(); ?>
