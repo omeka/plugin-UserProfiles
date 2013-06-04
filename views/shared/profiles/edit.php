@@ -3,6 +3,12 @@ if(!is_admin_theme()) {
     queue_css_file('admin-theme');
     queue_css_file('profiles');
     queue_css_file('admin-skeleton');
+    $css = "div.container-twelve div.ten.columns {width: 100%;} 
+     ul#section-nav {margin: 0px;} 
+     div.container-twelve div.five.columns {width: auto;}
+    
+    ";
+    queue_css_string($css);
 }
 
 queue_js_file('admin-globals');
@@ -74,7 +80,8 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <section class="three columns omega">
     <div id='save' class='panel'>
-        <input type="submit" value='<?php echo $userprofilestype->label . ": " . __('Save Changes'); ?>' name='submit' class='big green button'/>
+        <p class='warning'><?php echo __("Profile type: ") . $userprofilestype->label; ?></p>
+        <input type="submit" value='<?php echo __('Save Changes'); ?>' name='submit' class='big green button'/>
         <?php if($userprofilesprofile->exists()): ?>
         <a href="<?php echo url('user-profiles/profiles/delete-confirm/id/' . $userprofilesprofile->id); ?>" class="big red button delete-confirm"><?php echo __('Delete'); ?></a>
         <?php endif; ?>
