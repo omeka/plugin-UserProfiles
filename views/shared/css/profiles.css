@@ -7,14 +7,16 @@ div.element {
 	clear:both;
 }
 
+div.field {
+	clear: both;
+}
+
 div.element-text {
-	margin-top: 0px;
-	
+	margin-top: 0px;	
 }
 
 div.element-text > p {
 	margin-top: 0px;
-	
 }
 
 div#primary input.big, div#primary input.button, div#primary a.big, div#primary a.button {
@@ -26,3 +28,8 @@ div#primary input.big, div#primary input.button, div#primary a.big, div#primary 
 	
 }
 
+div.container-twelve div.ten.columns {width: 100%;}
+
+ul#section-nav {margin: 0px;} 
+
+div.container-twelve div.five.columns {width: auto;}
