@@ -105,8 +105,8 @@ msgid "The description of the profile type."
 msgstr ""
 
 #: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
-#: views/admin/form.php:108 views/admin/index.php:40 views/admin/index.php:43
-#: views/admin/index.php:45
+#: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
+#: views/admin/index.php:56
 #, php-format
 msgid "%s"
 msgstr ""
@@ -143,19 +143,19 @@ msgstr ""
 msgid "Add a Profile Type"
 msgstr ""
 
-#: views/admin/index.php:17
+#: views/admin/index.php:16
 msgid "Profile Type"
 msgstr ""
 
-#: views/admin/index.php:20
+#: views/admin/index.php:19
 msgid "My Profile"
 msgstr ""
 
-#: views/admin/index.php:35 views/shared/profiles/user.php:58
+#: views/admin/index.php:28 views/shared/profiles/user.php:58
 msgid "(Public)"
 msgstr ""
 
-#: views/admin/index.php:47
+#: views/admin/index.php:58
 msgid "(text)"
 msgstr ""
 
@@ -167,20 +167,24 @@ msgstr ""
 msgid "Edit Profile Type"
 msgstr ""
 
-#: views/shared/profiles/edit.php:12
+#: views/shared/profiles/edit.php:18
 msgid "Edit Profile"
 msgstr ""
 
-#: views/shared/profiles/edit.php:54
+#: views/shared/profiles/edit.php:60
 msgid "Save changes before moving to edit a new profile type."
 msgstr ""
 
-#: views/shared/profiles/edit.php:65
+#: views/shared/profiles/edit.php:71
 #, php-format
 msgid "Edit your %s profile"
 msgstr ""
 
 #: views/shared/profiles/edit.php:83
+msgid "Profile type: "
+msgstr ""
+
+#: views/shared/profiles/edit.php:90
 msgid "This profile type is private"
 msgstr ""
 
