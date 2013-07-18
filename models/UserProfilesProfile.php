@@ -210,7 +210,6 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         if (!$this->_recordsAreLoaded) {
             $this->loadElementsAndTexts();
         }
-    
         if (array_key_exists($element->id, $this->_textsByElementId)) {
             return $this->_textsByElementId[$element->id];
         } else {

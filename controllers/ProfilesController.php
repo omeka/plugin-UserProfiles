@@ -72,6 +72,7 @@ class UserProfiles_ProfilesController extends Omeka_Controller_AbstractActionCon
             $typeId = $allTypes['0']->id;
         }
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
+        
         if($userId) {
             $user = $this->_helper->db->getTable('User')->find($userId);
         } else {

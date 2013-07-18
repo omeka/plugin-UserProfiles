@@ -125,7 +125,11 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $db->query($sql);
 
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesMultiElement` ";
-        $db->query($sql);        
+        $db->query($sql);      
+
+        //don't forget to delete the record relations
+        $sql = "DELETE FROM `$db->RecordRelationsRelation` WHERE `object_record_type` = 'UserProfilesProfile'" ;
+        $db->query($sql);
     }
 
     public function hookAfterDeleteUser($args)

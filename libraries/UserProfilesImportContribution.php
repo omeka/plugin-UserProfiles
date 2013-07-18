@@ -53,7 +53,7 @@ class UserProfilesImportContribution extends Omeka_Job_AbstractJob
         $profileType->description = "Contributor Info";
         $profileType->element_set_id = $elementSet->id;
         $profileType->public = true;
-        
+        $profileType->required = false;
         $profileType->setElementInfos(array());
         $profileType->setMultiElementInfos(array());
         $profileType->save();

@@ -16,9 +16,9 @@
 
 <?php 
     $contributionFieldsTable = get_db()->getTable('ContributionContributorFields');
-    //check the columns to see if the table exists for real in the database
-    $cols = @$contributionFieldsTable->getColumns();
-    if(is_array($cols)) {
+    //check the count to see if the table exists for real in the database
+    
+    if($contributionFieldsTable->count()) {
         set_option('user_profiles_contributors_imported', 0);
         $imported = (boolean) get_option('user_profiles_contributors_imported');
         if(!$imported &&  $contributionFieldsTable->count(array()) != 0 ) {
