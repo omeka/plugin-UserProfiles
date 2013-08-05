@@ -41,6 +41,7 @@ class UserProfilesImportContribution extends Omeka_Job_AbstractJob
            }
            release_object($profile);
        }
+       set_option('user_profiles_contributors_imported', true);
     }
     
     private function _importContributorFields($elementSet)
@@ -57,6 +58,7 @@ class UserProfilesImportContribution extends Omeka_Job_AbstractJob
         $profileType->setElementInfos(array());
         $profileType->setMultiElementInfos(array());
         $profileType->save();
+        set_option('contribution_user_profile_type', $profileType->id);
         return array('type_id'=>$profileType->id, 'contribFieldElementMap'=>$contribFieldElementMap);
     }
     
