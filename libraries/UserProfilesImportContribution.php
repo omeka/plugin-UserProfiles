@@ -74,7 +74,6 @@ class UserProfilesImportContribution extends Omeka_Job_AbstractJob
             $element->name = $elementInfo['prompt'];
             $element->element_set_id = $elementSetId;
             $element->order = $index;
-            $element->description = $elementInfo['prompt'];
             $element->save();
             $contribFieldElementMap[$elementInfo['id']] = $element->id;
         }
