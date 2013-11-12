@@ -40,7 +40,6 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <div id="primary">
 <?php echo flash(); ?>
-<?php echo $userprofilesprofile->id; ?>
 <?php if(empty($userprofilesprofile)):?>
     <?php if(current_user() && $user->id == current_user()->id || is_allowed('UserProfiles_Profile', 'edit')):  ?>
         <div class="two columns alpha">
