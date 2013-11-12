@@ -170,7 +170,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         if(get_option('user_profiles_link_to_owner')) {
             $view = $args['view'];
             $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
-            echo $view->linkToOwnerProfile(array('item' =>$args['item'], 'text'=>"Added by "));            
+            echo $view->linkToOwnerProfile(array('item' =>$args['item'], 'text'=> __("Added by ")));            
         }
     }
     
