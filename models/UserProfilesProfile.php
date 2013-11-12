@@ -314,9 +314,9 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         if (!$this->_recordsAreLoaded) {
             $this->loadElementsAndTexts();
         }
-    
         if (!array_key_exists($elementId, $this->_elementsById)) {
-            throw new Omeka_Record_Exception(__("Cannot find an element with an ID of '%s'!", $elementId));
+            return false;
+            // for compatibility with other plugins' forms, getElementById will skip elements not used in profiles
         }
     
         return $this->_elementsById[$elementId];
@@ -387,6 +387,9 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
      */
     public function addTextForElement($element, $elementText, $isHtml = false)
     {
+        if(!array_key_exists($element->id, $this->_elementsById)) {
+            return;
+        }
         $textRecord = new ElementText;
         $textRecord->record_id = $this->id;
         $textRecord->element_id = $element->id;
@@ -453,6 +456,9 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
             if (empty($info['text'])) {
                 continue;
             }
+            if(!array_key_exists($info['element_id'], $this->_elementsById)) {
+                continue;
+            }            
             $text = new ElementText;
             $text->record_type = $this->_getRecordType();
             $text->element_id = $info['element_id'];
@@ -514,7 +520,9 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         foreach ($elementPost as $elementId => $texts) {
             // Pull this from the list of prior retrieved data instead of a new SQL query each time.
             $element = $this->getElementById($elementId);
-    
+            if(!element) {
+                continue;
+            }
             // Add this to the stack of elements that are stored on the form.
             $this->_elementsOnForm[$element->id] = $element;
     
@@ -582,6 +590,9 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         foreach ($this->_textsToSave as $key => $textRecord) {
             if (!$this->_elementTextIsValid($textRecord)) {
                 $elementRecord = $this->getElementById($textRecord->element_id);
+                if(!elementRecord) {
+                    continue;
+                }
                 $errorMessage = __('The "%s" field has at least one invalid value!', $elementRecord->name);
                 $this->addError($elementRecord->name, $errorMessage);
             }
@@ -600,8 +611,11 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         
         foreach ($elementPost as $elementId => $texts) {
             // Pull this from the list of prior retrieved data instead of a new SQL query each time.
+            // for compatibility with other plugins' forms, getElementById will skip elements not used in profiles
             $element = $this->getElementById($elementId);
-        
+            if(!$element) {
+                continue;
+            }
             // Add this to the stack of elements that are stored on the form.
             $this->_elementsOnForm[$element->id] = $element;
         
@@ -632,6 +646,9 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
     private function _elementTextIsValid($elementTextRecord)
     {
         $elementRecord = $this->getElementById($elementTextRecord->element_id);
+        if(!elementRecord) {
+            $isValid = true;
+        }        
         $textValue = $elementTextRecord->text;
         // Start out as valid by default.
         $isValid = true;
