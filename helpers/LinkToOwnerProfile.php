@@ -33,10 +33,11 @@ class UserProfiles_View_Helper_LinkToOwnerProfile extends Omeka_View_Helper_Elem
             $html .= "$text <a href='" . url('user-profiles/profiles/user/id/' . $owner->id . '/type/' . $type->id) . "'>{$owner->name}</a>";
             $html .= "</div>";            
         }
-        
         //hack to enforce compatibility with Contribution's anonymous contribution option
         if(plugin_is_active('Contribution')) {
-            $contributedItem = get_db()->getTable('ContributionContributedItem')->findByItem($item);
+            if(!empty($item)) {
+                $contributedItem = get_db()->getTable('ContributionContributedItem')->findByItem($item);
+            }
             if(isset($contributedItem) && $contributedItem->anonymous) {
                 return;
             }
