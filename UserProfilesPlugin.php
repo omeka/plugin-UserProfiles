@@ -1,7 +1,7 @@
 <?php
 
 define('USER_PROFILES_DIR', dirname(__FILE__) );
-
+require_once(USER_PROFILES_DIR . '/helpers/functions.php');
 class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
 {
 
