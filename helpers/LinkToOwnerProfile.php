@@ -37,7 +37,7 @@ class UserProfiles_View_Helper_LinkToOwnerProfile extends Omeka_View_Helper_Elem
         //hack to enforce compatibility with Contribution's anonymous contribution option
         if(plugin_is_active('Contribution')) {
             $contributedItem = get_db()->getTable('ContributionContributedItem')->findByItem($item);
-            if($contributedItem->anonymous) {
+            if(isset($contributedItem) && $contributedItem->anonymous) {
                 return;
             }
         }
