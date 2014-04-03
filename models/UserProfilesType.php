@@ -31,7 +31,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
             $element->description = $elementInfo['description'];
             $element->save();
             $this->addErrorsFrom($element);
-            if(isset($elementInfo['required'])) {
+            if(isset($elementInfo['required']) && $elementInfo['required'] == 'on') {
                 $this->required_element_ids[] = $element->id;
             }
         }

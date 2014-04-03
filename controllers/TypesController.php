@@ -96,13 +96,13 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $typeId = $this->_getParam('id');
         $profileType = $this->_helper->db->getTable('UserProfilesType')->find($typeId);
         $this->_profileType = $profileType;
-        $this->view->profileType = $profileType;        
+        $this->view->profileType = $profileType;
         $this->_setViewElementInfos($profileType);
-        
+
         //remember whether the type is public, so that if it is changed to private
         //we can make all the existing profiles private, too
         $wasPublic = (boolean) $profileType->public;
-        
+
         // Handle edit vocabulary form.
         if ($this->_getParam('submit')) {
             $profileType->public = $this->_getParam('public');
