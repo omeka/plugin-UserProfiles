@@ -46,7 +46,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
             <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '?type=' . $userprofilestype->id); ?>"><?php echo __('Edit ' . $userprofilestype->label); ?></a>
         </div>
     <?php else: ?>
-    <p>No public profile</p>
+    <p><?php echo __('No public profile'); ?></p>
     <?php endif; ?>
     
 <?php else: ?>
