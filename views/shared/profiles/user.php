@@ -66,7 +66,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
             <?php foreach($userprofilesprofile->getElements() as $element):?>
             <div class="element">
                 <div class="field two columns alpha">
-                    <label><?php echo html_escape(__($element->name)); ?></label>
+                    <label><?php echo html_escape(__('%s' , $element->name)); ?></label>
                 </div>
                 <?php $i = 0; ?>
                 <?php if(get_class($element) == 'Element'): ?>

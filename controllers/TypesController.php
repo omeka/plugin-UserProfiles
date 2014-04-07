@@ -4,11 +4,11 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
 
     protected $_elementSet;
     private $_profileType;
-    
+
     public function init()
     {
         $this->_helper->db->setDefaultModelName('UserProfilesType');
-        $this->_browseRecordsPerPage = get_option('per_page_admin');        
+        $this->_browseRecordsPerPage = get_option('per_page_admin');
     }
 
     public function indexAction()
@@ -20,8 +20,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
     protected function _redirectAfterDelete($record)
     {
         $this->redirect('user-profiles');
-    }    
-    
+    }
+
     public function addNewElementAction()
     {
         if ($this->_getParam('from_post') == 'true') {
@@ -35,12 +35,12 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $elementDescription = '';
             $elementOrder = intval($this->_getParam('elementCount')) + 1;
         }
-    
+
         $stem = Omeka_Form_ItemTypes::NEW_ELEMENTS_INPUT_NAME . "[$elementTempId]";
         $elementNameName = $stem . '[name]';
         $elementDescriptionName = $stem . '[description]';
         $elementOrderName = $stem . '[order]';
-    
+
         $elementData = array('element_name_name' => $elementNameName,
                 'element_name_value' => $elementName,
                 'element_description_name' => $elementDescriptionName,
@@ -55,8 +55,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $elementData['raw_type'] = $type;
         $this->view->assign($elementData);
     }
-    
-    
+
+
     public function addAction()
     {
         // Handle edit vocabulary form.
@@ -114,7 +114,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $profileType->setElementInfos($elementInfos);
             $multiInfos = $this->_getMultiElementInfos();
             $profileType->setMultiElementInfos($multiInfos);
-            
+
             if($profileType->save(false)) {
                 if($wasPublic && $profileType->public == 0) {
                     $profiles = $this->_helper->db->getTable('UserProfilesProfile')->findBy(array('type_id'=>$profileType->id));
@@ -122,12 +122,12 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                         $profile->public = 0;
                         $profile->save();
                     }
-                }                
+                }
                 $this->_helper->flashMessenger(__('The profile type ' . $profileType->label . ' was successfully edited.'), 'success');
                 $this->redirect('user-profiles');
             } else {
                 $errors = $profileType->getErrors();
-                $this->_helper->flashMessenger($errors, 'error');                
+                $this->_helper->flashMessenger($errors, 'error');
             }
         }
     }
@@ -161,11 +161,11 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                         'description' => $info['description'],
                         'options' => $info['options'],
                         'required' => isset($info['required'])
-                        
+
                         );
             }
         }
-        
+
         if(isset($_POST['new-elements'])) {
             $newElements = $_POST['new-elements'];
             foreach ($newElements as $tempId => $info) {
@@ -174,8 +174,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                     continue;
                 }
                 if(empty($info['options'])) {
-                    $this->_profileType->addError($element->name, __('Options for "%s" must be set', $info['name']));
-                }     
+                    $this->_profileType->addError($info['name'], __('Options for "%s" must be set', $info['name']));
+                }
                 $multiEl = new UserProfilesMultiElement();
                 $multiEl->element_set_id = $this->_elementSet->id;
                 $multiEl->setName($info['name']);
@@ -187,16 +187,17 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                         'description' => $info['description'],
                         'options' => $info['options'],
                         'required' => isset($info['required'])
-            
+
                 );
-            }            
+            }
         }
-        return $multiInfos;        
+        return $multiInfos;
     }
-    
+
     protected function _getElementInfos()
     {
-        $elementTable = $this->_helper->db->getTable('Element');   
+        $elementInfos = array();
+        $elementTable = $this->_helper->db->getTable('Element');
         if (isset($_POST['elements'])) {
             $currentElements = $_POST['elements'];
             foreach ($currentElements as $elementId => $info) {
@@ -208,33 +209,30 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                         'required' => isset($info['required'])
                 );
             }
-        }        
-        
+        }
+
         if(isset($_POST['new-elements'])) {
             $newElements = $_POST['new-elements'];
             foreach ($newElements as $tempId => $info) {
                 if (empty($info['name']) || isset($info['type'])) {
                     continue;
                 }
-            
+
                 $element = new Element;
                 $element->element_set_id = $this->_elementSet->id;
                 $element->setName($info['name']);
                 $element->setDescription($info['description']);
                 $element->order = null;
-            
+
                 $elementInfos[] = array(
                         'element' => $element,
                         'temp_id' => $tempId,
                         'order' => $info['order'],
                         'required' => isset($info['required'])
                 );
-            }            
+            }
         }
-
-        
         return $elementInfos;
-        
     }
 
     private function _checkForDuplicateElements($elementInfos)
@@ -244,14 +242,12 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         $elementNames = array();
         foreach($elementInfos as $elementInfo) {
             $element = $elementInfo['element'];
-    
             // prevent duplicate item type element ids
             if ($element->id) {
                 if (in_array($element->id, $elementIds)) {
                     throw new Omeka_Validate_Exception(__('The profile type cannot have more than one "%s" element.', $element->name));
                 }
             }
-    
             // prevent duplicate item type element names
             if ($element->name) {
                 if (in_array($element->name, $elementNames)) {
@@ -260,7 +256,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             }
         }
     }
-    
+
     private function _removeElementsFromProfileType($profileType)
     {
         if(empty($_POST['remove-elements'])) {
@@ -277,7 +273,7 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             }
         }
     }
-    
+
     private function _setViewElementInfos($profileType)
     {
         $elementInfos = array();
@@ -290,8 +286,8 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             );
             $elementInfos[] = $elementInfo;
             $elementOrder++;
-        }        
+        }
         $this->view->elementInfos = $elementInfos;
     }
-    
+
 }
