@@ -155,14 +155,17 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
                 if(empty($info['options'])) {
                     $this->_profileType->addError($element->name, __('Options for "%s" must be set', $element->name));
                 }
-                $multiInfos[] = array(
-                        'element' => $element,
-                        'order' => $info['order'],
-                        'description' => $info['description'],
-                        'options' => $info['options'],
-                        'required' => isset($info['required'])
-
-                        );
+                if($info['delete'] == 1) {
+                    $element->delete();
+                } else {
+                    $multiInfos[] = array(
+                            'element' => $element,
+                            'order' => $info['order'],
+                            'description' => $info['description'],
+                            'options' => $info['options'],
+                            'required' => isset($info['required'])
+                            );
+                }
             }
         }
 
@@ -201,13 +204,19 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
         if (isset($_POST['elements'])) {
             $currentElements = $_POST['elements'];
             foreach ($currentElements as $elementId => $info) {
-                $elementInfos[] = array(
-                        'element' => $elementTable->find($elementId),
-                        'temp_id' => null,
-                        'description' => isset($info['description']) ? $info['description'] : '',
-                        'order' => $info['order'],
-                        'required' => isset($info['required'])
-                );
+                $element = $elementTable->find($elementId);
+                if($info['delete'] == 1) {
+                    $element->delete();
+                } else {
+                    $elementInfos[] = array(
+                            'element' => $element,
+                            'temp_id' => null,
+                            'description' => isset($info['description']) ? $info['description'] : '',
+                            'order' => $info['order'],
+                            'required' => isset($info['required'])
+                    );
+                }
+
             }
         }
 
