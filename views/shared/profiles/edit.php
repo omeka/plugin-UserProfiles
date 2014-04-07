@@ -3,10 +3,10 @@ if(!is_admin_theme()) {
     queue_css_file('admin-theme');
     queue_css_file('profiles');
     queue_css_file('admin-skeleton');
-    $css = "div.container-twelve div.ten.columns {width: 100%;} 
-     ul#section-nav {margin: 0px;} 
+    $css = "div.container-twelve div.ten.columns {width: 100%;}
+     ul#section-nav {margin: 0px;}
      div.container-twelve div.five.columns {width: auto;}
-    
+
     ";
     queue_css_string($css);
 }
@@ -28,7 +28,7 @@ jQuery(window).load(function () {
         mode: "none",
         forced_root_block: ""
     });
-    
+
     // Must run the element form scripts AFTER reseting textarea ids.
     jQuery(document).trigger('omeka:elementformload');
     Omeka.saveScroll();
@@ -45,7 +45,7 @@ jQuery(document).bind('omeka:elementformload', function (event) {
 <?php endif;?>
 
 <ul id='section-nav' class='navigation tabs'>
-<?php 
+<?php
 
 $typesNav = array();
 foreach($profile_types as $type) {
@@ -90,11 +90,11 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
             <p><?php echo __('This profile type is private'); ?></p>
             <input type="hidden" value="0" name="public" />
             <?php else: ?>
-            <label for="public"><?php echo __('Public'); ?></label> 
+            <label for="public"><?php echo __('Public'); ?></label>
             <input type="hidden" value="0" name="public" />
             <input type="checkbox" value="1" id="public" name="public" <?php echo  $userprofilesprofile->public ? "checked='checked'" : ""; ?> />
-            <?php endif; ?>                    
-        </div>        
+            <?php endif; ?>
+        </div>
     </div>
 </section>
 </form>

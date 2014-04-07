@@ -18,18 +18,15 @@ div.element-text > p {
 	margin-top: 0px;
 }
 
-div#primary input.big, div#primary input.button, div#primary a.big, div#primary a.button {
-
-	margin: 10px auto;
-	width: 100% !important;
-	display: block;
-	text-align: center;
-}
-
 div.container-twelve div.ten.columns {width: 100%;}
 
 ul#section-nav, #section-nav ul {margin: 0px;} 
 
-div#save > a.button {color: #FFFFFF; }
-
 div.container-twelve div.five.columns {width: auto;}
+
+/* Seasons override */
+
+div#primary {
+	box-shadow: none;
+    border: none;
+}
