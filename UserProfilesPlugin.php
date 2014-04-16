@@ -19,7 +19,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         'initialize'
         );
 
-    protected $_filters = array( 
+    protected $_filters = array(
             'admin_navigation_main',
             'search_record_types'
             );
@@ -33,12 +33,12 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         }
         parent::setUp();
     }
-    
+
     public function hookInitialize()
     {
         add_translation_source(dirname(__FILE__) . '/languages');
     }
-    
+
     public function hookInstall()
     {
         $db = get_db();
@@ -67,7 +67,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $db->query($sql);
-        
+
         $sql = "
             CREATE TABLE IF NOT EXISTS `$db->UserProfilesMultiElement` (
               `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -79,9 +79,9 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
               `order` int(11) DEFAULT NULL,
               `comment` text COLLATE utf8_unicode_ci,
               PRIMARY KEY (`id`)
-            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A parallel to Elements for checkboxes, radio, selects ' ;      
+            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A parallel to Elements for checkboxes, radio, selects ' ;
         ";
-        
+
         $db->query($sql);
 
         $sql = "
@@ -92,14 +92,11 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
               `values` text COLLATE utf8_unicode_ci NOT NULL,
               `multi_id` int(10) unsigned NOT NULL,
               PRIMARY KEY (`id`)
-            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;            
+            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
         ";
-        
         $db->query($sql);
-  
         set_option('user_profiles_required_elements', serialize(array()));
         set_option('user_profiles_required_multielements', serialize(array()));
-        
         $plugin = get_db()->getTable('Plugin')->findByDirectoryName('Contribution');
         if($plugin) {
             set_option('user_profiles_contributors_imported', 0);
@@ -114,18 +111,17 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         foreach($types as $type) {
             $type->getElementSet()->delete();
         }
-        
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesProfile` ";
         $db->query($sql);
 
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesType` ";
         $db->query($sql);
-        
+
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesMultiValue` ";
         $db->query($sql);
 
         $sql = "DROP TABLE IF EXISTS `$db->UserProfilesMultiElement` ";
-        $db->query($sql);      
+        $db->query($sql);
 
         //don't forget to delete the record relations
         $sql = "DELETE FROM `$db->RecordRelationsRelation` WHERE `object_record_type` = 'UserProfilesProfile'" ;
@@ -140,7 +136,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
             $profile->deleteWithRelation();
         }
     }
-    
+
     public function filterAdminNavigationMain($tabs)
     {
         $tabs['User Profiles'] = array('label'=>'User Profiles', 'uri'=>url("user-profiles") );
@@ -154,26 +150,25 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         if(!empty($firstProfileTypes)) {
             $type = $firstProfileTypes[0];
             $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}/type/{$type->id}"));
-                        
         }
         return $links;
     }
-    
+
     public function filterSearchRecordTypes($recordTypes)
     {
         $recordTypes['UserProfilesProfile'] = __('User Profiles');
         return $recordTypes;
     }
-    
-    public function hookPublicItemsShow($args) 
+
+    public function hookPublicItemsShow($args)
     {
         if(get_option('user_profiles_link_to_owner')) {
             $view = $args['view'];
             $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
-            echo $view->linkToOwnerProfile(array('item' =>$args['item'], 'text'=> __("Added by ")));            
+            echo $view->linkToOwnerProfile(array('item' =>$args['item'], 'text'=> __("Added by ")));
         }
     }
-    
+
     public function hookPublicContentTop($args)
     {
         $request = Zend_Controller_Front::getInstance()->getRequest();
@@ -194,10 +189,10 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $user = $args['user'];
         $view = $args['view'];
         $view->addHelperPath(USER_PROFILES_DIR . '/helpers', 'UserProfiles_View_Helper_');
-        echo $view->linkToOwnerProfile(array('owner'=>$user,  'text'=>"Profile: "));        
+        echo $view->linkToOwnerProfile(array('owner'=>$user,  'text'=>"Profile: "));
     }
-    
-    public function hookAdminItemsShowSidebar($args) 
+
+    public function hookAdminItemsShowSidebar($args)
     {
         if(get_option('user_profiles_link_to_owner')) {
             $view = $args['view'];
@@ -221,24 +216,24 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
            $importer->perform();
        }
     }
-    
+
     public function hookConfigForm($args)
     {
-        include(USER_PROFILES_DIR . '/config_form.php');    
+        include(USER_PROFILES_DIR . '/config_form.php');
     }
-    
+
     public function hookDefineAcl($args)
     {
         $acl = $args['acl'];
         $acl->addResource('UserProfiles_Type');
         $acl->addResource('UserProfiles_Profile');
-                
+
         //null as 1st param in allow includes not logged in, so manage roles here
         $roles = array('super', 'admin', 'contributor', 'researcher');
         if(plugin_is_active('GuestUser')) {
             $roles[] = 'guest';
         }
-        
+
         $acl->allow(null,
                 'UserProfiles_Profile',
                 array('edit', 'delete'),
@@ -249,7 +244,6 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
 
         $acl->allow(array('admin', 'super', 'researcher'), 'UserProfiles_Profile', array('showNotPublic'));
         $acl->allow(array('admin', 'super'), 'UserProfiles_Profile', array('deleteAll'));
-        
         $acl->deny(null, 'UserProfiles_Type');
         $acl->allow(array('super', 'admin'), 'UserProfiles_Type');
         //let all logged in people see the types available, but hide non-public ones from searches
