@@ -8,18 +8,17 @@ class Table_UserProfilesType extends Omeka_Db_Table
         $permissions = new Omeka_Db_Select_PublicPermissions('UserProfiles_Type');
         $permissions->apply($select, 'user_profiles_types');
         return $select;
-    }    
+    }
 
     protected function _getColumnPairs()
     {
         $alias = $this->getTableAlias();
-        return array($alias . '.id', $alias . '.label');        
+        return array($alias . '.id', $alias . '.label');
     }
-    
+
     /**
      * For required profile types, this digs up the types that are incomplete for the current user
      */
-    
     public function getIncompleteProfileTypes()
     {
         $user = current_user();
@@ -39,6 +38,6 @@ class Table_UserProfilesType extends Omeka_Db_Table
                 $incompleteTypes[] = $type;
             }
         }
-        return $incompleteTypes; 
+        return $incompleteTypes;
     }
 }

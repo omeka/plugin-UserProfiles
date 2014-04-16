@@ -9,7 +9,7 @@ if(!is_admin_theme()) {
 queue_js_file('admin-globals');
 $head = array('title' => __("User Profile | %s" , $user->name),
               'bodyclass' => '');
-echo head($head); 
+echo head($head);
 
 ?>
 <script type="text/javascript" charset="utf-8">
@@ -25,33 +25,29 @@ jQuery(window).load(function () {
 <?php endif;?>
 
 <ul id='section-nav' class='navigation tabs'>
-<?php 
+<?php
 
 $typesNav = array();
 foreach($profile_types as $index=>$type) {
-    $typesNav[$type->label] = array('label'=>$type->label, 
-                                    'uri'=>url('user-profiles/profiles/user/id/' . $user->id .'/type/'.$type->id),                                    
+    $typesNav[$type->label] = array('label'=>$type->label,
+                                    'uri'=>url('user-profiles/profiles/user/id/' . $user->id .'/type/'.$type->id),
                                     );
 }
 
 echo nav($typesNav, 'user_profiles_types_user_edit');
 ?>
 </ul>
-
-<div id="primary">
 <?php echo flash(); ?>
+<div id="primary">
+
+
+<section class="seven columns alpha">
+
 <?php if(empty($userprofilesprofile)):?>
-    <?php if(current_user() && $user->id == current_user()->id || is_allowed('UserProfiles_Profile', 'edit')):  ?>
-        <div class="two columns alpha">
-            <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '?type=' . $userprofilestype->id); ?>"><?php echo __('Edit ' . $userprofilestype->label); ?></a>
-        </div>
+        <p><?php echo __('No public profile'); ?></p>
     <?php else: ?>
-    <p><?php echo __('No public profile'); ?></p>
-    <?php endif; ?>
-    
-<?php else: ?>
-    <section class="seven columns alpha">
-    <?php $type = $userprofilesprofile->getProfileType();?>
+
+        <?php $type = $userprofilesprofile->getProfileType();?>
         <?php if(is_allowed($userprofilesprofile, 'edit')): ?>
             <?php if($userprofilesprofile->public == 1): ?>
                 <p><?php echo __("(Public)"); ?></p>
@@ -90,25 +86,20 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
                         <p></p>
                         <?php endif; ?>
                     </div>
-                
                 <?php endif; ?>
             </div><!-- end element -->
             <?php endforeach; ?>
         </div><!-- end element-set -->
-        
         <?php fire_plugin_hook('user_profiles_user_page', array('user'=>$user, 'view'=>$this) ); ?>
+    <?php endif; ?>
     </section>
-
-
-    <?php if(is_allowed($userprofilesprofile, 'edit')): ?>
-    
+    <?php if(current_user() && $user->id == current_user()->id || is_allowed('UserProfiles_Profile', 'edit')):  ?>
     <section class="three columns omega">
         <div id='save' class='panel'>
-            <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '/type/' . $userprofilestype->id); ?>"><?php echo __('Edit %s' ,$userprofilestype->label); ?></a>    
+            <a class="big button" href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '/type/' . $userprofilestype->id); ?>"><?php echo __('Edit %s' ,$userprofilestype->label); ?></a>
         </div>
     </section>
     <?php endif; ?>
-<?php endif; ?>
 <!--  end primary -->
 </div>
 <?php if(!is_admin_theme()) :?>

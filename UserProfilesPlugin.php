@@ -146,6 +146,14 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     public function filterGuestUserLinks($links)
     {
         $user = current_user();
+        $typesTable = $this->_db->getTable('UserProfilesType');
+        $incompleteTypes = $typesTable->getIncompleteProfileTypes();
+        if(!empty($incompleteTypes)) {
+            $type = $incompleteTypes[0];
+            $links['UserProfiles'] = array('label'=>'My Profiles', 'uri'=>url("/user-profiles/profiles/user/id/{$user->id}/type/{$type->id}"));
+            return $links;
+        }
+
         $firstProfileTypes = $this->_db->getTable('UserProfilesType')->findBy(array(), 1);
         if(!empty($firstProfileTypes)) {
             $type = $firstProfileTypes[0];
