@@ -810,25 +810,23 @@ SQL
     
     public function getValuesForMulti($element)
     {
-        $valuesObject = $this->getTable('UserProfilesMultiValue')->findByMultiElement($element);
+        $valuesObject = $this->getTable('UserProfilesMultiValue')->findByMultiElementAndProfile($element, $this->id);
         if($valuesObject) {
             return $valuesObject->getValues();
         } 
         return array();
-        
-        
     }
     
     public function getValueRecordForMulti($element)
     {
-        return $this->getTable('UserProfilesMultiValue')->findByMultiElement($element);
+        return $this->getTable('UserProfilesMultiValue')->findByMultiElementAndProfile($element, $this->id);
     }
     
     public function saveMultiElementValues()
     {
         if(isset($_POST['MultiElements'])) {
             foreach($_POST['MultiElements'] as $multiElementId=>$values) {
-                $multiElementValue = $this->getTable('UserProfilesMultiValue')->findByMultiElement($multiElementId);
+                $multiElementValue = $this->getTable('UserProfilesMultiValue')->findByMultiElementAndProfile($multiElementId, $this->id);
                 if(!$multiElementValue) {
                     $multiElementValue = new UserProfilesMultiValue();
                     $multiElementValue->profile_id = $this->id;
@@ -840,7 +838,4 @@ SQL
             }
         }
     }
-    
-    
-   
 }
