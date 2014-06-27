@@ -79,14 +79,14 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             $profileType->setElementInfos($elementInfos);
             $multiInfos = $this->_getMultiElementInfos();
             $profileType->setMultiElementInfos($multiInfos);
-            if($profileType->save() ) {
+            if($profileType->save(false) ) {
 	            $this->_helper->flashMessenger(__('The profile type was successfully added.'), 'success');
 	            $this->redirect('user-profiles');
             } else {
+                $elementSet->delete();
             	$errors = $profileType->getErrors();
-            	foreach($errors as $error) {
-            		$this->flashError($error);
-            	}
+            	debug($errors);
+        		$this->_helper->flashMessenger($errors, 'error');
             }
         }
     }

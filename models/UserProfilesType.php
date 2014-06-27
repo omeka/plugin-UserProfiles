@@ -41,6 +41,7 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
             $multiEl->description = $multiInfo['description'];
             $multiEl->setOptions($multiInfo['options']);
             $multiEl->save();
+            $this->addErrorsFrom($multiEl);
             if($multiInfo['required']) {
                 $this->required_multielement_ids[] = $multiEl->id;
             }                
@@ -95,7 +96,10 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
     
     protected function afterDelete()
     {
-        $this->getElementSet()->delete();   
+        $elSet = $this->getElementSet();
+        if($elSet) {
+            $elSet->delete();
+        }
         $profilesToDelete = $this->getTable('UserProfilesProfile')->findBy(array('type_id' => $this->id));
         foreach($profilesToDelete as $profile) {
             $profile->deleteWithRelation();
