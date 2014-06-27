@@ -34,12 +34,12 @@ echo head($head);
     		    <li>
             		<a href="user-profiles/types/edit/id/<?php echo $type->id; ?>">
             		<?php echo __('Edit');?>
-            		</a>    		    
+            		</a>
     		    </li>
     		    <li>
             		<a  class='delete-confirm' href="user-profiles/types/delete-confirm/id/<?php echo $type->id; ?>">
             		<?php echo __('Delete');?>
-            		</a>    		    
+            		</a>
     		    </li>
     		</ul>
 
@@ -60,7 +60,12 @@ echo head($head);
     	</li>
     	<?php endforeach; ?>
     	</ul></td>
-    	<td><a href="<?php echo url('user-profiles/profiles/user/id/' . current_user()->id . '/type/' . $type->id); ?>"><?php echo __('View'); ?></a> | <a href="<?php echo url('user-profiles/profiles/edit/id/' . current_user()->id . '/type/' . $type->id); ?>"><?php echo __("Edit"); ?></a></td>
+    	<?php $user = current_user();
+            $profile = get_db()->getTable('UserProfilesProfile')->findByUserIdAndTypeId($user->id, $type->id);
+    
+    	?>
+    	<td><a href="<?php echo url('user-profiles/profiles/user/id/' . $user->id . '/type/' . $type->id); ?>"><?php echo __('View'); ?></a> 
+    	    | <a href="<?php echo url('user-profiles/profiles/edit/id/' . $user->id . '/type/' . $type->id); ?>"><?php if ($profile) { echo __("Edit"); } else { echo __("Add"); } ?></a></td>
     </tr>
     <?php endforeach; ?>
     </tbody>
