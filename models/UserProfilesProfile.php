@@ -810,6 +810,9 @@ SQL
     
     public function getValuesForMulti($element)
     {
+        if (! $this->exists()) {
+            return array();
+        }
         $valuesObject = $this->getTable('UserProfilesMultiValue')->findByMultiElementAndProfile($element, $this->id);
         if($valuesObject) {
             return $valuesObject->getValues();
