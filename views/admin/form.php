@@ -145,7 +145,7 @@ jQuery(document).ready(function () {
         <div id="save" class="panel">
             <?php if($profileType->exists()): ?>
             <?php echo $this->formSubmit('submit', __('Save Changes'), array('class'=>'big green button')); ?>
-            <a class="big red button delete-confirm" href="/Omeka/admin/user-profiles/types/delete-confirm/id/<?php echo $profileType->id; ?>"><?php echo __('Delete'); ?></a>
+            <a class="big red button delete-confirm" href="<?php echo url('user-profiles/types/delete-confirm/id/' . $profileType->id); ?>"><?php echo __('Delete'); ?></a>
             <?php else: ?>
             <?php echo $this->formSubmit('submit', __('Add Profile Type'), array('class'=>'big green button')); ?>
             <?php endif;?>
