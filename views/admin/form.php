@@ -40,7 +40,7 @@ jQuery(document).ready(function () {
             <p class='explanation'>* <?php echo __('required field'); ?></p>
             <div class="field">
                 <div class="two columns alpha">
-                    <label><?php echo __("Name"); ?> *</label>
+                    <label><?php echo __("Label"); ?> *</label>
                 </div>
                 <div class="inputs five columns omega">
                     <p class='explanation'><?php echo __('The name of the profile type'); ?></p>

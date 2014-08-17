@@ -110,6 +110,17 @@ class UserProfilesType extends Omeka_Record_AbstractRecord {
         }                
     }
     
+    protected function _validate()
+    {
+        if (empty($this->label)) {
+            $this->addError('Label', __('Profile Type Name must be set'));
+        }
+        
+        if (empty($this->description)) {
+            $this->addError('Description', __('Profile Type Description must be set'));
+        }
+    }
+    
     private function _sortElementInfos($a, $b)
     {
         if($a['order'] == $b['order']) {
