@@ -21,7 +21,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
 
     protected $_filters = array(
             'admin_navigation_main',
-            'search_record_types'
+            'search_record_types',
+            'api_resources'
             );
 
     protected $_options = null;
@@ -166,6 +167,19 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $recordTypes['UserProfilesProfile'] = __('User Profiles');
         return $recordTypes;
+    }
+    
+    public function filterApiResources($resources, $arg)
+    {
+        $resources['user_profiles_types'] = array(
+                'record_type' => 'UserProfilesType',
+                'actions'     => array('index', 'get')
+                );
+        $resources['user_profiles'] = array(
+                'record_type' => 'UserProfilesProfile',
+                'actions'     => array('index', 'get')
+                );
+        return $resources;
     }
 
     public function hookPublicItemsShow($args)
