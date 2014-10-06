@@ -5,6 +5,7 @@ class Api_UserProfilesType extends Omeka_Record_Api_AbstractRecordAdapter implem
     {
         $representation = array(
                 'id'          => $type->id,
+                'url'         => self::getResourceUrl("/user_profiles_types/{$type->id}"),
                 'label'       => $type->label,
                 'description' => $type->description,
                 'required_element_ids' => $type->required_element_ids,
@@ -14,7 +15,7 @@ class Api_UserProfilesType extends Omeka_Record_Api_AbstractRecordAdapter implem
                 );
         $representation['element_set'] = array(
                     'id'  => $type->element_set_id,
-                    'url' => $this->getResourceUrl("/element_sets/{$type->element_set_id}") 
+                    'url' => self::getResourceUrl("/element_sets/{$type->element_set_id}") 
                 );
         return $representation;
     }
