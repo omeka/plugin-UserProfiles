@@ -23,10 +23,9 @@ class ApiImport_ResponseAdapter_Omeka_UserProfilesProfile extends ApiImport_Resp
         } catch (Exception $e) {
             _log($e);
         }
-        return $this->record;        
+        return $this->record;
     }
-    
-    
+
     /**
      * Process the element text data
      * @param array $responseData

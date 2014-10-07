@@ -186,7 +186,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 );
         $resources['user_profiles_multivalues'] = array(
                 'record_type' => 'UserProfilesMultiValue',
-                'action'      => array('index', 'get')
+                'actions'     => array('index', 'get')
                 );
         return $resources;
     }
