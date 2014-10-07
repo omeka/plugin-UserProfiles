@@ -6,7 +6,7 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
 {
 
     protected $_hooks = array(
-    	'install',
+        'install',
         'uninstall',
         'define_acl',
         'config',
@@ -22,7 +22,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_filters = array(
             'admin_navigation_main',
             'search_record_types',
-            'api_resources'
+            'api_resources',
+            'api_import_omeka_adapters'
             );
 
     protected $_options = null;
@@ -188,6 +189,32 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 'action'      => array('index', 'get')
                 );
         return $resources;
+    }
+
+    public function filterApiImportOmekaAdapters($adapters, $args)
+    {
+        // Sequence is important here. Need the types and their elements mapped in first
+        // Then the profiles themselves, then bring in the multi-valued elements then their values
+        $typesAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'UserProfilesType');
+        $typesAdapter->setResourceProperties(array('element_set' => 'ElementSet'));
+        $adapters['user_profiles_types'] = $typesAdapter;
+
+        $elementAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'UserProfilesMultiElement)');
+        $elementAdapter->setResourceProperties(array('element_set' => 'ElementSet'));
+        $adapters['user_profiles_multielements'] = $elementAdapter;
+
+        $profileAdapter = new ApiImport_ResponseAdapter_Omeka_UserProfilesProfile(null, $args['endpointUri'], 'UserProfilesProfile');
+        $adapters['user_profiles'] = $profileAdapter; 
+
+        $valueAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'UserProfilesMultiValue');
+        $valueAdapter->setResourceProperties(array(
+                'profile_type' => 'UserProfilesType',
+                'multi'        => 'UserProfilesMultiValue',
+                'profile'      => 'UserProfilesProfile'
+                ));
+        $adapters['user_profiles_multivalues'] = $valueAdapter;
+        
+        return $adapters;
     }
 
     public function hookPublicItemsShow($args)

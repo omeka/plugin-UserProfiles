@@ -6,6 +6,7 @@ class Api_UserProfilesProfile extends Omeka_Record_Api_AbstractRecordAdapter imp
     {
         $representation = array(
                 'id'       => $profile->id,
+                'url'      => self::getResourceUrl("/user_profiles/{$profile->id}"),
                 'added'    => self::getDate($profile->added),
                 'modified' => self::getDate($profile->modified),
                 'public'   => (bool) $profile->public
