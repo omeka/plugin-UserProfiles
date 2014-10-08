@@ -99,20 +99,20 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         $this->_mixins[] = new Mixin_Owner($this);
         $this->_mixins[] = new Mixin_Timestamp($this);
         $this->_mixins[] = new Mixin_Search($this);
-    }    
-    
+    }
+
     public function afterSave($args)
     {
         if (!$this->public) {
             $this->setSearchTextPrivate();
         }
-        
-        $this->saveElementTexts();       
+
+        $this->saveElementTexts();
         $this->saveMultiElementValues();
         foreach ($this->getAllElementTexts() as $elementText) {
             $this->addSearchText($elementText->text);
-        }        
-        
+        }
+
         foreach($this->getAllMultiValues() as $multiValueRecord) {
             $displayValues = $multiValueRecord->getValuesForDisplay();
             foreach($displayValues as $value) {
@@ -121,6 +121,14 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         }
         $owner = $this->getOwner();
         $this->setSearchTextTitle($owner->name);
+        if(!empty($this->_relation)) {
+            if($this->_isSubject) {
+               $this->_relation->subject_id = $this->id;
+            } else {
+                $this->_relation->object_id = $this->id;
+            }
+            $this->_relation->save();
+        }
         parent::afterSave($args);
     }
     

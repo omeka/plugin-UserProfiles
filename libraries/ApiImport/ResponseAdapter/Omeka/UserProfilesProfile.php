@@ -1,6 +1,6 @@
 <?php
 
-class ApiImport_ResponseAdapter_Omeka_UserProfilesProfile extends ApiImport_ResponseAdapter_GenericAdapter
+class ApiImport_ResponseAdapter_Omeka_UserProfilesProfile extends ApiImport_ResponseAdapter_Omeka_GenericAdapter
 {
 
     protected $resourceProperties = array('type' => 'UserProfilesType');
@@ -12,13 +12,17 @@ class ApiImport_ResponseAdapter_Omeka_UserProfilesProfile extends ApiImport_Resp
     public function import()
     {
         if(! $this->record) {
-            $this->record = new $this->recordType;
+            $this->record = new UserProfilesProfile;
         }
         $this->setFromResponseData();
         $elementTexts = $this->elementTexts();
+        $this->record->deleteElementTexts();
         $this->record->addElementTextsByArray($elementTexts);
         try {
+            $this->record->setRelationData(array('subject_id'=> $this->record->owner_id, 'object_id' => $this->record->id));
+            $relation = $this->record->getRelation();
             $this->record->save(true);
+            $relation->save(true);
             $this->addOmekaApiImportRecordIdMap();
         } catch (Exception $e) {
             _log($e);

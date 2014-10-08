@@ -85,7 +85,6 @@ class UserProfiles_TypesController extends Omeka_Controller_AbstractActionContro
             } else {
                 $elementSet->delete();
             	$errors = $profileType->getErrors();
-            	debug($errors);
         		$this->_helper->flashMessenger($errors, 'error');
             }
         }
