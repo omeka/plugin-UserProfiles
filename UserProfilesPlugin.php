@@ -198,16 +198,16 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $typesAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'UserProfilesType');
         $typesAdapter->setResourceProperties(array('element_set' => 'ElementSet'));
         $adapters['user_profiles_types'] = $typesAdapter;
-        $elementAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'UserProfilesMultiElement)');
+        $elementAdapter = new ApiImport_ResponseAdapter_Omeka_UserProfilesMulti(null, $args['endpointUri'], 'UserProfilesMultiElement');
         $elementAdapter->setResourceProperties(array('element_set' => 'ElementSet'));
         $adapters['user_profiles_multielements'] = $elementAdapter;
         $profileAdapter = new ApiImport_ResponseAdapter_Omeka_UserProfilesProfile(null, $args['endpointUri'], 'UserProfilesProfile');
         $adapters['user_profiles'] = $profileAdapter; 
 
-        $valueAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'UserProfilesMultiValue');
+        $valueAdapter = new ApiImport_ResponseAdapter_Omeka_UserProfilesMulti(null, $args['endpointUri'], 'UserProfilesMultiValue');
         $valueAdapter->setResourceProperties(array(
                 'profile_type' => 'UserProfilesType',
-                'multi'        => 'UserProfilesMultiValue',
+                'multi'        => 'UserProfilesMultiElement',
                 'profile'      => 'UserProfilesProfile'
                 ));
         $adapters['user_profiles_multivalues'] = $valueAdapter;
