@@ -1,0 +1,204 @@
+# Translation for the UserProfiles plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Nicolaie Constantinescu <kosson@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-UserProfiles/issues\n"
+"POT-Creation-Date: 2012-01-09 21:49-0500\n"
+"PO-Revision-Date: 2014-01-14 10:13+0000\n"
+"Last-Translator: Nicolaie Constantinescu <kosson@gmail.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/omeka/language/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+msgid "Allowed"
+msgstr "Permis"
+
+#: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
+#: views/admin/types/add-new-element.php:18
+msgid "Required"
+msgstr "Cerut"
+
+msgid "Disallowed"
+msgstr "Nepermis"
+
+msgid "Deleted User"
+msgstr "Utilizator eliminat"
+
+#: UserProfilesPlugin.php:160 views/admin/index.php:2
+msgid "User Profiles"
+msgstr "Profilele utilizatorilor"
+
+#: config_form.php:7
+msgid "Link items to owner?"
+msgstr "Legi resursele cu deținătorul?"
+
+#: config_form.php:10
+msgid "Add a link from items to the person who added them."
+msgstr "Adaugă un link de la resurse la persoana care le-a adăugat."
+
+#: config_form.php:25
+msgid ""
+"You have used the Contribution plugin to create Contributor information. For"
+" the Omeka 2.x series, that functionality has been folded into the User "
+"Profiles plugin."
+msgstr "Ai utilizat extensia Contribuțiilor pentru a crea informațiile specifice. Pentru seria Omeka 2.x această funcționalitate a fost înglobată în extensia Profilului Utilizatorului."
+
+#: config_form.php:26
+msgid ""
+"Check this box if you would like to convert Contributor information over "
+"into a user profile. Contributors will also become Guest Users."
+msgstr "Bifează dacă dorești să convertești informația de la Contribuitor pentru a fi introdusă în profilul utilizatorului. Contribuitorii vor deveni și Utilizator Oaspete."
+
+#: config_form.php:27
+msgid "The import may take a long time if there are many contributions."
+msgstr "Importul ar putea să ia mai mult timp dacă sunt mulți contribuitori."
+
+#: config_form.php:28
+msgid ""
+"User Profiles offers many new features for your contributor info. After the "
+"import is complete, you might want to edit the 'Contributor Info' profile "
+"type that is created."
+msgstr "Profilurile utilizatorilor oferă multe funcționalități noi pentru contribuitori. După ce importul este complet, este posibil să dorești să editezi profilul „Informației de Contribuitor” creat."
+
+#: controllers/TypesController.php:83
+msgid "The profile type was successfully added."
+msgstr "Tipul de profil a fost adăugat cu succes."
+
+#: controllers/TypesController.php:126
+msgid "The profile type "
+msgstr "Tipul profilului"
+
+#: controllers/TypesController.php:156 controllers/TypesController.php:177
+#, php-format
+msgid "Options for \"%s\" must be set"
+msgstr "Trebuie setate opțiunile pentru \"%s\""
+
+#: controllers/TypesController.php:251 controllers/TypesController.php:258
+#, php-format
+msgid "The profile type cannot have more than one \"%s\" element."
+msgstr "Tipul profilului nu poate avea mai mult de \"%s\" elemente."
+
+#: helpers/LinksToIncompleteProfiles.php:15
+msgid ""
+"The site builders ask that you fill out profile info to help make "
+"connections."
+msgstr "Constructorii siteului ar putea cere completarea profilului pentru a ușura realizarea conexiunilor."
+
+#: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
+#, php-format
+msgid "The \"%s\" field is required."
+msgstr "Câmpul \"%s\" este necesar."
+
+#: views/admin/form.php:46
+msgid "The name of the profile type"
+msgstr "Numele tipului profilului"
+
+#: views/admin/form.php:63
+msgid "The description of the profile type."
+msgstr "Descrierea tipului profilului."
+
+#: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
+#: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
+#: views/admin/index.php:56
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: views/admin/form.php:109
+msgid "Allowed values, comma-separated"
+msgstr "Valori permise, separate prin virgulă"
+
+#: views/admin/form.php:126
+msgid "Text"
+msgstr "Text"
+
+#: views/admin/form.php:127
+msgid "Radio"
+msgstr "Radio"
+
+#: views/admin/form.php:128
+msgid "Checkbox"
+msgstr "Bifă"
+
+#: views/admin/form.php:129
+msgid "Select (Single Option)"
+msgstr "Selectare (o singură opțiune)"
+
+#: views/admin/form.php:130
+msgid "Select (Multiple Options)"
+msgstr "Selectare (opțiuni multiple)"
+
+#: views/admin/form.php:150 views/admin/types/add.php:2
+msgid "Add Profile Type"
+msgstr "Adaugă tipul profilului"
+
+#: views/admin/index.php:10
+msgid "Add a Profile Type"
+msgstr "Adaugă un tip de profil"
+
+#: views/admin/index.php:16
+msgid "Profile Type"
+msgstr "Tipul profilului"
+
+#: views/admin/index.php:19
+msgid "My Profile"
+msgstr "Profilul meu"
+
+#: views/admin/index.php:28 views/shared/profiles/user.php:58
+msgid "(Public)"
+msgstr "(Public)"
+
+#: views/admin/index.php:58
+msgid "(text)"
+msgstr "(text)"
+
+#: views/admin/types/add-new-element.php:31
+msgid "Allowed Values, comma-separated"
+msgstr "Valori permise, separate prin virgule"
+
+#: views/admin/types/edit.php:5
+msgid "Edit Profile Type"
+msgstr "Editează tipul profilului"
+
+#: views/shared/profiles/edit.php:18
+msgid "Edit Profile"
+msgstr "Editează profilul"
+
+#: views/shared/profiles/edit.php:60
+msgid "Save changes before moving to edit a new profile type."
+msgstr "Salvează modificările înainte de a porni editarea unui nou tip de profil."
+
+#: views/shared/profiles/edit.php:71
+#, php-format
+msgid "Edit your %s profile"
+msgstr "Editează-ți profilul %s"
+
+#: views/shared/profiles/edit.php:83
+msgid "Profile type: "
+msgstr "Tipul profilului:"
+
+#: views/shared/profiles/edit.php:90
+msgid "This profile type is private"
+msgstr "Tipul profilului este privat"
+
+#: views/shared/profiles/user.php:10
+#, php-format
+msgid "User Profile | %s"
+msgstr "Profilul utilizatorului | %s"
+
+#: views/shared/profiles/user.php:47
+msgid "Edit "
+msgstr "Editează"
+
+#: views/shared/profiles/user.php:108
+#, php-format
+msgid "Edit %s"
+msgstr "Editează %s"

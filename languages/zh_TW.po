@@ -1,0 +1,204 @@
+# Translation for the UserProfiles plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# yennylin <yennylin1234@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-UserProfiles/issues\n"
+"POT-Creation-Date: 2012-01-09 21:49-0500\n"
+"PO-Revision-Date: 2014-01-12 11:23+0000\n"
+"Last-Translator: yennylin <yennylin1234@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/omeka/language/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Allowed"
+msgstr "允許"
+
+#: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
+#: views/admin/types/add-new-element.php:18
+msgid "Required"
+msgstr "必須"
+
+msgid "Disallowed"
+msgstr "不允許"
+
+msgid "Deleted User"
+msgstr "刪除用戶"
+
+#: UserProfilesPlugin.php:160 views/admin/index.php:2
+msgid "User Profiles"
+msgstr "用戶基本資料"
+
+#: config_form.php:7
+msgid "Link items to owner?"
+msgstr "連結單件到擁有者？"
+
+#: config_form.php:10
+msgid "Add a link from items to the person who added them."
+msgstr "從單件增加一個連結到增加單件的用戶"
+
+#: config_form.php:25
+msgid ""
+"You have used the Contribution plugin to create Contributor information. For"
+" the Omeka 2.x series, that functionality has been folded into the User "
+"Profiles plugin."
+msgstr "你已經使用Contribution外掛去創建貢獻者資訊。對於Omeka 2.x系列，這個功能被整合到用戶基本資料外掛。"
+
+#: config_form.php:26
+msgid ""
+"Check this box if you would like to convert Contributor information over "
+"into a user profile. Contributors will also become Guest Users."
+msgstr "如果你希望移轉貢獻者資訊到使用者基本資料，勾選這個核定框。貢獻者也會變成訪客。"
+
+#: config_form.php:27
+msgid "The import may take a long time if there are many contributions."
+msgstr "如果有許多貢獻者，輸入需要一段時間。"
+
+#: config_form.php:28
+msgid ""
+"User Profiles offers many new features for your contributor info. After the "
+"import is complete, you might want to edit the 'Contributor Info' profile "
+"type that is created."
+msgstr "使用者基本資料為你的貢獻者資訊提供許多新功能。完成輸入後，你可以編輯「貢獻者資訊」已創建的基本資料類型。"
+
+#: controllers/TypesController.php:83
+msgid "The profile type was successfully added."
+msgstr "基本資料類型已增加成功。"
+
+#: controllers/TypesController.php:126
+msgid "The profile type "
+msgstr "基本資料類型"
+
+#: controllers/TypesController.php:156 controllers/TypesController.php:177
+#, php-format
+msgid "Options for \"%s\" must be set"
+msgstr "必須設置 \"%s\" 的選項"
+
+#: controllers/TypesController.php:251 controllers/TypesController.php:258
+#, php-format
+msgid "The profile type cannot have more than one \"%s\" element."
+msgstr "基本資料類型超過一個 \"%s\" 元素。"
+
+#: helpers/LinksToIncompleteProfiles.php:15
+msgid ""
+"The site builders ask that you fill out profile info to help make "
+"connections."
+msgstr "網站建造者要求你填寫基本資料以幫助連結。"
+
+#: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
+#, php-format
+msgid "The \"%s\" field is required."
+msgstr " \"%s\" 欄位是必須的。"
+
+#: views/admin/form.php:46
+msgid "The name of the profile type"
+msgstr "基本資料類型的名稱"
+
+#: views/admin/form.php:63
+msgid "The description of the profile type."
+msgstr "基本資料類型的描述"
+
+#: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
+#: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
+#: views/admin/index.php:56
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: views/admin/form.php:109
+msgid "Allowed values, comma-separated"
+msgstr "允許值，逗號分隔"
+
+#: views/admin/form.php:126
+msgid "Text"
+msgstr "文本"
+
+#: views/admin/form.php:127
+msgid "Radio"
+msgstr "收音機"
+
+#: views/admin/form.php:128
+msgid "Checkbox"
+msgstr "核定框"
+
+#: views/admin/form.php:129
+msgid "Select (Single Option)"
+msgstr "挑選（單一選項）"
+
+#: views/admin/form.php:130
+msgid "Select (Multiple Options)"
+msgstr "挑選（複選）"
+
+#: views/admin/form.php:150 views/admin/types/add.php:2
+msgid "Add Profile Type"
+msgstr "增加基本資料類型"
+
+#: views/admin/index.php:10
+msgid "Add a Profile Type"
+msgstr "增加一個基本資料類型"
+
+#: views/admin/index.php:16
+msgid "Profile Type"
+msgstr "基本資料類型"
+
+#: views/admin/index.php:19
+msgid "My Profile"
+msgstr "我的基本資料"
+
+#: views/admin/index.php:28 views/shared/profiles/user.php:58
+msgid "(Public)"
+msgstr "（公開）"
+
+#: views/admin/index.php:58
+msgid "(text)"
+msgstr "（文字）"
+
+#: views/admin/types/add-new-element.php:31
+msgid "Allowed Values, comma-separated"
+msgstr "允許值，逗號分隔"
+
+#: views/admin/types/edit.php:5
+msgid "Edit Profile Type"
+msgstr "編輯基本資料類型"
+
+#: views/shared/profiles/edit.php:18
+msgid "Edit Profile"
+msgstr "編輯基本資料"
+
+#: views/shared/profiles/edit.php:60
+msgid "Save changes before moving to edit a new profile type."
+msgstr "移到編輯一個新的基本資料類型之前先儲存變更。"
+
+#: views/shared/profiles/edit.php:71
+#, php-format
+msgid "Edit your %s profile"
+msgstr "編輯你的 %s 基本資料"
+
+#: views/shared/profiles/edit.php:83
+msgid "Profile type: "
+msgstr "r基本資料類型："
+
+#: views/shared/profiles/edit.php:90
+msgid "This profile type is private"
+msgstr "這個基本資料類型是私人的"
+
+#: views/shared/profiles/user.php:10
+#, php-format
+msgid "User Profile | %s"
+msgstr "用戶基本資料 | %s"
+
+#: views/shared/profiles/user.php:47
+msgid "Edit "
+msgstr "編輯"
+
+#: views/shared/profiles/user.php:108
+#, php-format
+msgid "Edit %s"
+msgstr "編輯 %s"

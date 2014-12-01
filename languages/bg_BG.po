@@ -1,0 +1,204 @@
+# Translation for the UserProfiles plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Gabriel Radev <gabosss@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-UserProfiles/issues\n"
+"POT-Creation-Date: 2012-01-09 21:49-0500\n"
+"PO-Revision-Date: 2014-09-15 21:35+0000\n"
+"Last-Translator: Gabriel Radev <gabosss@gmail.com>\n"
+"Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/omeka/language/bg_BG/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg_BG\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Allowed"
+msgstr "Допустим"
+
+#: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
+#: views/admin/types/add-new-element.php:18
+msgid "Required"
+msgstr "Задължителен"
+
+msgid "Disallowed"
+msgstr "Недопустим"
+
+msgid "Deleted User"
+msgstr "Изтрит потребител"
+
+#: UserProfilesPlugin.php:160 views/admin/index.php:2
+msgid "User Profiles"
+msgstr "Профил на потребителя"
+
+#: config_form.php:7
+msgid "Link items to owner?"
+msgstr "Привързване на документ към собственик?"
+
+#: config_form.php:10
+msgid "Add a link from items to the person who added them."
+msgstr "Добавяне на връзка от документа към човека който го е добавил"
+
+#: config_form.php:25
+msgid ""
+"You have used the Contribution plugin to create Contributor information. For"
+" the Omeka 2.x series, that functionality has been folded into the User "
+"Profiles plugin."
+msgstr "Вие използвате приставката Съпричастен за да създадете информация за Съпричастния. За Omeka 2.х серията, тази функционалност е вградена в приставката Потребителски Профил."
+
+#: config_form.php:26
+msgid ""
+"Check this box if you would like to convert Contributor information over "
+"into a user profile. Contributors will also become Guest Users."
+msgstr "Маркирайте това квадратче ако искате да конвертирате "
+
+#: config_form.php:27
+msgid "The import may take a long time if there are many contributions."
+msgstr "Вмъкването може би ще отнеме доста време ако имате много вмъквания."
+
+#: config_form.php:28
+msgid ""
+"User Profiles offers many new features for your contributor info. After the "
+"import is complete, you might want to edit the 'Contributor Info' profile "
+"type that is created."
+msgstr "Профил на Потребителя предлага много нови възможности за информация на сътрудниците. След като вмъкването приключи може да искате да редактирате типовете профили в \"Информация за Сътрудници\" които са създадени."
+
+#: controllers/TypesController.php:83
+msgid "The profile type was successfully added."
+msgstr "Типа профил е добавен успешно"
+
+#: controllers/TypesController.php:126
+msgid "The profile type "
+msgstr "Тип на профила"
+
+#: controllers/TypesController.php:156 controllers/TypesController.php:177
+#, php-format
+msgid "Options for \"%s\" must be set"
+msgstr "Опцията за \"%s\"  трябва да е указана."
+
+#: controllers/TypesController.php:251 controllers/TypesController.php:258
+#, php-format
+msgid "The profile type cannot have more than one \"%s\" element."
+msgstr "Типа профил не може да има повече от един  \"%s\"  елемент."
+
+#: helpers/LinksToIncompleteProfiles.php:15
+msgid ""
+"The site builders ask that you fill out profile info to help make "
+"connections."
+msgstr "Собствениците на сайта искат да попълните информация в профила си за да помогнете за осъществяване на връзки."
+
+#: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
+#, php-format
+msgid "The \"%s\" field is required."
+msgstr "Полето \"%s\" е задължително."
+
+#: views/admin/form.php:46
+msgid "The name of the profile type"
+msgstr "Име на типа профил"
+
+#: views/admin/form.php:63
+msgid "The description of the profile type."
+msgstr "Описание на типа профил."
+
+#: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
+#: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
+#: views/admin/index.php:56
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: views/admin/form.php:109
+msgid "Allowed values, comma-separated"
+msgstr "Допустими стойности, отделени с разделител"
+
+#: views/admin/form.php:126
+msgid "Text"
+msgstr "Текст"
+
+#: views/admin/form.php:127
+msgid "Radio"
+msgstr "Радиобутон"
+
+#: views/admin/form.php:128
+msgid "Checkbox"
+msgstr "Квадрат"
+
+#: views/admin/form.php:129
+msgid "Select (Single Option)"
+msgstr "Избор (Една възможност)"
+
+#: views/admin/form.php:130
+msgid "Select (Multiple Options)"
+msgstr "Избор (Няколко възможни)"
+
+#: views/admin/form.php:150 views/admin/types/add.php:2
+msgid "Add Profile Type"
+msgstr "Добавяне Тип Профил"
+
+#: views/admin/index.php:10
+msgid "Add a Profile Type"
+msgstr "Добавяне на Тип Профил"
+
+#: views/admin/index.php:16
+msgid "Profile Type"
+msgstr "Тип Профил"
+
+#: views/admin/index.php:19
+msgid "My Profile"
+msgstr "Моят Профил"
+
+#: views/admin/index.php:28 views/shared/profiles/user.php:58
+msgid "(Public)"
+msgstr "(Публичен)"
+
+#: views/admin/index.php:58
+msgid "(text)"
+msgstr "(текст)"
+
+#: views/admin/types/add-new-element.php:31
+msgid "Allowed Values, comma-separated"
+msgstr "Допустими стойности, отделени с разделител"
+
+#: views/admin/types/edit.php:5
+msgid "Edit Profile Type"
+msgstr "Редакция на типа профил"
+
+#: views/shared/profiles/edit.php:18
+msgid "Edit Profile"
+msgstr "Редакция на Профил"
+
+#: views/shared/profiles/edit.php:60
+msgid "Save changes before moving to edit a new profile type."
+msgstr "Запишете промените преди да местите или редактирате новият тип профил"
+
+#: views/shared/profiles/edit.php:71
+#, php-format
+msgid "Edit your %s profile"
+msgstr "Редактиране на вашият %s профил"
+
+#: views/shared/profiles/edit.php:83
+msgid "Profile type: "
+msgstr "Тип профил:"
+
+#: views/shared/profiles/edit.php:90
+msgid "This profile type is private"
+msgstr "Този тип профил е частен"
+
+#: views/shared/profiles/user.php:10
+#, php-format
+msgid "User Profile | %s"
+msgstr "Потребителски профил | %s"
+
+#: views/shared/profiles/user.php:47
+msgid "Edit "
+msgstr "Редакция"
+
+#: views/shared/profiles/user.php:108
+#, php-format
+msgid "Edit %s"
+msgstr "Редакция %s"

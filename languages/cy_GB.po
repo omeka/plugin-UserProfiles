@@ -1,0 +1,204 @@
+# Translation for the UserProfiles plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# sionengland <sne@llgc.org.uk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-UserProfiles/issues\n"
+"POT-Creation-Date: 2012-01-09 21:49-0500\n"
+"PO-Revision-Date: 2014-01-21 14:55+0000\n"
+"Last-Translator: sionengland <sne@llgc.org.uk>\n"
+"Language-Team: Welsh (United Kingdom) (http://www.transifex.com/projects/p/omeka/language/cy_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy_GB\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+
+msgid "Allowed"
+msgstr "Caniateir"
+
+#: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
+#: views/admin/types/add-new-element.php:18
+msgid "Required"
+msgstr "Gofynnol"
+
+msgid "Disallowed"
+msgstr "Heb eu caniatáu"
+
+msgid "Deleted User"
+msgstr "Defnyddiwr wedi'i ddileu"
+
+#: UserProfilesPlugin.php:160 views/admin/index.php:2
+msgid "User Profiles"
+msgstr "Proffil defnyddiwr"
+
+#: config_form.php:7
+msgid "Link items to owner?"
+msgstr "Cysylltu eitemau gyda'u perchnogion?"
+
+#: config_form.php:10
+msgid "Add a link from items to the person who added them."
+msgstr "Ychwanegu dolen o'r eitemau i'r pobl a'u hychwanegwyd."
+
+#: config_form.php:25
+msgid ""
+"You have used the Contribution plugin to create Contributor information. For"
+" the Omeka 2.x series, that functionality has been folded into the User "
+"Profiles plugin."
+msgstr "Rydych wedi defnyddio'r ategyn Cyfrannu i greu gwybodaeth am y Cyfrannwyr. Ar gyfer Omeka 2.x, mae'r gweithgarwch yna yn rhan o'r ategyn Proffil Defnyddiwr."
+
+#: config_form.php:26
+msgid ""
+"Check this box if you would like to convert Contributor information over "
+"into a user profile. Contributors will also become Guest Users."
+msgstr "Ticiwch yma i symud gwybodaeth o Cyfrannwyr draw at broffil ddefnyddiwr. Bydd Cyfrannwyr hefyd yn troi'n ddefnyddwyr dros dro."
+
+#: config_form.php:27
+msgid "The import may take a long time if there are many contributions."
+msgstr "Gall y mewnforio gymryd cryn dipyn o amser os oes nifer fawr o gyfrannwyr."
+
+#: config_form.php:28
+msgid ""
+"User Profiles offers many new features for your contributor info. After the "
+"import is complete, you might want to edit the 'Contributor Info' profile "
+"type that is created."
+msgstr "Mae Proffilau Defnyddwyr yn cynnig sawl nodwedd newydd ar gyfer gwybodaeth y cyfrannwyr. Ar ôl mewnforio, mi ddyliwch olygu'r proffil 'Gwybodaeth Cyfrannwr' sy'n cael ei greu."
+
+#: controllers/TypesController.php:83
+msgid "The profile type was successfully added."
+msgstr "Ychwanegwyd y math o broffil yn llwyddiannus."
+
+#: controllers/TypesController.php:126
+msgid "The profile type "
+msgstr "Y math o broffil"
+
+#: controllers/TypesController.php:156 controllers/TypesController.php:177
+#, php-format
+msgid "Options for \"%s\" must be set"
+msgstr "Rhaid gosod dewisiadau ar gyfer \"%s\""
+
+#: controllers/TypesController.php:251 controllers/TypesController.php:258
+#, php-format
+msgid "The profile type cannot have more than one \"%s\" element."
+msgstr "Ni all y math o broffil cael mwy nag un elfen \"%s\"."
+
+#: helpers/LinksToIncompleteProfiles.php:15
+msgid ""
+"The site builders ask that you fill out profile info to help make "
+"connections."
+msgstr "Mae adeiladwyr y safle yn gofyn i chi lenwi gwybodaeth y proffil er mwyn helpu creu cysylltiadau."
+
+#: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
+#, php-format
+msgid "The \"%s\" field is required."
+msgstr "Mae'r maes \"%s\" yn ofynnol."
+
+#: views/admin/form.php:46
+msgid "The name of the profile type"
+msgstr "Enw'r math o broffil"
+
+#: views/admin/form.php:63
+msgid "The description of the profile type."
+msgstr "Disgrifiad o'r math o broffil."
+
+#: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
+#: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
+#: views/admin/index.php:56
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: views/admin/form.php:109
+msgid "Allowed values, comma-separated"
+msgstr "Gwerthoedd a ganiateir, wedi'u gwahanu gan goma."
+
+#: views/admin/form.php:126
+msgid "Text"
+msgstr "Testun"
+
+#: views/admin/form.php:127
+msgid "Radio"
+msgstr "Radio"
+
+#: views/admin/form.php:128
+msgid "Checkbox"
+msgstr "Blwch Ticio"
+
+#: views/admin/form.php:129
+msgid "Select (Single Option)"
+msgstr "Dewis (Un Opsiwn)"
+
+#: views/admin/form.php:130
+msgid "Select (Multiple Options)"
+msgstr "Dewis (Nifer o Opsiynau)"
+
+#: views/admin/form.php:150 views/admin/types/add.php:2
+msgid "Add Profile Type"
+msgstr "Ychwanegu Math o Broffil"
+
+#: views/admin/index.php:10
+msgid "Add a Profile Type"
+msgstr "Ychwanegu Math o Broffil"
+
+#: views/admin/index.php:16
+msgid "Profile Type"
+msgstr "Math o Broffil"
+
+#: views/admin/index.php:19
+msgid "My Profile"
+msgstr "Fy Mhroffil"
+
+#: views/admin/index.php:28 views/shared/profiles/user.php:58
+msgid "(Public)"
+msgstr "(Cyhoeddus)"
+
+#: views/admin/index.php:58
+msgid "(text)"
+msgstr "(Testun)"
+
+#: views/admin/types/add-new-element.php:31
+msgid "Allowed Values, comma-separated"
+msgstr "Gwerthoedd a ganiateir, wedi'u gwahanu gan goma."
+
+#: views/admin/types/edit.php:5
+msgid "Edit Profile Type"
+msgstr "Golygu'r Math o Broffil"
+
+#: views/shared/profiles/edit.php:18
+msgid "Edit Profile"
+msgstr "Golygu Proffil"
+
+#: views/shared/profiles/edit.php:60
+msgid "Save changes before moving to edit a new profile type."
+msgstr "Arbed newidiadau cyn symud ymlaen i olygu math newydd o broffil."
+
+#: views/shared/profiles/edit.php:71
+#, php-format
+msgid "Edit your %s profile"
+msgstr "Golygu eich proffil %s"
+
+#: views/shared/profiles/edit.php:83
+msgid "Profile type: "
+msgstr "Math o broffil:"
+
+#: views/shared/profiles/edit.php:90
+msgid "This profile type is private"
+msgstr "Mae'r math hyn o broffil yn breifat"
+
+#: views/shared/profiles/user.php:10
+#, php-format
+msgid "User Profile | %s"
+msgstr "Proffil Defnyddiwr | %s"
+
+#: views/shared/profiles/user.php:47
+msgid "Edit "
+msgstr "Golygu"
+
+#: views/shared/profiles/user.php:108
+#, php-format
+msgid "Edit %s"
+msgstr "Golygu %s"

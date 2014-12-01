@@ -1,0 +1,205 @@
+# Translation for the UserProfiles plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Jan Černý <cernyhonza@gmail.com>, 2013
+# MICHAL D. <black23@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-UserProfiles/issues\n"
+"POT-Creation-Date: 2012-01-09 21:49-0500\n"
+"PO-Revision-Date: 2013-12-26 21:24+0000\n"
+"Last-Translator: MICHAL D. <black23@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/omeka/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Allowed"
+msgstr "Povoleno"
+
+#: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
+#: views/admin/types/add-new-element.php:18
+msgid "Required"
+msgstr "Vyžadováno"
+
+msgid "Disallowed"
+msgstr "Nepovoleno"
+
+msgid "Deleted User"
+msgstr "Smazaný uživatel"
+
+#: UserProfilesPlugin.php:160 views/admin/index.php:2
+msgid "User Profiles"
+msgstr "Uživatelské profily"
+
+#: config_form.php:7
+msgid "Link items to owner?"
+msgstr "Přiřadit položky majiteli?"
+
+#: config_form.php:10
+msgid "Add a link from items to the person who added them."
+msgstr ""
+
+#: config_form.php:25
+msgid ""
+"You have used the Contribution plugin to create Contributor information. For"
+" the Omeka 2.x series, that functionality has been folded into the User "
+"Profiles plugin."
+msgstr ""
+
+#: config_form.php:26
+msgid ""
+"Check this box if you would like to convert Contributor information over "
+"into a user profile. Contributors will also become Guest Users."
+msgstr ""
+
+#: config_form.php:27
+msgid "The import may take a long time if there are many contributions."
+msgstr ""
+
+#: config_form.php:28
+msgid ""
+"User Profiles offers many new features for your contributor info. After the "
+"import is complete, you might want to edit the 'Contributor Info' profile "
+"type that is created."
+msgstr ""
+
+#: controllers/TypesController.php:83
+msgid "The profile type was successfully added."
+msgstr "Typ profilu byl úspěšně přidán."
+
+#: controllers/TypesController.php:126
+msgid "The profile type "
+msgstr "Typ profilu"
+
+#: controllers/TypesController.php:156 controllers/TypesController.php:177
+#, php-format
+msgid "Options for \"%s\" must be set"
+msgstr "Možnosti pro \"%s\" musí být nastavené"
+
+#: controllers/TypesController.php:251 controllers/TypesController.php:258
+#, php-format
+msgid "The profile type cannot have more than one \"%s\" element."
+msgstr ""
+
+#: helpers/LinksToIncompleteProfiles.php:15
+msgid ""
+"The site builders ask that you fill out profile info to help make "
+"connections."
+msgstr ""
+
+#: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
+#, php-format
+msgid "The \"%s\" field is required."
+msgstr "Pole \"%s\" je povinné."
+
+#: views/admin/form.php:46
+msgid "The name of the profile type"
+msgstr "Jméno pro typ profilu"
+
+#: views/admin/form.php:63
+msgid "The description of the profile type."
+msgstr "Popis typu profilu."
+
+#: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
+#: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
+#: views/admin/index.php:56
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: views/admin/form.php:109
+msgid "Allowed values, comma-separated"
+msgstr "Povolené hodnoty oddělené čárkou"
+
+#: views/admin/form.php:126
+msgid "Text"
+msgstr "Text"
+
+#: views/admin/form.php:127
+msgid "Radio"
+msgstr "Přepínač radio"
+
+#: views/admin/form.php:128
+msgid "Checkbox"
+msgstr "Zaškrtávací pole"
+
+#: views/admin/form.php:129
+msgid "Select (Single Option)"
+msgstr "Výběr (jedna možnost)"
+
+#: views/admin/form.php:130
+msgid "Select (Multiple Options)"
+msgstr "Výběr (několik možností)"
+
+#: views/admin/form.php:150 views/admin/types/add.php:2
+msgid "Add Profile Type"
+msgstr "Přidat typ profilu"
+
+#: views/admin/index.php:10
+msgid "Add a Profile Type"
+msgstr "Přidat typ profilu"
+
+#: views/admin/index.php:16
+msgid "Profile Type"
+msgstr "Typ profilu"
+
+#: views/admin/index.php:19
+msgid "My Profile"
+msgstr "Můj profil"
+
+#: views/admin/index.php:28 views/shared/profiles/user.php:58
+msgid "(Public)"
+msgstr "(Veřejný)"
+
+#: views/admin/index.php:58
+msgid "(text)"
+msgstr "(text)"
+
+#: views/admin/types/add-new-element.php:31
+msgid "Allowed Values, comma-separated"
+msgstr "Povolené hodnoty oddělené čárkou"
+
+#: views/admin/types/edit.php:5
+msgid "Edit Profile Type"
+msgstr "Upravit typ profilu"
+
+#: views/shared/profiles/edit.php:18
+msgid "Edit Profile"
+msgstr "Upravit profil"
+
+#: views/shared/profiles/edit.php:60
+msgid "Save changes before moving to edit a new profile type."
+msgstr ""
+
+#: views/shared/profiles/edit.php:71
+#, php-format
+msgid "Edit your %s profile"
+msgstr "Upravit váš %s profil"
+
+#: views/shared/profiles/edit.php:83
+msgid "Profile type: "
+msgstr "Typ profilu:"
+
+#: views/shared/profiles/edit.php:90
+msgid "This profile type is private"
+msgstr "Tento typ profili je soukromý"
+
+#: views/shared/profiles/user.php:10
+#, php-format
+msgid "User Profile | %s"
+msgstr "Uživatelský profil | %s"
+
+#: views/shared/profiles/user.php:47
+msgid "Edit "
+msgstr "Upravit"
+
+#: views/shared/profiles/user.php:108
+#, php-format
+msgid "Edit %s"
+msgstr "Upravit %s"
