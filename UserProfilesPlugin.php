@@ -49,8 +49,8 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
                 `type_id` int(10) unsigned NOT NULL ,
                 `owner_id` int(10) unsigned NOT NULL ,
-                `added` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-                `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+                `added` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00',
+                `modified` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
                 `public` tinyint(1) NOT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
