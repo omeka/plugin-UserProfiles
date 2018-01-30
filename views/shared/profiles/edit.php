@@ -12,7 +12,7 @@ if(!is_admin_theme()) {
 }
 
 queue_js_file('admin-globals');
-queue_js_file('tiny_mce', 'javascripts/vendor/tiny_mce');
+queue_js_file('tinymce.min', 'javascripts/vendor/tinymce');
 queue_js_file('elements');
 
 $head = array('title' => __('Edit Profile'), 'content_class' => 'horizontal-nav');
