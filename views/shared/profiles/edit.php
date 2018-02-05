@@ -9,11 +9,12 @@ if(!is_admin_theme()) {
 
     ";
     queue_css_string($css);
-}
+} 
 
 queue_js_file('admin-globals');
+queue_js_file('admin-elements');
 queue_js_file('tinymce.min', 'javascripts/vendor/tinymce');
-queue_js_file('elements');
+//queue_js_file('elements');
 
 $head = array('title' => __('Edit Profile'), 'content_class' => 'horizontal-nav');
 echo head($head);
@@ -25,10 +26,9 @@ echo head($head);
 jQuery(window).load(function () {
 
     Omeka.wysiwyg({
-        mode: "none",
-        forced_root_block: ""
+        selector: false,
+        forced_root_block: false
     });
-
     // Must run the element form scripts AFTER reseting textarea ids.
     jQuery(document).trigger('omeka:elementformload');
     Omeka.saveScroll();
