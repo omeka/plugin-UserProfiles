@@ -1,20 +1,26 @@
 <?php
 if(!is_admin_theme()) {
-    queue_css_file('admin-theme');
+    //queue_css_file('admin-theme');
     queue_css_file('profiles');
     queue_css_file('admin-skeleton');
+    
     $css = "div.container-twelve div.ten.columns {width: 100%;}
      ul#section-nav {margin: 0px;}
-     div.container-twelve div.five.columns {width: auto;}
-
+     div.container-twelve div.five.columns {width: auto; float: left;}
+     div.inputs.five.columns.omega {float: left;}
+     button.user-profiles.add-element {display: block;}
+     a.delete-confirm {padding: .6em;}
+     ul.user-profiles.navigation {padding-left: 0px;}
+     ul.user-profiles.navigation ul {padding-left: 0px;}
+     input[type='checkbox'] {margin: 5px;}
     ";
+    
     queue_css_string($css);
 } 
 
 queue_js_file('admin-globals');
 queue_js_file('admin-elements');
 queue_js_file('tinymce.min', 'javascripts/vendor/tinymce');
-//queue_js_file('elements');
 
 $head = array('title' => __('Edit Profile'), 'content_class' => 'horizontal-nav');
 echo head($head);
@@ -44,7 +50,7 @@ jQuery(document).bind('omeka:elementformload', function (event) {
 <div class="container-twelve">
 <?php endif;?>
 
-<ul id='section-nav' class='navigation tabs'>
+<ul id='section-nav' class='user-profiles navigation tabs'>
 <?php
 
 $typesNav = array();
