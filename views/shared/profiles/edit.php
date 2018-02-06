@@ -9,10 +9,20 @@ if(!is_admin_theme()) {
      div.container-twelve div.five.columns {width: auto; float: left;}
      div.inputs.five.columns.omega {float: left;}
      button.user-profiles.add-element {display: block;}
-     a.delete-confirm {padding: .6em;}
-     ul.user-profiles.navigation {padding-left: 0px;}
-     ul.user-profiles.navigation ul {padding-left: 0px;}
+     a.delete-confirm {padding: .6em; color: white !important;}
+     ul.user-profiles.navigation {padding-left: 0px; list-style: none}
+     ul.user-profiles.navigation ul {padding-left: 0px; list-style: none;}
      input[type='checkbox'] {margin: 5px;}
+
+    .mce-tinymce button {
+        background: none;
+        margin: 0;
+    }
+
+    .mce-tinymce [aria-haspopup='true']:after {
+        content: none;
+}
+
     ";
     
     queue_css_string($css);
