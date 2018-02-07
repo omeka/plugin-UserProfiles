@@ -11,8 +11,10 @@ if(!is_admin_theme()) {
      div.container-twelve div.five.columns {width: auto; float: left;}
      div.inputs.five.columns.omega {float: left;}
      button.user-profiles.add-element {display: block; clear: both;}
-     a.delete-confirm {padding: .6em; color: white !important;}
+     a.delete-confirm {padding: .6em; background-color: #ad6345; color: white !important;}
      ul.user-profiles.navigation {padding-left: 0px; list-style: none}
+     ul.user-profiles.navigation li {margin-right: 5px; display: inline-block;}
+
      ul.user-profiles.navigation ul {padding-left: 0px; list-style: none;}
      input[type='checkbox'] {margin: 5px;}
 
@@ -24,7 +26,9 @@ if(!is_admin_theme()) {
 
     .mce-tinymce [aria-haspopup='true']:after {
         content: none;
-}
+    }
+
+    p.warning {clear: both;}
 
     ";
     
