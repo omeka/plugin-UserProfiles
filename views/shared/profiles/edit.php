@@ -1,14 +1,16 @@
 <?php
+
+$sidebarColumns = 'three';
 if(!is_admin_theme()) {
-    //queue_css_file('admin-theme');
-    queue_css_file('profiles');
+
     queue_css_file('admin-skeleton');
+    queue_css_file('profiles');
     
     $css = "div.container-twelve div.ten.columns {width: 100%;}
      ul#section-nav {margin: 0px;}
      div.container-twelve div.five.columns {width: auto; float: left;}
      div.inputs.five.columns.omega {float: left;}
-     button.user-profiles.add-element {display: block;}
+     button.user-profiles.add-element {display: block; clear: both;}
      a.delete-confirm {padding: .6em; color: white !important;}
      ul.user-profiles.navigation {padding-left: 0px; list-style: none}
      ul.user-profiles.navigation ul {padding-left: 0px; list-style: none;}
@@ -17,6 +19,7 @@ if(!is_admin_theme()) {
     .mce-tinymce button {
         background: none;
         margin: 0;
+        text-transform: none;
     }
 
     .mce-tinymce [aria-haspopup='true']:after {
@@ -26,7 +29,8 @@ if(!is_admin_theme()) {
     ";
     
     queue_css_string($css);
-} 
+    $sidebarColumns = 'four';
+}
 
 queue_js_file('admin-globals');
 queue_js_file('admin-elements');
@@ -94,7 +98,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <?php endforeach; ?>
 </section>
 
-<section class="three columns omega">
+<section class="<?php echo $sidebarColumns; ?> columns omega">
     <div id='save' class='panel'>
         <p class='warning'><?php echo __("Profile type: ") . $userprofilestype->label; ?></p>
         <input type="submit" value='<?php echo __('Save Changes'); ?>' name='submit' class='big green button'/>
