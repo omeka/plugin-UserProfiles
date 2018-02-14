@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the Omeka package.
 # 
 # Translators:
+# Andreas Sandlund <andreas.sandlund@gmail.com>, 2016
 # Peter Krantz <peter.krantz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Omeka\n"
 "Report-Msgid-Bugs-To: http://github.com/omeka/plugin-UserProfiles/issues\n"
 "POT-Creation-Date: 2012-01-09 21:49-0500\n"
-"PO-Revision-Date: 2015-03-01 16:06+0000\n"
-"Last-Translator: Peter Krantz <peter.krantz@gmail.com>\n"
+"PO-Revision-Date: 2017-09-19 17:46+0000\n"
+"Last-Translator: Andreas Sandlund <andreas.sandlund@gmail.com>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/omeka/omeka/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr "Tillåten"
 #: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
 #: views/admin/types/add-new-element.php:18
 msgid "Required"
-msgstr "Obligatorisk"
+msgstr "Obligatoriskt"
 
 msgid "Disallowed"
 msgstr "Otillåtet"
@@ -42,7 +43,7 @@ msgstr "Länka objekt till ägare?"
 
 #: config_form.php:10
 msgid "Add a link from items to the person who added them."
-msgstr ""
+msgstr "Skapa länkar från objekts visningssida till personen som lade till dem."
 
 #: config_form.php:25
 msgid ""
@@ -70,135 +71,135 @@ msgstr ""
 
 #: controllers/TypesController.php:83
 msgid "The profile type was successfully added."
-msgstr ""
+msgstr "Användarprofilen har lagts till."
 
 #: controllers/TypesController.php:126
 msgid "The profile type "
-msgstr ""
+msgstr "Användarprofilen"
 
 #: controllers/TypesController.php:156 controllers/TypesController.php:177
 #, php-format
 msgid "Options for \"%s\" must be set"
-msgstr ""
+msgstr "Inställningar för \"%s\" måste anges"
 
 #: controllers/TypesController.php:251 controllers/TypesController.php:258
 #, php-format
 msgid "The profile type cannot have more than one \"%s\" element."
-msgstr ""
+msgstr "Profilen kan inte ha mer än ett element av typen \"%s\"."
 
 #: helpers/LinksToIncompleteProfiles.php:15
 msgid ""
 "The site builders ask that you fill out profile info to help make "
 "connections."
-msgstr ""
+msgstr "Vänligen fyll i din användarprofil för att underlätta skapandet av kopplingar mellan föremål och berättelser."
 
 #: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
 #, php-format
 msgid "The \"%s\" field is required."
-msgstr ""
+msgstr "Fältet \"%s\" är obligatoriskt."
 
 #: views/admin/form.php:46
 msgid "The name of the profile type"
-msgstr ""
+msgstr "Profiltypens namn"
 
 #: views/admin/form.php:63
 msgid "The description of the profile type."
-msgstr ""
+msgstr "Profiltypens beskrivning"
 
 #: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
 #: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
 #: views/admin/index.php:56
 #, php-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: views/admin/form.php:109
 msgid "Allowed values, comma-separated"
-msgstr ""
+msgstr "Tillåtna värden, kommaseparerade"
 
 #: views/admin/form.php:126
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: views/admin/form.php:127
 msgid "Radio"
-msgstr ""
+msgstr "Radioknapp"
 
 #: views/admin/form.php:128
 msgid "Checkbox"
-msgstr ""
+msgstr "Kryssruta"
 
 #: views/admin/form.php:129
 msgid "Select (Single Option)"
-msgstr ""
+msgstr "Enkelvalsknapp"
 
 #: views/admin/form.php:130
 msgid "Select (Multiple Options)"
-msgstr ""
+msgstr "Flervalsknapp"
 
 #: views/admin/form.php:150 views/admin/types/add.php:2
 msgid "Add Profile Type"
-msgstr ""
+msgstr "Lägg till profiltyp"
 
 #: views/admin/index.php:10
 msgid "Add a Profile Type"
-msgstr ""
+msgstr "Lägg till en profiltyp"
 
 #: views/admin/index.php:16
 msgid "Profile Type"
-msgstr ""
+msgstr "Profiltyp"
 
 #: views/admin/index.php:19
 msgid "My Profile"
-msgstr ""
+msgstr "Min profil"
 
 #: views/admin/index.php:28 views/shared/profiles/user.php:58
 msgid "(Public)"
-msgstr ""
+msgstr "(Publik)"
 
 #: views/admin/index.php:58
 msgid "(text)"
-msgstr ""
+msgstr "(text)"
 
 #: views/admin/types/add-new-element.php:31
 msgid "Allowed Values, comma-separated"
-msgstr ""
+msgstr "Tillåtna värden, kommaseparerade"
 
 #: views/admin/types/edit.php:5
 msgid "Edit Profile Type"
-msgstr ""
+msgstr "Redigera profiltyp"
 
 #: views/shared/profiles/edit.php:18
 msgid "Edit Profile"
-msgstr ""
+msgstr "Redigera profil"
 
 #: views/shared/profiles/edit.php:60
 msgid "Save changes before moving to edit a new profile type."
-msgstr ""
+msgstr "Spara ändringar innan du fortsätter redigera en ny profiltyp"
 
 #: views/shared/profiles/edit.php:71
 #, php-format
 msgid "Edit your %s profile"
-msgstr ""
+msgstr "Redigera din %s profil"
 
 #: views/shared/profiles/edit.php:83
 msgid "Profile type: "
-msgstr ""
+msgstr "Profiltyp:"
 
 #: views/shared/profiles/edit.php:90
 msgid "This profile type is private"
-msgstr ""
+msgstr "Den profiltyp är privat"
 
 #: views/shared/profiles/user.php:10
 #, php-format
 msgid "User Profile | %s"
-msgstr ""
+msgstr "Användarprofil | %s"
 
 #: views/shared/profiles/user.php:47
 msgid "Edit "
-msgstr ""
+msgstr "Redigera"
 
 #: views/shared/profiles/user.php:108
 #, php-format
 msgid "Edit %s"
-msgstr ""
+msgstr "Redigera %s"
