@@ -30,9 +30,10 @@ if(!is_admin_theme()) {
 
     p.warning {clear: both;}
 
+
     ";
     
-    queue_css_string($css);
+    //queue_css_string($css);
     $sidebarColumns = 'four';
 }
 
