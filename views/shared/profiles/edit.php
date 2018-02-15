@@ -17,7 +17,9 @@ if(!is_admin_theme()) {
 
      ul.user-profiles.navigation ul {padding-left: 0px; list-style: none;}
      input[type='checkbox'] {margin: 5px;}
-
+";
+    // for some reason this isn't getting applied from the profile.css file.
+    $css = "
     .mce-tinymce button {
         background: none;
         margin: 0;
@@ -33,7 +35,7 @@ if(!is_admin_theme()) {
 
     ";
     
-    //queue_css_string($css);
+    queue_css_string($css);
     $sidebarColumns = 'four';
 }
 
