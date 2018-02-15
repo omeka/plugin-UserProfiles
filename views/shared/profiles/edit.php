@@ -1,19 +1,47 @@
 <?php
+
+$sidebarColumns = 'three';
 if(!is_admin_theme()) {
-    queue_css_file('admin-theme');
-    queue_css_file('profiles');
+
     queue_css_file('admin-skeleton');
+    queue_css_file('profiles');
+    
     $css = "div.container-twelve div.ten.columns {width: 100%;}
      ul#section-nav {margin: 0px;}
-     div.container-twelve div.five.columns {width: auto;}
+     div.container-twelve div.five.columns {width: auto; float: left;}
+     div.inputs.five.columns.omega {float: left;}
+     button.user-profiles.add-element {display: block; clear: both;}
+     a.delete-confirm {padding: .6em; background-color: #ad6345; color: white !important;}
+     ul.user-profiles.navigation {padding-left: 0px; list-style: none}
+     ul.user-profiles.navigation li {margin-right: 5px; display: inline-block;}
+
+     ul.user-profiles.navigation ul {padding-left: 0px; list-style: none;}
+     input[type='checkbox'] {margin: 5px;}
+";
+    // for some reason this isn't getting applied from the profile.css file.
+    $css = "
+    .mce-tinymce button {
+        background: none;
+        margin: 0;
+        text-transform: none;
+    }
+
+    .mce-tinymce [aria-haspopup='true']:after {
+        content: none;
+    }
+
+    p.warning {clear: both;}
+
 
     ";
+    
     queue_css_string($css);
+    $sidebarColumns = 'four';
 }
 
 queue_js_file('admin-globals');
-queue_js_file('tiny_mce', 'javascripts/vendor/tiny_mce');
-queue_js_file('elements');
+queue_js_file('admin-elements');
+queue_js_file('tinymce.min', 'javascripts/vendor/tinymce');
 
 $head = array('title' => __('Edit Profile'), 'content_class' => 'horizontal-nav');
 echo head($head);
@@ -25,10 +53,9 @@ echo head($head);
 jQuery(window).load(function () {
 
     Omeka.wysiwyg({
-        mode: "none",
-        forced_root_block: ""
+        selector: false,
+        forced_root_block: false
     });
-
     // Must run the element form scripts AFTER reseting textarea ids.
     jQuery(document).trigger('omeka:elementformload');
     Omeka.saveScroll();
@@ -44,7 +71,7 @@ jQuery(document).bind('omeka:elementformload', function (event) {
 <div class="container-twelve">
 <?php endif;?>
 
-<ul id='section-nav' class='navigation tabs'>
+<ul id='section-nav' class='user-profiles navigation tabs'>
 <?php
 
 $typesNav = array();
@@ -66,7 +93,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 
 <form method="post" action="">
-<section id="edit-form" class="seven columns alpha">
+<section id="edit-form" class="seven columns alpha user-profiles">
 
 <h1><?php echo __('Edit your %s profile', $userprofilestype->label); ?></h1>
 
@@ -78,7 +105,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <?php endforeach; ?>
 </section>
 
-<section class="three columns omega">
+<section class="<?php echo $sidebarColumns; ?> columns omega">
     <div id='save' class='panel'>
         <p class='warning'><?php echo __("Profile type: ") . $userprofilestype->label; ?></p>
         <input type="submit" value='<?php echo __('Save Changes'); ?>' name='submit' class='big green button'/>

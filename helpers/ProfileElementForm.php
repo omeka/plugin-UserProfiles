@@ -33,9 +33,9 @@ class UserProfiles_View_Helper_ProfileElementForm extends Omeka_View_Helper_Elem
         if($isUserProfilesMultiElement) {
             $addInputComponent = '';            
         } else {
-            $addInputComponent = $this->view->formSubmit('add_element_' . $this->_element['id'],
+            $addInputComponent = $this->view->formButton('add_element_' . $this->_element['id'],
                     __('Add Input'),
-                    array('class'=>'add-element'));            
+                    array('class'=>'user-profiles add-element'));            
         }
 
         $components = array(

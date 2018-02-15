@@ -24,6 +24,14 @@ Omeka.Elements = {};
             if (element.is('[type=checkbox]')) {
                 params[this.name] = element.is(':checked') ? '1' : '0';
             } else {
+                // Make sure TinyMCE saves to the textarea before we read
+                // from it
+                if (element.is('textarea')) {
+                    var mce = tinyMCE.get(this.id);
+                    if (mce) {
+                        mce.save();
+                    }
+                }
                 params[this.name] = element.val();
             }
         });
@@ -41,7 +49,7 @@ Omeka.Elements = {};
             data: params,
             success: function (response) {
                 fieldDiv.find('textarea').each(function () {
-                    tinyMCE.execCommand('mceRemoveControl', false, this.id);
+                    tinyMCE.EditorManager.execCommand('mceRemoveEditor', false, this.id);
                 });
                 fieldDiv.html(response);
                 fieldDiv.trigger('omeka:elementformload');
@@ -105,7 +113,7 @@ Omeka.Elements = {};
 
             var inputBlock = removeButton.parents(inputBlockSelector);
             inputBlock.find('textarea').each(function () {
-                tinyMCE.execCommand('mceRemoveControl', false, this.id);
+                tinyMCE.EditorManager.execCommand('mceRemoveEditor', false, this.id);
             });
             inputBlock.remove();
 
