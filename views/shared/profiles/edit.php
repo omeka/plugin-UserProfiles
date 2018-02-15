@@ -91,7 +91,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 
 <form method="post" action="">
-<section id="edit-form" class="seven columns alpha">
+<section id="edit-form" class="seven columns alpha user-profiles">
 
 <h1><?php echo __('Edit your %s profile', $userprofilestype->label); ?></h1>
 

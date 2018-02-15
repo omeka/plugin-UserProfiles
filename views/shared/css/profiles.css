@@ -63,4 +63,11 @@ p.warning {clear: both;}
 a.big.button.user-profiles {
     color: inherit;
 }
+
+.user-profiles input.remove-element {
+    float: left;
+}
+
+.user-profiles label {
+    margin-left: 5px;
 }
