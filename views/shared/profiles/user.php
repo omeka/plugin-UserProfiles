@@ -82,8 +82,6 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
                         <?php foreach($values as $value): ?>
                         <p><?php echo $value ?></p>
                         <?php endforeach; ?>
-                        <?php else: ?>
-                        <p></p>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>

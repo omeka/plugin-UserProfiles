@@ -1,6 +1,5 @@
 <?php
 
-$sidebarColumns = 'three';
 if(!is_admin_theme()) {
 
     queue_css_file('admin-skeleton');
@@ -93,7 +92,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 
 <form method="post" action="">
-<section id="edit-form" class="seven columns alpha user-profiles">
+<section id="edit-form" class="eight columns alpha user-profiles">
 
 <h1><?php echo __('Edit your %s profile', $userprofilestype->label); ?></h1>
 
@@ -105,7 +104,7 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <?php endforeach; ?>
 </section>
 
-<section class="<?php echo $sidebarColumns; ?> columns omega">
+<section class="three columns omega">
     <div id='save' class='panel'>
         <p class='warning'><?php echo __("Profile type: ") . $userprofilestype->label; ?></p>
         <input type="submit" value='<?php echo __('Save Changes'); ?>' name='submit' class='big green button'/>

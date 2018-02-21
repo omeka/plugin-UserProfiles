@@ -23,7 +23,7 @@ div.container-twelve div.ten.columns {
 }
 
 div.container-twelve div.five.columns {
-    width: auto;
+    
 }
 
 div#primary {
@@ -38,7 +38,7 @@ div#primary {
 
 div.container-twelve div.ten.columns {width: 100%;}
  ul#section-nav {margin: 0px;}
- div.container-twelve div.five.columns {width: auto; float: left;}
+ div.container-twelve div.five.columns { float: left;}
  div.inputs.five.columns.omega {float: left;}
  button.user-profiles.add-element {display: block; clear: both;}
  a.delete-confirm {padding: .6em; background-color: #ad6345; color: white !important;}
