@@ -47,14 +47,10 @@ class UserProfilesPlugin extends Omeka_Plugin_AbstractPlugin
         $db = get_db();
         $old = $args['old_version'];
         $new = $args['new_version'];
-        if (version_compare($new, '1.1.1', '>=')) {
+
+        if (version_compare($old, '1.1.1', '<')) {
             $sql = "
-            ALTER TABLE `$db->UserProfilesProfile` CHANGE  `modified` `modified` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT '2000-01-01 00:00:00'
-            ";
-            $db->query($sql);
-            
-            $sql = "
-            ALTER TABLE `$db->UserProfilesProfile` CHANGE  `added` `added` TIMESTAMP NOT NULL DEFAULT '2000-01-01 00:00:00'
+                ALTER TABLE `$db->UserProfilesProfile` CHANGE  `modified` `modified` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT '2000-01-01 00:00:00', CHANGE  `added` `added` TIMESTAMP NOT NULL DEFAULT '2000-01-01 00:00:00'
             ";
             $db->query($sql);
         }
