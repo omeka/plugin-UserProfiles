@@ -1,41 +1,9 @@
 <?php
 
-if(!is_admin_theme()) {
+$isAdminTheme = is_admin_theme();
 
-    queue_css_file('admin-skeleton');
+if(!$isAdminTheme) {
     queue_css_file('profiles');
-    
-    $css = "div.container-twelve div.ten.columns {width: 100%;}
-     ul#section-nav {margin: 0px;}
-     div.container-twelve div.five.columns {width: auto; float: left;}
-     div.inputs.five.columns.omega {float: left;}
-     button.user-profiles.add-element {display: block; clear: both;}
-     a.delete-confirm {padding: .6em; background-color: #ad6345; color: white !important;}
-     ul.user-profiles.navigation {padding-left: 0px; list-style: none}
-     ul.user-profiles.navigation li {margin-right: 5px; display: inline-block;}
-
-     ul.user-profiles.navigation ul {padding-left: 0px; list-style: none;}
-     input[type='checkbox'] {margin: 5px;}
-";
-    // for some reason this isn't getting applied from the profile.css file.
-    $css = "
-    .mce-tinymce button {
-        background: none;
-        margin: 0;
-        text-transform: none;
-    }
-
-    .mce-tinymce [aria-haspopup='true']:after {
-        content: none;
-    }
-
-    p.warning {clear: both;}
-
-
-    ";
-    
-    queue_css_string($css);
-    $sidebarColumns = 'four';
 }
 
 queue_js_file('admin-globals');
@@ -49,7 +17,7 @@ echo head($head);
 <script type="text/javascript" charset="utf-8">
 //<![CDATA[
 // TinyMCE hates document.ready.
-jQuery(window).load(function () {
+jQuery(document).ready(function () {
 
     Omeka.wysiwyg({
         selector: false,
@@ -65,14 +33,11 @@ jQuery(document).bind('omeka:elementformload', function (event) {
     Omeka.Elements.enableWysiwyg(event.target);
 });
 //]]>
+
 </script>
-<?php if(!is_admin_theme()) :?>
-<div class="container-twelve">
-<?php endif;?>
 
 <ul id='section-nav' class='user-profiles navigation tabs'>
 <?php
-
 $typesNav = array();
 foreach($profile_types as $type) {
     $navArray = array('label'=>$type->label, 'uri'=>url('user-profiles/profiles/edit/id/' . $user->id .'/type/'.$type->id));
@@ -88,11 +53,8 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
 
 <?php echo flash(); ?>
 
-<div id="primary" class="ten columns alpha">
-
-
-<form method="post" action="">
-<section id="edit-form" class="eight columns alpha user-profiles">
+<form method="post" action="" class="user-profile-edit <?php echo (!$isAdminTheme) ? 'container-twelve' : ''; ?>">
+<section id="edit-form" class="<?php echo ($isAdminTheme) ? 'seven alpha' : 'twelve'; ?> columns user-profiles">
 
 <h1><?php echo __('Edit your %s profile', $userprofilestype->label); ?></h1>
 
@@ -104,9 +66,8 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     <?php endforeach; ?>
 </section>
 
-<section class="three columns omega">
+<section class="<?php echo ($isAdminTheme) ? 'three omega' : 'twelve'; ?> columns">
     <div id='save' class='panel'>
-        <p class='warning'><?php echo __("Profile type: ") . $userprofilestype->label; ?></p>
         <input type="submit" value='<?php echo __('Save Changes'); ?>' name='submit' class='big green button'/>
         <?php if($userprofilesprofile->exists()): ?>
         <a href="<?php echo url('user-profiles/profiles/delete-confirm/id/' . $userprofilesprofile->id); ?>" class="big red button delete-confirm"><?php echo __('Delete'); ?></a>
@@ -124,8 +85,4 @@ echo nav($typesNav, 'user_profiles_types_user_edit');
     </div>
 </section>
 </form>
-</div>
-<?php if(!is_admin_theme()) :?>
-</div>
-<?php endif; ?>
 <?php echo foot(); ?>

@@ -14,8 +14,7 @@ echo head($head);
 ?>
 <script type="text/javascript" charset="utf-8">
 //<![CDATA[
-// TinyMCE hates document.ready.
-jQuery(window).load(function () {
+jQuery(document).ready(function () {
     Omeka.saveScroll();
 });
 //]]>

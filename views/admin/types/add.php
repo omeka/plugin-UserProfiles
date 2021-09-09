@@ -1,6 +1,7 @@
 <?php
 
 queue_css_file('user-profiles');
+queue_js_file('userprofiles');
 
 $head = array('title' => __('Add Profile Type'));
 echo head($head);

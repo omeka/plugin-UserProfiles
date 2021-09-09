@@ -18,13 +18,6 @@ div.element-text > p {
     margin-top: 0px;
 }
 
-div.container-twelve div.ten.columns {
-    width: 100%;
-}
-
-div.container-twelve div.five.columns {
-    
-}
 
 div#primary {
     box-shadow: none;
@@ -35,15 +28,54 @@ div#primary {
     margin: 0 0 16px;
 }
 
+#edit-form {
+    margin-bottom: 1rem;
+}
 
-div.container-twelve div.ten.columns {width: 100%;}
- ul#section-nav {margin: 0px;}
- div.container-twelve div.five.columns { float: left;}
- div.inputs.five.columns.omega {float: left;}
- button.user-profiles.add-element {display: block; clear: both;}
- a.delete-confirm {padding: .6em; background-color: #ad6345; color: white !important;}
- ul.user-profiles.navigation {padding-left: 0px; list-style: none}
- ul.user-profiles.navigation li {margin-right: 5px; display: inline-block;}
+.user-profile-edit {
+    clear: both;
+}
+
+.input-block {
+    clear: both;
+}
+
+button.add-element {
+    display: block;
+    width: auto;
+}
+
+.mce-tinymce {
+    box-sizing: border-box !important;
+}
+
+.controls,
+.use-html {
+    display: inline-block;
+    margin: .5rem .5rem 0 0;
+    vertical-align: middle;
+}
+
+.controls .button {
+    margin-bottom: 0;
+}
+
+.field .inputs {
+    width: auto;
+}
+
+.input-block + .input-block {
+    margin-top: 1rem;
+}
+
+.input-block textarea {
+    margin-bottom: 0;
+}
+
+ul#section-nav {margin: 0px;}
+button.user-profiles.add-element {display: block; clear: both;}
+ul.user-profiles.navigation {padding-left: 0px; list-style: none}
+ul.user-profiles.navigation li {margin-right: 5px; display: inline-block;}
 
  ul.user-profiles.navigation ul {padding-left: 0px; list-style: none;}
  input[type='checkbox'] {margin: 5px;}

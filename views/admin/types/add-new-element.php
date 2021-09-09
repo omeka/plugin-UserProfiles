@@ -15,7 +15,10 @@
         <a href="" class="delete-element"><?php echo __('Remove'); ?></a>
     </div>
     <div class="drawer-contents">
-        <label style="float:left;"><?php echo __('Required');?></label><input type='checkbox' name='required[]' value='true' />
+        <label>
+            <?php echo __('Required');?>
+            <input type='checkbox' name='required[]' value='true' />
+        </label>
 
         <?php
         echo $this->formTextarea(

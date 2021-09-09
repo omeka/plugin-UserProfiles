@@ -4,6 +4,12 @@ ul#user-profiles-element-list {
     margin-top: 0;
 }
 
-.drawer-contents label {
-    clear: both;
+.add-new + .drawer-contents label {
+    display: inline-block;
+    font-weight: normal;
+}
+
+#add-element {
+    display: block;
+    width: auto;
 }
