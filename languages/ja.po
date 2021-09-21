@@ -3,109 +3,107 @@
 # This file is distributed under the same license as the Omeka package.
 # 
 # Translators:
-# Alfio Squatrito <info@lswebagency.it>, 2014
-# Daniele Binaghi, 2018
-# Guybrush88 <erpizzo@alice.it>, 2015
+# Naosuke Okamoto, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Omeka Classic\n"
 "Report-Msgid-Bugs-To: http://github.com/omeka/plugin-UserProfiles/issues\n"
 "POT-Creation-Date: 2012-01-09 21:49-0500\n"
-"PO-Revision-Date: 2018-09-30 17:37+0000\n"
-"Last-Translator: Daniele Binaghi\n"
-"Language-Team: Italian (http://www.transifex.com/omeka/omeka/language/it/)\n"
+"PO-Revision-Date: 2019-01-13 08:26+0000\n"
+"Last-Translator: Naosuke Okamoto\n"
+"Language-Team: Japanese (http://www.transifex.com/omeka/omeka/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Allowed"
-msgstr "Consentito"
+msgstr "許可"
 
 #: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
 #: views/admin/types/add-new-element.php:18
 msgid "Required"
-msgstr "Obbligatorio"
+msgstr "必須"
 
 msgid "Disallowed"
-msgstr "Non consentito"
+msgstr "禁止"
 
 msgid "Deleted User"
-msgstr "Utente cancellato"
+msgstr "削除されたユーザー"
 
 #: UserProfilesPlugin.php:160 views/admin/index.php:2
 msgid "User Profiles"
-msgstr "Profili Utente"
+msgstr "ユーザープロフィール"
 
 #: config_form.php:7
 msgid "Link items to owner?"
-msgstr "Collegare oggetti al proprietario?"
+msgstr "アイテムをオーナーにリンクしますか？"
 
 #: config_form.php:10
 msgid "Add a link from items to the person who added them."
-msgstr "Aggiungi un collegamento dai documenti alla persona che li ha inseriti."
+msgstr "アイテムを追加した人物にアイテムからのリンクを追加します。"
 
 #: config_form.php:25
 msgid ""
 "You have used the Contribution plugin to create Contributor information. For"
 " the Omeka 2.x series, that functionality has been folded into the User "
 "Profiles plugin."
-msgstr "Hai utilizzato il plugin Contributo per creare le informazioni su un Collaboratore. Per le versioni di Omeka della serie 2.x, quella funzionalità è stata inserita nel plugin Profili utente."
+msgstr "Contributionプラグインを使用してContributor情報を作成しています。 Omeka 2.xシリーズでは、その機能がUser Profilesプラグインに組み込まれています。"
 
 #: config_form.php:26
 msgid ""
 "Check this box if you would like to convert Contributor information over "
 "into a user profile. Contributors will also become Guest Users."
-msgstr "Seleziona questa casella se vuoi convertire le informazioni su un Collaboratore in un nuovo profilo utente. I collaboratori divengono anche utenti Ospite."
+msgstr "寄与者の情報をユーザープロフィールに変換する場合は、このチェックボックスをオンにします。 寄与者もゲストユーザになります。"
 
 #: config_form.php:27
 msgid "The import may take a long time if there are many contributions."
-msgstr "L'importazione potrebbe richiedere molto tempo se ci sono molte collaborazioni."
+msgstr "寄与が多い場合は、インポートに時間がかかることがあります。"
 
 #: config_form.php:28
 msgid ""
 "User Profiles offers many new features for your contributor info. After the "
 "import is complete, you might want to edit the 'Contributor Info' profile "
 "type that is created."
-msgstr "I profili utente offrono molte nuove caratteristiche per le tue informazioni di collaborazione. Al termine dell'importazione, potresti voler modificare la tipologia di profilo \"Informazioni Collaboratore\" che viene creata."
+msgstr "ユーザープロフィールには、寄与者情報のための多くの新機能があります。 インポートが完了したら、作成された「寄与者の情報」プロファイルタイプを編集することができます。"
 
 #: controllers/TypesController.php:83
 msgid "The profile type was successfully added."
-msgstr "Tipologia profilo aggiunta con successo."
+msgstr "プロフィールタイプを追加しました。"
 
 #: controllers/TypesController.php:126
 msgid "The profile type "
-msgstr "La tipologia di profilo"
+msgstr "プロフィールタイプ"
 
 #: controllers/TypesController.php:156 controllers/TypesController.php:177
 #, php-format
 msgid "Options for \"%s\" must be set"
-msgstr "Le opzioni per \"%s\" devono essere indicate"
+msgstr "「%s」のオプションを設定する必要があります"
 
 #: controllers/TypesController.php:251 controllers/TypesController.php:258
 #, php-format
 msgid "The profile type cannot have more than one \"%s\" element."
-msgstr "La tipologia di profilo non può avere più di un elemento \"%s\"."
+msgstr "プロファイルタイプは複数の \"%s\" 要素を持つことはできません。"
 
 #: helpers/LinksToIncompleteProfiles.php:15
 msgid ""
 "The site builders ask that you fill out profile info to help make "
 "connections."
-msgstr "I creatori del sito richiedono che tu completi le informazioni del profilo per aiutarli a creare connessioni."
+msgstr "サイト構築者は、あなたの接続を助けるためプロフィール情報を記入することをお願いしています。"
 
 #: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
 #, php-format
 msgid "The \"%s\" field is required."
-msgstr "Il campo \"%s\" è richiesto."
+msgstr "\"%s\" フィールドは必須です。"
 
 #: views/admin/form.php:46
 msgid "The name of the profile type"
-msgstr "Il nome della tipologia di profilo"
+msgstr "プロフィールタイプの名前"
 
 #: views/admin/form.php:63
 msgid "The description of the profile type."
-msgstr "La descrizione della tipologia di profilo."
+msgstr "プロフィールタイプの説明"
 
 #: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
 #: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
@@ -116,91 +114,91 @@ msgstr "%s"
 
 #: views/admin/form.php:109
 msgid "Allowed values, comma-separated"
-msgstr "Valori permessi, separati da una virgola"
+msgstr "許容された値、コンマ区切り"
 
 #: views/admin/form.php:126
 msgid "Text"
-msgstr "Testo"
+msgstr "テキスト"
 
 #: views/admin/form.php:127
 msgid "Radio"
-msgstr "Radio"
+msgstr "ラジオボタン"
 
 #: views/admin/form.php:128
 msgid "Checkbox"
-msgstr "Casella di selezione"
+msgstr "チェックボックス"
 
 #: views/admin/form.php:129
 msgid "Select (Single Option)"
-msgstr "Seleziona (opzione singola)"
+msgstr "選択（択一式）"
 
 #: views/admin/form.php:130
 msgid "Select (Multiple Options)"
-msgstr "Seleziona (opzioni multiple)"
+msgstr "選択（複数選択）"
 
 #: views/admin/form.php:150 views/admin/types/add.php:2
 msgid "Add Profile Type"
-msgstr "Aggiungi tipologia di profilo"
+msgstr "プロフィールタイプを追加"
 
 #: views/admin/index.php:10
 msgid "Add a Profile Type"
-msgstr "Aggiungi una tipologia di profilo"
+msgstr "プロフィールタイプを追加"
 
 #: views/admin/index.php:16
 msgid "Profile Type"
-msgstr "Tipologia di profilo"
+msgstr "プロフィールタイプ"
 
 #: views/admin/index.php:19
 msgid "My Profile"
-msgstr "Mio profilo"
+msgstr "自分のプロフィール"
 
 #: views/admin/index.php:28 views/shared/profiles/user.php:58
 msgid "(Public)"
-msgstr "(Pubblico)"
+msgstr "（公開）"
 
 #: views/admin/index.php:58
 msgid "(text)"
-msgstr "(testo)"
+msgstr "(text)"
 
 #: views/admin/types/add-new-element.php:31
 msgid "Allowed Values, comma-separated"
-msgstr "Valori consentiti, separati da virgola"
+msgstr "許容された値、コンマ区切り"
 
 #: views/admin/types/edit.php:5
 msgid "Edit Profile Type"
-msgstr "Modifica tipologia di profilo"
+msgstr "プロフィールタイプを編集"
 
 #: views/shared/profiles/edit.php:18
 msgid "Edit Profile"
-msgstr "Modifica profilo"
+msgstr "プロフィールを編集"
 
 #: views/shared/profiles/edit.php:60
 msgid "Save changes before moving to edit a new profile type."
-msgstr "Salva modifiche prima di passare ad una nuova tipologia di profilo."
+msgstr "移動する前に変更を保存して、新しいプロフィールタイプを編集します。"
 
 #: views/shared/profiles/edit.php:71
 #, php-format
 msgid "Edit your %s profile"
-msgstr "Modifica il tuo %s profilo"
+msgstr "あなたの %s プロフィールを編集"
 
 #: views/shared/profiles/edit.php:83
 msgid "Profile type: "
-msgstr "Tipologia di profilo:"
+msgstr "プロフィールタイプ："
 
 #: views/shared/profiles/edit.php:90
 msgid "This profile type is private"
-msgstr "Questa tipologia di profilo è privata"
+msgstr "このプロフィールタイプは非公開です"
 
 #: views/shared/profiles/user.php:10
 #, php-format
 msgid "User Profile | %s"
-msgstr "Profilo utente | %s"
+msgstr "ユーザープロフィール | %s"
 
 #: views/shared/profiles/user.php:47
 msgid "Edit "
-msgstr "Modifica"
+msgstr "編集"
 
 #: views/shared/profiles/user.php:108
 #, php-format
 msgid "Edit %s"
-msgstr "Modifica %s"
+msgstr "編集 %s"
