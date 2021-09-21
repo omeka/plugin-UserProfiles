@@ -27,11 +27,12 @@ class UserProfiles_View_Helper_ProfileElementInput extends Omeka_View_Helper_Ele
         $this->_record = $record;
     
         $inputNameStem = "Elements[" . $this->_element->id . "][$index]";
-    
+        $inputNameStemId = "Elements" . $this->_element->id . "-" . $index;
+        
         $components = array(
-                'input' => $this->_getInputComponent($inputNameStem, $value),
-                'form_controls' => $this->_getControlsComponent(),
-                'html_checkbox' => $this->_getHtmlCheckboxComponent($inputNameStem, $isHtml),
+                'input' => $this->_getInputComponent($inputNameStem, $inputNameStemId, $value),
+                'form_controls' => $this->_getControlsComponent($inputNameStemId),
+                'html_checkbox' => $this->_getHtmlCheckboxComponent($inputNameStem, $inputNameStemId, $isHtml),
                 'html' => null
         );
     
