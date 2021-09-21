@@ -20,8 +20,8 @@ msgstr ""
 msgid "Allowed"
 msgstr ""
 
-#: views/admin/form.php:91 views/admin/form.php:106 views/admin/form.php:158
-#: views/admin/types/add-new-element.php:18
+#: views/admin/form.php:91 views/admin/form.php:110 views/admin/form.php:164
+#: views/admin/types/add-new-element.php:19
 msgid "Required"
 msgstr ""
 
@@ -31,8 +31,12 @@ msgstr ""
 msgid "Deleted User"
 msgstr ""
 
-#: UserProfilesPlugin.php:160 views/admin/index.php:2
+#: UserProfilesPlugin.php:184 views/admin/index.php:2
 msgid "User Profiles"
+msgstr ""
+
+#: UserProfilesPlugin.php:237
+msgid "Added by "
 msgstr ""
 
 #: config_form.php:7
@@ -43,44 +47,34 @@ msgstr ""
 msgid "Add a link from items to the person who added them."
 msgstr ""
 
-#: config_form.php:25
+#: config_form.php:28
+msgid "Import Contribution fields as a user profile type?"
+msgstr ""
+
+#: config_form.php:34
 msgid ""
 "You have used the Contribution plugin to create Contributor information. For "
 "the Omeka 2.x series, that functionality has been folded into the User "
-"Profiles plugin."
-msgstr ""
-
-#: config_form.php:26
-msgid ""
-"Check this box if you would like to convert Contributor information over "
-"into a user profile. Contributors will also become Guest Users."
-msgstr ""
-
-#: config_form.php:27
-msgid "The import may take a long time if there are many contributions."
-msgstr ""
-
-#: config_form.php:28
-msgid ""
-"User Profiles offers many new features for your contributor info. After the "
-"import is complete, you might want to edit the 'Contributor Info' profile "
-"type that is created."
+"Profiles plugin. Check this box if you would like to convert Contributor "
+"information over into a user profile. User Profiles offers many new features "
+"for your contributor info. After the import is complete, you might want to "
+"edit the 'Contributor Info' profile type that is created."
 msgstr ""
 
 #: controllers/TypesController.php:83
 msgid "The profile type was successfully added."
 msgstr ""
 
-#: controllers/TypesController.php:126
+#: controllers/TypesController.php:125
 msgid "The profile type "
 msgstr ""
 
-#: controllers/TypesController.php:156 controllers/TypesController.php:177
+#: controllers/TypesController.php:155 controllers/TypesController.php:179
 #, php-format
 msgid "Options for \"%s\" must be set"
 msgstr ""
 
-#: controllers/TypesController.php:251 controllers/TypesController.php:258
+#: controllers/TypesController.php:256 controllers/TypesController.php:262
 #, php-format
 msgid "The profile type cannot have more than one \"%s\" element."
 msgstr ""
@@ -91,9 +85,17 @@ msgid ""
 "connections."
 msgstr ""
 
-#: models/UserProfilesProfile.php:612 models/UserProfilesProfile.php:621
+#: models/UserProfilesProfile.php:633 models/UserProfilesProfile.php:642
 #, php-format
 msgid "The \"%s\" field is required."
+msgstr ""
+
+#: models/UserProfilesType.php:116
+msgid "Profile Type Name must be set"
+msgstr ""
+
+#: models/UserProfilesType.php:120
+msgid "Profile Type Description must be set"
 msgstr ""
 
 #: views/admin/form.php:46
@@ -104,38 +106,38 @@ msgstr ""
 msgid "The description of the profile type."
 msgstr ""
 
-#: views/admin/form.php:83 views/admin/form.php:93 views/admin/form.php:98
-#: views/admin/form.php:108 views/admin/index.php:51 views/admin/index.php:54
-#: views/admin/index.php:56
+#: views/admin/form.php:83 views/admin/form.php:96 views/admin/form.php:101
+#: views/admin/form.php:115 views/admin/index.php:52 views/admin/index.php:55
+#: views/admin/index.php:57 views/shared/profiles/user.php:64
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: views/admin/form.php:109
+#: views/admin/form.php:116
 msgid "Allowed values, comma-separated"
 msgstr ""
 
-#: views/admin/form.php:126
+#: views/admin/form.php:132
 msgid "Text"
 msgstr ""
 
-#: views/admin/form.php:127
+#: views/admin/form.php:133
 msgid "Radio"
 msgstr ""
 
-#: views/admin/form.php:128
+#: views/admin/form.php:134
 msgid "Checkbox"
 msgstr ""
 
-#: views/admin/form.php:129
+#: views/admin/form.php:135
 msgid "Select (Single Option)"
 msgstr ""
 
-#: views/admin/form.php:130
+#: views/admin/form.php:136
 msgid "Select (Multiple Options)"
 msgstr ""
 
-#: views/admin/form.php:150 views/admin/types/add.php:2
+#: views/admin/form.php:155 views/admin/types/add.php:6
 msgid "Add Profile Type"
 msgstr ""
 
@@ -143,23 +145,27 @@ msgstr ""
 msgid "Add a Profile Type"
 msgstr ""
 
-#: views/admin/index.php:16
+#: views/admin/index.php:17
 msgid "Profile Type"
 msgstr ""
 
-#: views/admin/index.php:19
+#: views/admin/index.php:20
 msgid "My Profile"
 msgstr ""
 
-#: views/admin/index.php:28 views/shared/profiles/user.php:58
+#: views/admin/index.php:29 views/shared/profiles/user.php:52
 msgid "(Public)"
 msgstr ""
 
-#: views/admin/index.php:58
+#: views/admin/index.php:59
 msgid "(text)"
 msgstr ""
 
-#: views/admin/types/add-new-element.php:31
+#: views/admin/index.php:69
+msgid "Add"
+msgstr ""
+
+#: views/admin/types/add-new-element.php:34
 msgid "Allowed Values, comma-separated"
 msgstr ""
 
@@ -167,24 +173,20 @@ msgstr ""
 msgid "Edit Profile Type"
 msgstr ""
 
-#: views/shared/profiles/edit.php:18
+#: views/shared/profiles/edit.php:13
 msgid "Edit Profile"
 msgstr ""
 
-#: views/shared/profiles/edit.php:60
+#: views/shared/profiles/edit.php:51
 msgid "Save changes before moving to edit a new profile type."
 msgstr ""
 
-#: views/shared/profiles/edit.php:71
+#: views/shared/profiles/edit.php:59
 #, php-format
 msgid "Edit your %s profile"
 msgstr ""
 
-#: views/shared/profiles/edit.php:83
-msgid "Profile type: "
-msgstr ""
-
-#: views/shared/profiles/edit.php:90
+#: views/shared/profiles/edit.php:77
 msgid "This profile type is private"
 msgstr ""
 
@@ -193,11 +195,11 @@ msgstr ""
 msgid "User Profile | %s"
 msgstr ""
 
-#: views/shared/profiles/user.php:47
-msgid "Edit "
+#: views/shared/profiles/user.php:46
+msgid "No public profile"
 msgstr ""
 
-#: views/shared/profiles/user.php:108
+#: views/shared/profiles/user.php:96
 #, php-format
 msgid "Edit %s"
 msgstr ""
