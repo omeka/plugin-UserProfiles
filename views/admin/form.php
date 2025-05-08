@@ -77,16 +77,15 @@ jQuery(document).ready(function () {
             <div id="element-list">
         <ul class="sortable">
         <?php foreach ($profileType->Elements as $element): ?>
-            <li class="element">
+            <li class="element" aria-role="group" aria-label="<?php echo html_escape($element->name); ?>">
             <?php if(get_class($element) == 'Element'): ?>
             <div class="drawer">
                 <?php echo __('%s', $element->name); ?>
                 <?php echo $this->formHidden("elements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
-                <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="#" class="undo-delete"><?php echo __('Undo'); ?></a>
-                <a id="remove-element-link-<?php echo html_escape($element->id); ?>" href="#" class="delete-element"><?php echo __('Remove'); ?></a>
-                <?php echo $this->formHidden("elements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
+                <button type="button" id="return-element-link-<?php echo html_escape($element->id); ?>" class="undo-delete" data-action-selector="deleted" title="<?php echo __('Undo'); ?>"><span class="icon" aria-hidden="true"></span></button>
+                <button type="button" id="remove-element-link-<?php echo html_escape($element->id); ?>" class="delete-drawer" data-action-selector="deleted" title="<?php echo __('Remove'); ?>"><span class="icon" aria-hidden="true"></span></button>
             </div>
-            <div class="drawer-contents">
+            <div class="drawer-contents opened">
                 <label>
                     <?php echo __('Required'); ?>
                     <input type='checkbox' name=<?php echo "elements[{$element->id}][required]"; ?> 
@@ -97,15 +96,15 @@ jQuery(document).ready(function () {
                 <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
             </div>
             <?php else: ?>
-            <div class="sortable-item">
+            <div class="sortable-item drawer">
                 <?php echo __('%s', $element->name); ?>
                 <?php echo $this->formHidden("multielements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
                 
-                <a id="return-element-link-<?php echo html_escape($element->id); ?>" href="#" class="undo-delete"><?php echo __('Undo'); ?></a>
-                <a id="remove-element-link-<?php echo html_escape($element->id); ?>" href="#" class="delete-element"><?php echo __('Remove'); ?></a>
+                <button id="return-element-link-<?php echo html_escape($element->id); ?>" data-action-selector="deleted" class="undo-delete" title="<?php echo __('Undo'); ?>"><span class="icon" aria-hidden="true"></span></button>
+                <button id="remove-element-link-<?php echo html_escape($element->id); ?>" data-action-selector="deleted" class="delete-element" title="<?php echo __('Remove'); ?>"><span class="icon" aria-hidden="true"></span></button>
                 <?php echo $this->formHidden("multielements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
             </div>
-            <div class="drawer-contents">
+            <div class="drawer-contents opened">
                 <label>
                     <?php echo __("Required"); ?>
                     <input type='checkbox' name=<?php echo "multielements[{$element->id}][required]"; ?>
@@ -128,7 +127,7 @@ jQuery(document).ready(function () {
                         <div class="add-new">
                             <?php echo __('Add Element'); ?>
                         </div>
-                        <div class="drawer-contents">
+                        <div class="drawer-contents opened">
                             <label><input type="radio" name="add-element-type" value="text" checked="checked" /><?php echo __('Text'); ?></label>
                             <label><input type="radio" name="add-element-type" value="radio" /><?php echo __('Radio'); ?></label>
                             <label><input type="radio" name="add-element-type" value="checkbox" /><?php echo __('Checkbox'); ?></label>
@@ -169,3 +168,6 @@ jQuery(document).ready(function () {
         </div>
     </section>
 </form>
+<script>
+    Omeka.manageDrawers('#element-list');
+</script>
