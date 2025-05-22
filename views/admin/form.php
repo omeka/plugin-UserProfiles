@@ -110,10 +110,14 @@ jQuery(document).ready(function () {
                     <input type='checkbox' name=<?php echo "multielements[{$element->id}][required]"; ?>
                     <?php echo $profileType->requiredElement($element) ? "checked='checked'" : ""; ?> />
                 </label>
-                <label for="<?php echo "multielements[{$element->id}][description]"; ?>"><?php echo __('Description'); ?></label>
-                <?php echo $this->formTextarea("multielements[{$element->id}][description]", __('%s', $element->description), array('rows' => '3')); ?>
-                <label for="<?php echo "multielements[{$element->id}][options]"; ?>"><?php echo __('Allowed values, comma-separated'); ?></label>
-                <?php echo $this->formTextarea("multielements[{$element->id}][options]", implode(',', $element->getOptions() ), array('rows' => '3')); ?>
+                <label for="<?php echo "multielements[{$element->id}][description]"; ?>">
+                    <?php echo __('Description'); ?>
+                    <?php echo $this->formTextarea("multielements[{$element->id}][description]", __('%s', $element->description), array('rows' => '3')); ?>
+                </label>
+                <label for="<?php echo "multielements[{$element->id}][options]"; ?>">
+                    <?php echo __('Allowed values, comma-separated'); ?>
+                    <?php echo $this->formTextarea("multielements[{$element->id}][options]", implode(',', $element->getOptions() ), array('rows' => '3')); ?>
+                </label>
                 <?php fire_plugin_hook('admin_element_sets_form_each', array('element_set' => $profileType->ElementSet, 'element' => $element, 'view' => $this)); ?>
             </div>            
             
