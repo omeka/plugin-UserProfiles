@@ -100,8 +100,8 @@ jQuery(document).ready(function () {
                 <?php echo __('%s', $element->name); ?>
                 <?php echo $this->formHidden("multielements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
                 
-                <button id="return-element-link-<?php echo html_escape($element->id); ?>" data-action-selector="deleted" class="undo-delete" title="<?php echo __('Undo'); ?>"><span class="icon" aria-hidden="true"></span></button>
-                <button id="remove-element-link-<?php echo html_escape($element->id); ?>" data-action-selector="deleted" class="delete-element" title="<?php echo __('Remove'); ?>"><span class="icon" aria-hidden="true"></span></button>
+                <button type="button" id="return-element-link-<?php echo html_escape($element->id); ?>" data-action-selector="deleted" class="undo-delete" title="<?php echo __('Undo'); ?>"><span class="icon" aria-hidden="true"></span></button>
+                <button type="button" id="remove-element-link-<?php echo html_escape($element->id); ?>" data-action-selector="deleted" class="delete-drawer" title="<?php echo __('Remove'); ?>"><span class="icon" aria-hidden="true"></span></button>
                 <?php echo $this->formHidden("multielements[{$element->id}][delete]", 0, array('class' => 'delete')); ?>
             </div>
             <div class="drawer-contents opened">
