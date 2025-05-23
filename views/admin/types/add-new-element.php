@@ -1,7 +1,7 @@
 <li class="element">
     <div class="flash success sr-only" role="alert">Element successfully added.</div>
     <div class="sortable-item drawer">
-        <label>
+        <label class="drawer-name input-text">
         <?php echo __('Element Name'); ?>
         <?php
         echo $this->formText(

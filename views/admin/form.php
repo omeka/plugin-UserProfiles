@@ -79,8 +79,8 @@ jQuery(document).ready(function () {
         <?php foreach ($profileType->Elements as $element): ?>
             <li class="element" aria-role="group" aria-label="<?php echo html_escape($element->name); ?>">
             <?php if(get_class($element) == 'Element'): ?>
-            <div class="drawer">
-                <?php echo __('%s', $element->name); ?>
+            <div class="sortable-item drawer">
+                <span class="drawer-name"><?php echo __('%s', $element->name); ?></span>
                 <?php echo $this->formHidden("elements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
                 <button type="button" id="return-element-link-<?php echo html_escape($element->id); ?>" class="undo-delete" data-action-selector="deleted" title="<?php echo __('Undo'); ?>"><span class="icon" aria-hidden="true"></span></button>
                 <button type="button" id="remove-element-link-<?php echo html_escape($element->id); ?>" class="delete-drawer" data-action-selector="deleted" title="<?php echo __('Remove'); ?>"><span class="icon" aria-hidden="true"></span></button>
@@ -97,7 +97,7 @@ jQuery(document).ready(function () {
             </div>
             <?php else: ?>
             <div class="sortable-item drawer">
-                <?php echo __('%s', $element->name); ?>
+                <span class="drawer-name"><?php echo __('%s', $element->name); ?></span>
                 <?php echo $this->formHidden("multielements[{$element->id}][order]", $element->order, array('class' => 'element-order')); ?>
                 
                 <button type="button" id="return-element-link-<?php echo html_escape($element->id); ?>" data-action-selector="deleted" class="undo-delete" title="<?php echo __('Undo'); ?>"><span class="icon" aria-hidden="true"></span></button>
@@ -137,7 +137,7 @@ jQuery(document).ready(function () {
                             <label><input type="radio" name="add-element-type" value="checkbox" /><?php echo __('Checkbox'); ?></label>
                             <label><input type="radio" name="add-element-type" value="select" /><?php echo __('Select (Single Option)'); ?></label>
                             <label><input type="radio" name="add-element-type" value="multiselect" /><?php echo __('Select (Multiple Options)'); ?></label>
-                            <button id="add-element" name="add-element"><?php echo __('Add Element'); ?></button>            
+                            <button type="button" id="add-element" name="add-element"><?php echo __('Add Element'); ?></button>            
                         </div>
                     </li>
                 </ul>
