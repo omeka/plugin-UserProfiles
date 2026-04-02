@@ -528,7 +528,7 @@ class UserProfilesProfile extends RelatableRecord implements Zend_Acl_Resource_I
         foreach ($elementPost as $elementId => $texts) {
             // Pull this from the list of prior retrieved data instead of a new SQL query each time.
             $element = $this->getElementById($elementId);
-            if(!element) {
+            if(!$element) {
                 continue;
             }
             // Add this to the stack of elements that are stored on the form.
